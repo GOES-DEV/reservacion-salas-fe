@@ -6,42 +6,132 @@ document.addEventListener('DOMContentLoaded', function () {
     // Resources =======================
     let arrayResources = [
         {
-            id: 'a',
-            title: 'Sala 1',
+            id: '1',
+            title: 'LOS COBANOS',
         },
         {
-            id: 'B',
-            title: 'Sala 2',
+            id: '2',
+            title: 'EL TUNCO',
         },
         {
-            id: 'C                                     ',
-            title: 'Sala 3',
+            id: '3',
+            title: 'SAN BLAS',
+        },
+        {
+            id: '4',
+            title: 'TAQUILLO',
+        },
+        {
+            id: '5',
+            title: 'TASAJERA',
+        },
+        {
+            id: '6',
+            title: 'LAS TUNAS',
+        },
+        {
+            id: '7',
+            title: 'EL ESPINO',
+        },
+        {
+            id: '8',
+            title: 'MIZATA',
+        },
+        {
+            id: '9',
+            title: 'ZUNGANERA',
+        },
+        {
+            id: '10',
+            title: 'COSTA AZUL',
+        },
+        {
+            id: '11',
+            title: 'EL MAJAHUAL',
+        },
+        {
+            id: '12',
+            title: 'TAMARINDO',
+        },
+        {
+            id: '13',
+            title: 'EL ZAPOTE',
+        },
+        {
+            id: '14',
+            title: 'EL PALMARCITO',
+        },
+        {
+            id: '15',
+            title: 'BARRA DE SANTIAGO',
+        },
+        {
+            id: '16',
+            title: 'COSTA DEL SOL',
+        },
+        {
+            id: '17',
+            title: 'SALINITAS',
+        },
+        {
+            id: '18',
+            title: 'EL CUCO',
+        },
+        {
+            id: '19',
+            title: 'EL SUNZAL',
         },
     ];
+
+    let select = document.getElementById("resourcesSelect");
+    select.innerHTML= "";
+    arrayResources.forEach(({ id, title }) => {
+        // let option = `<option value="${id}">${title}</option>`
+        let option = document.createElement("option");
+        option.value= id;
+        option.innerText = title;
+        select.appendChild(option)
+    });
     // Events ==========================
     let arrayEvents = [
         {
-            id: 'a',
-            resourceId: 'a',
-            title: 'my event',
-            start: '2022-05-10T13:30:00',
-            end: '2022-05-10T15:30:00',
+            id: '1',
+            resourceId: '1',
+            title: 'My event',
+            start: '2022-05-25 05:30:00',
+            end: '2022-05-25 09:30:00',
             backgroundColor: '#fe9900'
         },
         {
-            id: 'b',
-            resourceId: 'a',
-            title: 'my event2',
-            start: '2022-05-10T16:30:00',
-            end: '2022-05-10T17:30:00',
+            id: '2',
+            resourceId: '1',
+            title: 'My event2',
+            start: '2022-05-25 09:30:00',
+            end: '2022-05-25 13:30:00',
             backgroundColor: '#fe9900'
         },
         {
-            id: 'c',
-            resourceId: 'B',
-            title: 'my event3',
-            start: '2022-05-11T16:30:00',
-            end: '2022-05-11T17:30:00',
+            id: '3',
+            resourceId: '1',
+            title: 'My event3',
+            start: '2022-05-25 14:30:00',
+            end: '2022-05-25 17:30:00',
+            backgroundColor: '#fe7900'
+        },
+        {
+            id: '4',
+            resourceId: '2',
+            title: 'My event4',
+            start: '2022-05-25 04:30:00',
+            end: '2022-05-25 13:30:00',
+            backgroundColor: '#fe7900'
+        },
+        {
+            id: '5',
+            resourceId: '2',
+            title: 'My event5',
+            start: '2022-05-25 15:30:00',
+            end: '2022-05-25 17:30:00',
             backgroundColor: '#fe7900'
         }
     ];
@@ -152,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
         arrayResources,
         arrayEvents,
         dateAction,
-        eventActionNone)
+        eventAction)
     renders(calendarResult);
 
 
@@ -171,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
             arrayResources,
             arrayEvents,
             dateAction,
-            eventActionNone)
+            eventAction)
         renders(calendarResult)
     });
 
@@ -187,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
             arrayResources,
             arrayEvents,
             dateAction,
-            eventActionNone);
+            eventAction);
 
         return calendarResult
     }
@@ -200,8 +290,8 @@ document.addEventListener('DOMContentLoaded', function () {
             true,
             arrayResources,
             arrayEvents,
-            dateAction,
-            eventActionNone);
+            dateActionNone,
+            eventAction);
 
         return calendarResult
     }
@@ -210,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showSelect("visible")
         $('.js-select').select2({
             containerCssClass: "",
-            theme: 'bootstrap',
+            // theme: 'bootstrap',
         });
 
         $(".fc-listWeek-button").on("click", () => {

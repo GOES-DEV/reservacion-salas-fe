@@ -4,12 +4,16 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
 }
 
 body .content-calendar {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
   background-color: #f7f8fa;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -233,5 +237,24 @@ body .content-calendar .calendar-section .info-section #titlePage p {
 
 body .content-calendar .calendar-section #calendar {
   width: 95%;
+  margin-bottom: 0.5em;
+}
+
+body ::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+body ::-webkit-scrollbar-track {
+  background: #162b3e;
+}
+
+body ::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+body ::-webkit-scrollbar-thumb:hover {
+  background: #c9a892;
 }
 /*# sourceMappingURL=calendar.css.map */
