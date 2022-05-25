@@ -82,15 +82,78 @@ body {
             }
         }
 
-        .calendar-section{
-            width: calc( 100vw - 12em );
+        .calendar-section {
+            width: calc(100vw - 12em);
             margin-left: 12em;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
 
-            #calendar{
+
+            .info-section {
+                width: 100%;
+                height: 5em;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+
+                .resource-content {
+                    background: #313945;
+                    padding: 0.5em;
+                    border-radius: 4px;
+                    width: 20em;
+                    height: auto;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+
+                    label {
+                        width: 4em;
+                        color: #f7f8fa;
+                        margin: 0px;
+                    }
+
+                    .select2-container {
+                        width: 15em !important;
+                    }
+
+                    #select2-resourcesSelect-container {
+                        font-size: 1em;
+                        font-weight: bold;
+                        background: white;
+                        border-radius: 2px;
+                        width: 15em;
+                    }
+
+                }
+
+                #titlePage {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    color: #313945;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+
+                    i {
+                        padding: 0.3em;
+                        background: #313945;
+                        border-radius: 4px;
+                        color: white;
+                    }
+
+                    p {
+                        margin: 0px;
+                        margin-right: 0.5em;
+                    }
+                }
+            }
+
+            #calendar {
                 width: 95%;
             }
         }

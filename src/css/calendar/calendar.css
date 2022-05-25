@@ -127,7 +127,7 @@ body .content-calendar .nav ol li:hover {
 }
 
 body .content-calendar .calendar-section {
-  width: calc( 100vw - 12em);
+  width: calc(100vw - 12em);
   margin-left: 12em;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -142,6 +142,93 @@ body .content-calendar .calendar-section {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+body .content-calendar .calendar-section .info-section {
+  width: 100%;
+  height: 5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .content-calendar .calendar-section .info-section .resource-content {
+  background: #313945;
+  padding: 0.5em;
+  border-radius: 4px;
+  width: 20em;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .content-calendar .calendar-section .info-section .resource-content label {
+  width: 4em;
+  color: #f7f8fa;
+  margin: 0px;
+}
+
+body .content-calendar .calendar-section .info-section .resource-content .select2-container {
+  width: 15em !important;
+}
+
+body .content-calendar .calendar-section .info-section .resource-content #select2-resourcesSelect-container {
+  font-size: 1em;
+  font-weight: bold;
+  background: white;
+  border-radius: 2px;
+  width: 15em;
+}
+
+body .content-calendar .calendar-section .info-section #titlePage {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #313945;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .content-calendar .calendar-section .info-section #titlePage i {
+  padding: 0.3em;
+  background: #313945;
+  border-radius: 4px;
+  color: white;
+}
+
+body .content-calendar .calendar-section .info-section #titlePage p {
+  margin: 0px;
+  margin-right: 0.5em;
 }
 
 body .content-calendar .calendar-section #calendar {
