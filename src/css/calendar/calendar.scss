@@ -12,7 +12,7 @@ body {
         background-color: #f7f8fa;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
 
 
@@ -27,6 +27,7 @@ body {
             flex-direction: column;
             justify-content: start;
             align-items: center;
+            z-index: 99;
 
             .nav-header {
                 height: 10em;
@@ -78,6 +79,19 @@ body {
                     background-color: #f7f8fa;
                     transition: 0.3s ease-in-out;
                 }
+            }
+        }
+
+        .calendar-section{
+            width: calc( 100vw - 12em );
+            margin-left: 12em;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+
+            #calendar{
+                width: 95%;
             }
         }
     }
