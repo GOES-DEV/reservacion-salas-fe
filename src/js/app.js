@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let arrayResources = [
         {
             id: '1',
-            title: 'LOS COBANOS',
+            title: 'Los cobanos',
         },
         {
             id: '2',
@@ -99,8 +99,11 @@ document.addEventListener('DOMContentLoaded', function () {
         count++;
     });
     // Change event on select
-    $("#resourcesSelect").on("change",(e)=>{
-        console.log(e)
+    $("#resourcesSelect").on("change", ({ target }) => {
+        let id = target.value;
+        let title = target.options[target.selectedIndex].text;
+        let roomInfo = btoa(JSON.stringify({ id, title }));
+        sessionStorage.setItem("roomSelected", roomInfo)
     })
     // =========================================================
 
@@ -158,20 +161,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // html buttons
     const btnAdd = `<button id="add" class="btn"><i class="fa-solid fa-square-plus"></i>Agregar</button>`;
-    const btnUpdate = `<button id="add" class="btn"><i class="fa-solid fa-square-plus"></i>Agregar</button>`;
-    const btnDelete = `<button id="add" class="btn"><i class="fa-solid fa-square-plus"></i>Agregar</button>`;
+    const btnUpdate = `<button id="update"  class="btn"><i class="fa-solid fa-square-pen"></i>Modificar</button>`;
+    const btnDelete = `<button  id="delete" class="btn"><i class="fa-solid fa-trash"></i>Borrar</button>`;
     const btnCancel = `<button id="cancel" class="btn">Cancelar</button>`;
 
     // Handlers
     let dateAction = ({ dateStr, resource = "empty" }) => {
-        let postionLetter = dateStr.indexOf("T");
-        let dateText = dateStr.substr(0, postionLetter);
-        let titleEvent ="";
+
+        let dateText;
+        if (dateStr.length > 10) {
+            let postionLetter = dateStr.indexOf("T");
+            dateText = dateStr.substr(0, postionLetter);
+        } else {
+            dateText = dateStr;
+        }
+
+        let titleEvent = "";
+
         if (resource == "empty") {
             // Obtener de session storage name room selected
-            let info = atob(sessionStorage.getItem("roomSelected"))
+            let info = atob(sessionStorage.getItem("roomSelected"));
             let { id, title } = JSON.parse(info);
-            
+
             titleEvent = title;
         } else {
             const { _resource } = resource;
@@ -183,23 +194,27 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("date").value = dateText;
         document.getElementById("room").value = titleEvent;
         document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
+        document.getElementById("buttons").innerHTML = "";
         document.getElementById("buttons").innerHTML = `${btnAdd} ${btnCancel}`;
         $('#modal').modal("show");
     }
-    let dateActionNone = async () => await console.log("no action day")
 
     let eventAction = (info) => {
-        console.log(info)
         // let postionLetter = dateStr.indexOf("T");
         // let dateText = dateStr.substr(0, postionLetter)
 
         // document.getElementById("date").value = dateText;
         // document.getElementById("room").value = title;
-        document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Modificar evento`;
+        document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-pen"></i> Modificar evento`;
+        document.getElementById("buttons").innerHTML = "";
         document.getElementById("buttons").innerHTML = `${btnUpdate} ${btnDelete}  ${btnCancel}`;
         $('#modal').modal("show");
     }
+
+    let dateActionNone = async () => await console.log("no action day")
     let eventActionNone = async () => await console.log("no action event")
+
+
 
 
     // CALENDAR ===================================================================================================
@@ -369,6 +384,91 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+
+    // Buttons action time 
+    $("#plusBegin").on("click", () => {
+        let dateValue = $("#date").val();
+        let timeValue = $("#timeBegin").val();
+
+
+        let year = parseInt(dateValue.substr(0, 4))
+        let month = parseInt(dateValue.substr(5, 2))
+        let day = parseInt(dateValue.substr(8, 2))
+        let hours = parseInt(timeValue.substr(0, 2))
+        let minutes = parseInt(timeValue.substr(3, 2))
+
+        let DateTime = luxon.DateTime;
+        let { c } = DateTime.local(year, month, day, hours, minutes);
+
+        // Verify the limit
+        if (c.minute == 30 && c.hour == 23) {
+            console.log("Horario maximo")
+        } else {
+            let { c } = DateTime.local(year, month, day, hours, minutes).plus({ minutes: 30 });
+            let minute;
+            let hour;
+            if (c.minute == 0) {
+                minute = "00"
+            } else {
+                minute = c.minute
+            }
+
+            if (c.hour < 10) {
+
+                if (c.hour == 0 && minute == 30) {
+                    hour = `00`
+                } else {
+                    hour = `0${c.hour}`
+                }
+            } else {
+                hour = c.hour
+            }
+
+            $("#timeBegin").val(`${hour}:${minute}`)
+        }
+    });
+
+    $("#minusBegin").on("click", () => {
+        let dateValue = $("#date").val();
+        let timeValue = $("#timeBegin").val();
+
+
+        let year = parseInt(dateValue.substr(0, 4))
+        let month = parseInt(dateValue.substr(5, 2))
+        let day = parseInt(dateValue.substr(8, 2))
+        let hours = parseInt(timeValue.substr(0, 2))
+        let minutes = parseInt(timeValue.substr(3, 2))
+
+        let DateTime = luxon.DateTime;
+        let { c } = DateTime.local(year, month, day, hours, minutes);
+
+        // Verify the limit
+        if (c.minute == 00 && c.hour == 00) {
+            console.log("Horario maximo")
+        } else {
+            let { c } = DateTime.local(year, month, day, hours, minutes).minus({ minutes: 30 });
+            let minute;
+            let hour;
+            if (c.minute == 0) {
+                minute = "00"
+            } else {
+                minute = c.minute
+            }
+
+            if (c.hour < 10) {
+
+                if (c.hour == 0 && minute == 30) {
+                    hour = `00`
+                } else {
+                    hour = `0${c.hour}`
+                }
+            } else {
+                hour = c.hour
+            }
+
+            $("#timeBegin").val(`${hour}:${minute}`)
+        }
+    });
 
 
 });

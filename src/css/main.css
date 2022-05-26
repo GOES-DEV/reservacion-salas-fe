@@ -2076,6 +2076,7 @@ vertical slots in both the header AND the body
 .fc .fc-timeline-more-link {
     position: absolute;
     top: 0;
+    cursor: pointer;
     /* for when when top can't be computed yet */
     /* JS will set tht left/right */
 }

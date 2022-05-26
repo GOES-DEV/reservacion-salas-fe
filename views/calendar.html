@@ -66,7 +66,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="eventForm" data="waiting">
+                    <div id="eventForm" data="waiting">
                         <div class="info-event">
                             <div class="form-group">
                                 <label for="date">Fecha</label>
@@ -82,20 +82,33 @@
                             <label for="name">Nombre evento</label>
                             <input type="text" class="form-control" id="name" placeholder="Evento de ejemplo">
                         </div>
+
                         <div class="times">
                             <div class="form-group">
-                                <label for="timeBegin">Hora inicio</label>
-                                <input type="time" class="form-control" id="timeBegin" value="00:00">
+                                <label for="btc">Hora inicio</label>
+                                <div class="beginTime-content" id="btc">
+                                    <input type="time" class="form-control" id="timeBegin" value="02:30" readonly>
+                                    <div class="btn-content">
+                                        <button id="plusBegin"><i class="fa-solid fa-square-plus"></i></button>
+                                        <button id="minusBegin"><i class="fa-solid fa-square-minus"></i></button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="timeEnd">Hora Fin</label>
-                                <input type="time" class="form-control" id="timeEnd" value="23:30">
+                                <label for="etc">Hora Fin</label>
+                                <div class="endTime-content" id="etc">
+                                    <input type="time" class="form-control" id="timeEnd" value="00:00" readonly>
+                                    <div class="btn-content">
+                                        <button id="plusEnd"><i class="fa-solid fa-square-plus"></i></button>
+                                        <button id="minusEnd"><i class="fa-solid fa-square-minus"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div id="buttons"> </div>
 
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,6 +134,9 @@
     <script src="../src/js/es-us.js"></script>
     <script src="../src/js/sweetAlert2.js"></script>
     <script src="../src/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/2.4.0/luxon.min.js"
+        integrity="sha512-v1zUTZ9zv9Wb2scL/ANxXM6m7yegm/W5SN8SRHNFADdZIuSFFkrEBjNxO803DdFkjoCcJ88g1WHRVlLN6K/O1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>

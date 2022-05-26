@@ -344,18 +344,130 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times {
   margin-top: 1.3em;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .form-group {
-  width: 30%;
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group {
+  width: 9em !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .form-group label {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group label {
   font-size: 0.8em;
   font-weight: 600;
   color: #162b3e;
   margin: 0px;
+  margin-bottom: -0.8em;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #buttons {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content {
+  width: 9em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content #timeBegin,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content #timeEnd,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeBegin,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeEnd {
+  width: 9em !important;
+  background-color: #162b3e;
+  color: white;
+  position: relative;
+  z-index: 1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content {
+  width: calc( 4em + 3px);
+  height: 4em;
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: calc( -4em - 3px);
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusBegin,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusEnd,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusEnd,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusBegin,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #minusBegin,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusEnd,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #minusEnd {
+  width: 2em;
+  background-color: #162b3e;
+  color: white;
+  cursor: pointer;
+  border: none;
+  padding: 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: none;
+  margin: 0em 3px;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusBegin i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusEnd i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusEnd i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusBegin i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #minusBegin i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusEnd i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #minusEnd i {
+  font-size: 1.8em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin:focus,
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusBegin:focus {
+  border: none;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons {
   margin-top: 2em;
   width: 100%;
   display: -webkit-box;
@@ -372,37 +484,37 @@ body #modal .modal-dialog .modal-content .modal-body #buttons {
           flex-direction: row;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #buttons #add,
-body #modal .modal-dialog .modal-content .modal-body #buttons #cancel,
-body #modal .modal-dialog .modal-content .modal-body #buttons #update,
-body #modal .modal-dialog .modal-content .modal-body #buttons #delete {
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #add,
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #cancel,
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #update,
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #delete {
   width: 30%;
   font-weight: 600;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #buttons #add i,
-body #modal .modal-dialog .modal-content .modal-body #buttons #cancel i,
-body #modal .modal-dialog .modal-content .modal-body #buttons #update i,
-body #modal .modal-dialog .modal-content .modal-body #buttons #delete i {
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #add i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #cancel i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #update i,
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #delete i {
   margin-right: 0.5em;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #buttons #add {
-  background-color: #162b3e;
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #add {
+  background-color: #12bc45;
   color: white;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #buttons #update {
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #update {
   background-color: #41d2e9;
   color: white;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #buttons #delete {
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #delete {
   background-color: #de4646;
   color: white;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #buttons #cancel {
+body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #cancel {
   background-color: #7d7d7d;
   color: white;
 }
