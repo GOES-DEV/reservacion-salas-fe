@@ -383,28 +383,29 @@ document.addEventListener('DOMContentLoaded', function () {
         alert("logout")
     });
 
+    let getTime = (stage) => {
+        let dateValue = $("#date").val();
+        let timeValue = $(`#time${stage}`).val();
+        let year = parseInt(dateValue.substr(0, 4));
+        let month = parseInt(dateValue.substr(5, 2));
+        let day = parseInt(dateValue.substr(8, 2));
+        let hours = parseInt(timeValue.substr(0, 2));
+        let minutes = parseInt(timeValue.substr(3, 2));
+        return {year, month,day,hours,minutes}
+    }
 
 
     // Buttons action time 
     $("#plusBegin").on("click", () => {
-        let dateValue = $("#date").val();
-        let timeValue = $("#timeBegin").val();
-
-
-        let year = parseInt(dateValue.substr(0, 4))
-        let month = parseInt(dateValue.substr(5, 2))
-        let day = parseInt(dateValue.substr(8, 2))
-        let hours = parseInt(timeValue.substr(0, 2))
-        let minutes = parseInt(timeValue.substr(3, 2))
-
         let DateTime = luxon.DateTime;
-        let { c } = DateTime.local(year, month, day, hours, minutes);
+        let time = getTime("Begin");
 
+        let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
         // Verify the limit
-        if (c.minute == 30 && c.hour == 23) {
+        if (c.minute == 00 && c.hour == 23) {
             console.log("Horario maximo")
         } else {
-            let { c } = DateTime.local(year, month, day, hours, minutes).plus({ minutes: 30 });
+            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
             let minute;
             let hour;
             if (c.minute == 0) {
