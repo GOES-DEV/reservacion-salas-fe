@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
 
-
     // CONFIG CALENDAR
     // Resources =======================
     let arrayResources = [
@@ -83,15 +82,28 @@ document.addEventListener('DOMContentLoaded', function () {
         },
     ];
 
+    // Select fill and change event
     let select = document.getElementById("resourcesSelect");
-    select.innerHTML= "";
+    let count = 1;
+    select.innerHTML = "";
     arrayResources.forEach(({ id, title }) => {
         // let option = `<option value="${id}">${title}</option>`
+        if (count == 1) {
+            let roomInfo = btoa(JSON.stringify({ id, title }));
+            sessionStorage.setItem("roomSelected", roomInfo)
+        }
         let option = document.createElement("option");
-        option.value= id;
+        option.value = id;
         option.innerText = title;
         select.appendChild(option)
+        count++;
     });
+    // Change event on select
+    $("#resourcesSelect").on("change",(e)=>{
+        console.log(e)
+    })
+    // =========================================================
+
     // Events ==========================
     let arrayEvents = [
         {
@@ -144,17 +156,48 @@ document.addEventListener('DOMContentLoaded', function () {
     const timeLine = "resourceTimelineDay";
     const generalCalendar = 'dayGridMonth,listWeek'
 
+    // html buttons
+    const btnAdd = `<button id="add" class="btn"><i class="fa-solid fa-square-plus"></i>Agregar</button>`;
+    const btnUpdate = `<button id="add" class="btn"><i class="fa-solid fa-square-plus"></i>Agregar</button>`;
+    const btnDelete = `<button id="add" class="btn"><i class="fa-solid fa-square-plus"></i>Agregar</button>`;
+    const btnCancel = `<button id="cancel" class="btn">Cancelar</button>`;
 
     // Handlers
-    let dateAction = (info) => {
-        alert("dia")
-        console.log(info)
+    let dateAction = ({ dateStr, resource = "empty" }) => {
+        let postionLetter = dateStr.indexOf("T");
+        let dateText = dateStr.substr(0, postionLetter);
+        let titleEvent ="";
+        if (resource == "empty") {
+            // Obtener de session storage name room selected
+            let info = atob(sessionStorage.getItem("roomSelected"))
+            let { id, title } = JSON.parse(info);
+            
+            titleEvent = title;
+        } else {
+            const { _resource } = resource;
+            titleEvent = _resource.title
+            // const { id, title } = _resource;
+        }
+
+
+        document.getElementById("date").value = dateText;
+        document.getElementById("room").value = titleEvent;
+        document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
+        document.getElementById("buttons").innerHTML = `${btnAdd} ${btnCancel}`;
+        $('#modal').modal("show");
     }
     let dateActionNone = async () => await console.log("no action day")
 
     let eventAction = (info) => {
-        alert("event")
         console.log(info)
+        // let postionLetter = dateStr.indexOf("T");
+        // let dateText = dateStr.substr(0, postionLetter)
+
+        // document.getElementById("date").value = dateText;
+        // document.getElementById("room").value = title;
+        document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Modificar evento`;
+        document.getElementById("buttons").innerHTML = `${btnUpdate} ${btnDelete}  ${btnCancel}`;
+        $('#modal').modal("show");
     }
     let eventActionNone = async () => await console.log("no action event")
 

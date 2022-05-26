@@ -257,4 +257,153 @@ body ::-webkit-scrollbar-thumb {
 body ::-webkit-scrollbar-thumb:hover {
   background: #c9a892;
 }
+
+body #modal .modal-dialog .modal-content .modal-header {
+  background: #313945;
+  color: white;
+}
+
+body #modal .modal-dialog .modal-content .modal-header .close {
+  color: white;
+}
+
+body #modal .modal-dialog .modal-content .modal-body {
+  width: 100%;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm {
+  width: 100%;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .info-event {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .info-event .form-group {
+  width: 45%;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .info-event .form-group label {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #162b3e;
+  margin: 0px;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .info-event .form-group input {
+  background-color: #162b3e;
+  color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .name-event {
+  width: 100% !important;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .name-event label {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #162b3e;
+  margin: 0px;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .times {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding: 0.5em 0.5em 0em 0.5em;
+  background: #76767a12;
+  border: solid 1px #80808042;
+  border-radius: 8px;
+  margin-top: 1.3em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .form-group {
+  width: 30%;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .form-group label {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #162b3e;
+  margin: 0px;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #buttons {
+  margin-top: 2em;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #buttons #add,
+body #modal .modal-dialog .modal-content .modal-body #buttons #cancel,
+body #modal .modal-dialog .modal-content .modal-body #buttons #update,
+body #modal .modal-dialog .modal-content .modal-body #buttons #delete {
+  width: 30%;
+  font-weight: 600;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #buttons #add i,
+body #modal .modal-dialog .modal-content .modal-body #buttons #cancel i,
+body #modal .modal-dialog .modal-content .modal-body #buttons #update i,
+body #modal .modal-dialog .modal-content .modal-body #buttons #delete i {
+  margin-right: 0.5em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #buttons #add {
+  background-color: #162b3e;
+  color: white;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #buttons #update {
+  background-color: #41d2e9;
+  color: white;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #buttons #delete {
+  background-color: #de4646;
+  color: white;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #buttons #cancel {
+  background-color: #7d7d7d;
+  color: white;
+}
 /*# sourceMappingURL=calendar.css.map */

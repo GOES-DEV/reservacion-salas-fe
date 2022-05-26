@@ -54,6 +54,54 @@
     </div>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" data-backdrop="static"
+        data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="eventForm" data="waiting">
+                        <div class="info-event">
+                            <div class="form-group">
+                                <label for="date">Fecha</label>
+                                <input type="date" class="form-control" id="date" value="" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="room">Sala</label>
+                                <input type="text" class="form-control" id="room" value="Texto ejemplo" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group name-event">
+                            <label for="name">Nombre evento</label>
+                            <input type="text" class="form-control" id="name" placeholder="Evento de ejemplo">
+                        </div>
+                        <div class="times">
+                            <div class="form-group">
+                                <label for="timeBegin">Hora inicio</label>
+                                <input type="time" class="form-control" id="timeBegin" value="00:00">
+                            </div>
+                            <div class="form-group">
+                                <label for="timeEnd">Hora Fin</label>
+                                <input type="time" class="form-control" id="timeEnd" value="23:30">
+                            </div>
+                        </div>
+
+                        <div id="buttons"> </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 

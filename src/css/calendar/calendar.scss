@@ -164,21 +164,152 @@ body {
     ::-webkit-scrollbar {
         width: 8px;
         height: 10px;
-      }
-      
-      /* Track */
-      ::-webkit-scrollbar-track {
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
         background: #162b3e;
-      }
-      
-      /* Handle */
-      ::-webkit-scrollbar-thumb {
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
         background: #888;
         border-radius: 10px;
-      }
-      
-      /* Handle on hover */
-      ::-webkit-scrollbar-thumb:hover {
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
         background: #c9a892;
-      }
+    }
+
+
+    #modal {
+        .modal-dialog {
+            .modal-content {
+                .modal-header {
+                    background: #313945;
+                    color: white;
+
+                    .close {
+                        color: white;
+                    }
+                }
+
+                .modal-body {
+                    width: 100%;
+
+                    #eventForm {
+                        width: 100%;
+
+                        .info-event {
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            flex-direction: row;
+
+                            .form-group {
+                                width: 45%;
+
+                                label {
+                                    font-size: 0.8em;
+                                    font-weight: 600;
+                                    color: #162b3e;
+                                    margin: 0px;
+                                }
+
+                                input {
+                                    background-color: #162b3e;
+                                    color: white;
+                                    user-select: none;
+                                }
+                            }
+                        }
+
+
+                        .name-event {
+                            width: 100% !important;
+                            label {
+                                font-size: 0.8em;
+                                font-weight: 600;
+                                color: #162b3e;
+                                margin: 0px;
+                            }
+
+                            input {}
+                        }
+
+
+                        .times {
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-around;
+                            align-items: center;
+                            flex-direction: row;
+                            padding: 0.5em 0.5em 0em 0.5em;
+                            background: #76767a12;
+                            border: solid 1px #80808042;
+                            border-radius: 8px;
+                            margin-top: 1.3em;
+                        }
+
+
+                        .form-group {
+                            width: 30%;
+
+                            label {
+                                font-size: 0.8em;
+                                font-weight: 600;
+                                color: #162b3e;
+                                margin: 0px;
+                            }
+
+                            input {}
+                        }
+                    }
+
+                    #buttons {
+                        margin-top: 2em;
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        flex-direction: row;
+
+                        #add,
+                        #cancel,
+                        #update,
+                        #delete {
+                            width: 30%;
+                            font-weight: 600;
+
+                            i {
+                                margin-right: 0.5em;
+                            }
+                        }
+
+                        #add {
+                            background-color: #162b3e;
+                            color: white;
+                        }
+
+                        #update {
+                            background-color: #41d2e9;
+                            color: white;
+                        }
+
+                        #delete {
+                            background-color: rgb(222, 70, 70);
+                            color: white;
+                        }
+
+                        #cancel {
+                            background-color: rgb(125, 125, 125);
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
