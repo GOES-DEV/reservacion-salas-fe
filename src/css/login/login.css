@@ -70,7 +70,7 @@ body .content-login #login {
 body .content-login #login .title-form {
   color: #313945;
   font-size: 1.5em;
-  font-family: Bembo;
+  font-family: Arial !important;
   font-weight: 700;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -100,7 +100,7 @@ body .content-login #login .form-group label {
   font-weight: bold;
   margin-bottom: 0px;
   color: #bdbcc1;
-  font-family: Bembo;
+  font-family: Arial !important;
 }
 
 body .content-login #login .form-group input {
@@ -182,9 +182,9 @@ body .content-login #login .btn i {
     background-color: white;
   }
   body .content-login #login .title-form {
-    color: #313945;
+    color: #313945c3;
     font-size: 1.5em;
-    font-family: Bembo;
+    font-family: Arial !important;
     font-weight: 700;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -201,7 +201,7 @@ body .content-login #login .btn i {
             justify-content: center;
   }
   body .content-login #login .title-form span {
-    margin-top: -14px;
+    margin-top: -8px;
   }
   body .content-login #login .form-group {
     width: 80%;
@@ -211,7 +211,7 @@ body .content-login #login .btn i {
     font-weight: bold;
     margin-bottom: 0px;
     color: #bdbcc1;
-    font-family: Bembo;
+    font-family: Arial !important;
   }
   body .content-login #login .form-group input {
     background-color: var(--gray-form);

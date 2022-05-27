@@ -345,7 +345,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times {
 }
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group {
-  width: 9em !important;
+  width: 11em !important;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -371,7 +371,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content {
-  width: 9em;
+  width: 11em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -391,7 +391,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content #timeEnd,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeBegin,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeEnd {
-  width: 9em !important;
+  width: 11em !important;
   background-color: #162b3e;
   color: white;
   position: relative;

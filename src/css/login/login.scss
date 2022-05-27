@@ -40,7 +40,7 @@ body {
             .title-form {
                 color: #313945;
                 font-size: 1.5em;
-                font-family: Bembo;
+                font-family: Arial !important;
                 font-weight: 700;
                 display: flex;
                 flex-direction: column;
@@ -60,7 +60,7 @@ body {
                     font-weight: bold;
                     margin-bottom: 0px;
                     color: #bdbcc1;
-                    font-family: Bembo;
+                    font-family: Arial !important;
                 }
 
                 input {
@@ -122,9 +122,9 @@ body {
                 background-color: white;
 
                 .title-form {
-                    color: #313945;
+                    color: #313945c3;
                     font-size: 1.5em;
-                    font-family: Bembo;
+                    font-family: Arial !important;
                     font-weight: 700;
                     display: flex;
                     flex-direction: column;
@@ -132,7 +132,7 @@ body {
                     justify-content: center;
 
                     span {
-                        margin-top: -14px;
+                        margin-top: -8px;
                     }
                 }
 
@@ -144,7 +144,7 @@ body {
                         font-weight: bold;
                         margin-bottom: 0px;
                         color: #bdbcc1;
-                        font-family: Bembo;
+                        font-family: Arial !important;
                     }
 
                     input {

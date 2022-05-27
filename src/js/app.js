@@ -108,48 +108,74 @@ document.addEventListener('DOMContentLoaded', function () {
     // =========================================================
 
     // Events ==========================
-    let arrayEvents = [
+    
+
+    
+
+    let arrayEvents2 = [
         {
-            id: '1',
+            id: '6',
             resourceId: '1',
-            title: 'My event',
-            start: '2022-05-25 05:30:00',
-            end: '2022-05-25 09:30:00',
+            title: 'My event6',
+            start: '2022-05-27 05:30:00',
+            end: '2022-05-27 09:30:00',
             backgroundColor: '#fe9900'
         },
         {
-            id: '2',
+            id: '7',
             resourceId: '1',
-            title: 'My event2',
-            start: '2022-05-25 09:30:00',
-            end: '2022-05-25 13:30:00',
+            title: 'My event7',
+            start: '2022-05-27 09:30:00',
+            end: '2022-05-27 13:30:00',
             backgroundColor: '#fe9900'
         },
-        {
-            id: '3',
-            resourceId: '1',
-            title: 'My event3',
-            start: '2022-05-25 14:30:00',
-            end: '2022-05-25 17:30:00',
-            backgroundColor: '#fe7900'
-        },
-        {
-            id: '4',
-            resourceId: '2',
-            title: 'My event4',
-            start: '2022-05-25 04:30:00',
-            end: '2022-05-25 13:30:00',
-            backgroundColor: '#fe7900'
-        },
-        {
-            id: '5',
-            resourceId: '2',
-            title: 'My event5',
-            start: '2022-05-25 15:30:00',
-            end: '2022-05-25 17:30:00',
-            backgroundColor: '#fe7900'
-        }
     ];
+
+    let getEvents = ()=>{
+        let arrayEvents = [
+            {
+                id: '1',
+                resourceId: '1',
+                title: 'My event',
+                start: '2022-05-25 05:30:00',
+                end: '2022-05-25 09:30:00',
+                backgroundColor: '#fe9900'
+            },
+            {
+                id: '2',
+                resourceId: '1',
+                title: 'My event2',
+                start: '2022-05-25 09:30:00',
+                end: '2022-05-25 13:30:00',
+                backgroundColor: '#fe9900'
+            },
+            {
+                id: '3',
+                resourceId: '1',
+                title: 'My event3',
+                start: '2022-05-25 14:30:00',
+                end: '2022-05-25 17:30:00',
+                backgroundColor: '#fe7900'
+            },
+            {
+                id: '4',
+                resourceId: '2',
+                title: 'My event4',
+                start: '2022-05-25 04:30:00',
+                end: '2022-05-25 13:30:00',
+                backgroundColor: '#fe7900'
+            },
+            {
+                id: '5',
+                resourceId: '2',
+                title: 'My event5',
+                start: '2022-05-25 15:30:00',
+                end: '2022-05-25 17:30:00',
+                backgroundColor: '#fe7900'
+            }
+        ];
+        return arrayEvents;
+    }
 
     // Initial view ====================
     const timeLineView = "resourceTimelineDay";
@@ -226,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
         isTimeBegin,
         isTimeEnd,
         arrayResources,
-        arrayEvents,
+        eventsGet,
         dateActionNone,
         eventAction) => {
         let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -265,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
             eventBorderColor: 'rgba(0, 0, 0, 0)',
             resourceAreaHeaderContent: 'Salas',
             resources: arrayResources,
-            events: arrayEvents,
+            events:  eventsGet(),
             dateClick: dateActionNone,
             eventClick: eventAction
         });
@@ -276,6 +302,8 @@ document.addEventListener('DOMContentLoaded', function () {
         calendar.destroy();
         calendar.render();
     }
+
+    
 
 
 
@@ -298,11 +326,18 @@ document.addEventListener('DOMContentLoaded', function () {
         false,
         false,
         arrayResources,
-        arrayEvents,
+        getEvents,
         dateAction,
         eventAction)
     renders(calendarResult);
 
+    calendarResult.refetchEvents();
+
+
+// Refetch =============================
+
+ 
+    
 
     // menuActions ===========================================================
 
@@ -333,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function () {
             false,
             false,
             arrayResources,
-            arrayEvents,
+            getEvents,
             dateAction,
             eventAction);
 
@@ -347,7 +382,7 @@ document.addEventListener('DOMContentLoaded', function () {
             true,
             true,
             arrayResources,
-            arrayEvents,
+            getEvents,
             dateActionNone,
             eventAction);
 
@@ -380,7 +415,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $(".logout").on("click", () => {
-        alert("logout")
+        
     });
 
     let getTime = (stage) => {
@@ -415,14 +450,17 @@ document.addEventListener('DOMContentLoaded', function () {
         let time2 = getTime("End");
 
         let minResult = minutesDiff(time, time2);
-        if (minResult < 30) {
+        minResult = Math.abs(minResult);
+
+
+        if (minResult < 29 ) {
             let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
             let minute;
             let hour;
-            if (c.minute == 0) {
+            if (c.minute == 1) {
                 minute = "00"
             } else {
-                minute = c.minute
+                minute = "30"
             }
             if (c.hour < 10) {
 
@@ -444,14 +482,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
         // Verify the limit
-        if (c.minute == 00 && c.hour == 23) {
+        if (c.minute == 01 && c.hour == 23) {
             console.log("Horario maximo")
         } else {
             let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
             let minute;
             let hour;
-            if (c.minute == 0) {
-                minute = "00"
+            if (c.minute == 1) {
+                minute = "01"
             } else {
                 minute = c.minute
             }
@@ -477,14 +515,14 @@ document.addEventListener('DOMContentLoaded', function () {
         let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
 
         // Verify the limit
-        if (c.minute == 00 && c.hour == 00) {
+        if (c.minute == 01 && c.hour == 00) {
             console.log("Horario maximo")
         } else {
             let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).minus({ minutes: 30 });
             let minute;
             let hour;
-            if (c.minute == 0) {
-                minute = "00"
+            if (c.minute == 1) {
+                minute = "01"
             } else {
                 minute = c.minute
             }
@@ -514,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Horario maximo")
         } else {
 
-            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
+            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 29 });
             let minute;
             let hour;
             if (c.minute == 0) {
@@ -543,11 +581,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let time2 = getTime("End");
 
         let minResult = minutesDiff(time, time2);
-
-        console.log("menos minResult");
-        console.log(minResult);
-
-
         // Verify the limit
         if (minResult <= 30) {
             console.log("Horario maximo")
