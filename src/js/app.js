@@ -391,13 +391,55 @@ document.addEventListener('DOMContentLoaded', function () {
         let day = parseInt(dateValue.substr(8, 2));
         let hours = parseInt(timeValue.substr(0, 2));
         let minutes = parseInt(timeValue.substr(3, 2));
-        return {year, month,day,hours,minutes}
+        return { year, month, day, hours, minutes }
     }
 
+    let DateTime = luxon.DateTime;
 
+    // FN: Calc the difference of minutes
+    // IN: input time begin and end
+    // RETURN: Difference of minutes
+    let minutesDiff = (time,time2) => {
+        let timeCompare = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
+        let timeCompare2 = DateTime.local(time2.year, time2.month, time2.day, time2.hours, time2.minutes);
+
+        let { milliseconds } = timeCompare2.diff(timeCompare).toObject()
+        return  Math.floor(milliseconds / 60000);
+    }
+
+    // FN: Add difference of 30 min if it is not greater than that difference
+    // IN: NA
+    // RETURN: NA
+    let carryTime = () => {
+        let time = getTime("Begin");
+        let time2 = getTime("End");
+
+        let minResult= minutesDiff(time,time2);
+        if (minResult < 30) {
+            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
+            let minute;
+            let hour;
+            if (c.minute == 0) {
+                minute = "00"
+            } else {
+                minute = c.minute
+            }
+            if (c.hour < 10) {
+
+                if (c.hour == 0 && minute == 30) {
+                    hour = `00`
+                } else {
+                    hour = `0${c.hour}`
+                }
+            } else {
+                hour = c.hour
+            }
+
+            $("#timeEnd").val(`${hour}:${minute}`)
+        }
+    }
     // Buttons action time 
     $("#plusBegin").on("click", () => {
-        let DateTime = luxon.DateTime;
         let time = getTime("Begin");
 
         let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
@@ -425,29 +467,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 hour = c.hour
             }
 
-            $("#timeBegin").val(`${hour}:${minute}`)
+            $("#timeBegin").val(`${hour}:${minute}`);
+
+            carryTime();
         }
     });
 
     $("#minusBegin").on("click", () => {
-        let dateValue = $("#date").val();
-        let timeValue = $("#timeBegin").val();
-
-
-        let year = parseInt(dateValue.substr(0, 4))
-        let month = parseInt(dateValue.substr(5, 2))
-        let day = parseInt(dateValue.substr(8, 2))
-        let hours = parseInt(timeValue.substr(0, 2))
-        let minutes = parseInt(timeValue.substr(3, 2))
-
-        let DateTime = luxon.DateTime;
-        let { c } = DateTime.local(year, month, day, hours, minutes);
+        let time = getTime("Begin");
+        let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
 
         // Verify the limit
         if (c.minute == 00 && c.hour == 00) {
             console.log("Horario maximo")
         } else {
-            let { c } = DateTime.local(year, month, day, hours, minutes).minus({ minutes: 30 });
+            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).minus({ minutes: 30 });
             let minute;
             let hour;
             if (c.minute == 0) {
@@ -468,6 +502,73 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             $("#timeBegin").val(`${hour}:${minute}`)
+        }
+    });
+
+
+
+    $("#plusEnd").on("click", () => {
+        let time = getTime("End");
+
+        let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
+
+        // Verify the limit
+        if (c.minute == 30 && c.hour == 23) {
+            console.log("Horario maximo")
+        } else {
+
+            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
+            let minute;
+            let hour;
+            if (c.minute == 0) {
+                minute = "00"
+            } else {
+                minute = c.minute
+            }
+
+            if (c.hour < 10) {
+
+                if (c.hour == 0 && minute == 30) {
+                    hour = `00`
+                } else {
+                    hour = `0${c.hour}`
+                }
+            } else {
+                hour = c.hour
+            }
+            $("#timeEnd").val(`${hour}:${minute}`)
+        }
+    });
+
+    $("#minusEnd").on("click", () => {
+        let time = getTime("End");
+        let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
+
+        // Verify the limit
+        if (c.minute == 00 && c.hour == 00) {
+            console.log("Horario maximo")
+        } else {
+            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).minus({ minutes: 30 });
+            let minute;
+            let hour;
+            if (c.minute == 0) {
+                minute = "00"
+            } else {
+                minute = c.minute
+            }
+
+            if (c.hour < 10) {
+
+                if (c.hour == 0 && minute == 30) {
+                    hour = `00`
+                } else {
+                    hour = `0${c.hour}`
+                }
+            } else {
+                hour = c.hour
+            }
+
+            $("#timeEnd").val(`${hour}:${minute}`)
         }
     });
 

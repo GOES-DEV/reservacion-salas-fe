@@ -253,7 +253,7 @@ body {
 
 
                             .form-group {
-                                width: 9em !important;
+                                width: 11em !important;
                                 display: flex;
                                 flex-direction: column;
                                 justify-content: center;
@@ -269,7 +269,7 @@ body {
 
                                 .beginTime-content,
                                 .endTime-content {
-                                    width: 9em;
+                                    width: 11em;
                                     display: flex;
                                     flex-direction: row;
                                     justify-content: center;
@@ -277,7 +277,7 @@ body {
 
                                     #timeBegin,
                                     #timeEnd {
-                                        width: 9em !important;
+                                        width: 11em !important;
                                         background-color: #162b3e;
                                         color: white;
                                         position: relative;
