@@ -1,103 +1,44 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Obtener token
+    const token = atob(sessionStorage.getItem("tok"));
+    console.log(token);
 
-    // CONFIG CALENDAR
-    // Resources =======================
-    let arrayResources = [
-        {
-            id: '1',
-            title: 'Los cobanos',
-        },
-        {
-            id: '2',
-            title: 'EL TUNCO',
-        },
-        {
-            id: '3',
-            title: 'SAN BLAS',
-        },
-        {
-            id: '4',
-            title: 'TAQUILLO',
-        },
-        {
-            id: '5',
-            title: 'TASAJERA',
-        },
-        {
-            id: '6',
-            title: 'LAS TUNAS',
-        },
-        {
-            id: '7',
-            title: 'EL ESPINO',
-        },
-        {
-            id: '8',
-            title: 'MIZATA',
-        },
-        {
-            id: '9',
-            title: 'ZUNGANERA',
-        },
-        {
-            id: '10',
-            title: 'COSTA AZUL',
-        },
-        {
-            id: '11',
-            title: 'EL MAJAHUAL',
-        },
-        {
-            id: '12',
-            title: 'TAMARINDO',
-        },
-        {
-            id: '13',
-            title: 'EL ZAPOTE',
-        },
-        {
-            id: '14',
-            title: 'EL PALMARCITO',
-        },
-        {
-            id: '15',
-            title: 'BARRA DE SANTIAGO',
-        },
-        {
-            id: '16',
-            title: 'COSTA DEL SOL',
-        },
-        {
-            id: '17',
-            title: 'SALINITAS',
-        },
-        {
-            id: '18',
-            title: 'EL CUCO',
-        },
-        {
-            id: '19',
-            title: 'EL SUNZAL',
-        },
-    ];
+
+    // Get Rooms
+    api.get('/listarSalas', {
+        params: {
+            api_token: token
+        }
+    }).then(function ({ data }) {
+        let { datos } = data;
+        fillSelect(datos)
+        sessionStorage.setItem("rooms", btoa(JSON.stringify(datos)))
+
+    }).catch(function (error) {
+        console.log(error);
+        alert("Ha ocurrido un error")
+    });
 
     // Select fill and change event
-    let select = document.getElementById("resourcesSelect");
-    let count = 1;
-    select.innerHTML = "";
-    arrayResources.forEach(({ id, title }) => {
-        // let option = `<option value="${id}">${title}</option>`
-        if (count == 1) {
-            let roomInfo = btoa(JSON.stringify({ id, title }));
-            sessionStorage.setItem("roomSelected", roomInfo)
-        }
-        let option = document.createElement("option");
-        option.value = id;
-        option.innerText = title;
-        select.appendChild(option)
-        count++;
-    });
+    let fillSelect = (arrayResources) => {
+        let select = document.getElementById("resourcesSelect");
+        let count = 1;
+        select.innerHTML = "";
+        arrayResources.forEach(({ id, title }) => {
+            // let option = `<option value="${id}">${title}</option>`
+            if (count == 1) {
+                let roomInfo = btoa(JSON.stringify({ id, title }));
+                sessionStorage.setItem("roomSelected", roomInfo)
+            }
+            let option = document.createElement("option");
+            option.value = id;
+            option.innerText = title;
+            select.appendChild(option)
+            count++;
+        });
+    }
+
     // Change event on select
     $("#resourcesSelect").on("change", ({ target }) => {
         let id = target.value;
@@ -105,77 +46,37 @@ document.addEventListener('DOMContentLoaded', function () {
         let roomInfo = btoa(JSON.stringify({ id, title }));
         sessionStorage.setItem("roomSelected", roomInfo)
     })
+
+
+
+
+    // Eventos ===========
+    // Ejecutar api que trae todos los eventos diarios por default
+
+    // TODO: Al clickear en los botones de navegacion ejecutar api de consulta por sala y rango de fecha
+    api.post('/obtenerEventos', {
+        api_token: token,
+        sala_id: 1,
+        fecha_inicio: "2022-05-01 00:00:00",
+        fecha_fin: "2022-05-31 23:59:00"
+    }).then(function ({ data }) {
+        console.log(data)
+        let { datos } = data;
+        sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
+    }).catch(function (error) {
+        console.log(error);
+        alert("Ha ocurrido un error")
+    });
+
+
+
+    // CONFIG CALENDAR
+    // Resources =======================
+    let arrayResources = JSON.parse(atob(sessionStorage.getItem("rooms")));
+    let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
+
+
     // =========================================================
-
-    // Events ==========================
-    
-
-    
-
-    let arrayEvents2 = [
-        {
-            id: '6',
-            resourceId: '1',
-            title: 'My event6',
-            start: '2022-05-27 05:30:00',
-            end: '2022-05-27 09:30:00',
-            backgroundColor: '#fe9900'
-        },
-        {
-            id: '7',
-            resourceId: '1',
-            title: 'My event7',
-            start: '2022-05-27 09:30:00',
-            end: '2022-05-27 13:30:00',
-            backgroundColor: '#fe9900'
-        },
-    ];
-
-    let getEvents = ()=>{
-        let arrayEvents = [
-            {
-                id: '1',
-                resourceId: '1',
-                title: 'My event',
-                start: '2022-05-25 05:30:00',
-                end: '2022-05-25 09:30:00',
-                backgroundColor: '#fe9900'
-            },
-            {
-                id: '2',
-                resourceId: '1',
-                title: 'My event2',
-                start: '2022-05-25 09:30:00',
-                end: '2022-05-25 13:30:00',
-                backgroundColor: '#fe9900'
-            },
-            {
-                id: '3',
-                resourceId: '1',
-                title: 'My event3',
-                start: '2022-05-25 14:30:00',
-                end: '2022-05-25 17:30:00',
-                backgroundColor: '#fe7900'
-            },
-            {
-                id: '4',
-                resourceId: '2',
-                title: 'My event4',
-                start: '2022-05-25 04:30:00',
-                end: '2022-05-25 13:30:00',
-                backgroundColor: '#fe7900'
-            },
-            {
-                id: '5',
-                resourceId: '2',
-                title: 'My event5',
-                start: '2022-05-25 15:30:00',
-                end: '2022-05-25 17:30:00',
-                backgroundColor: '#fe7900'
-            }
-        ];
-        return arrayEvents;
-    }
 
     // Initial view ====================
     const timeLineView = "resourceTimelineDay";
@@ -291,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
             eventBorderColor: 'rgba(0, 0, 0, 0)',
             resourceAreaHeaderContent: 'Salas',
             resources: arrayResources,
-            events:  eventsGet(),
+            events: eventsGet,
             dateClick: dateActionNone,
             eventClick: eventAction
         });
@@ -303,8 +204,34 @@ document.addEventListener('DOMContentLoaded', function () {
         calendar.render();
     }
 
-    
 
+
+    let defaultView = (stage) => {
+        showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
+        showSelect("hidden")
+        // @INSTANCE Vista general
+        let calendarResult = buildCalendar(
+            calendarEl,
+            timeLineView,
+            timeLine,
+            false,
+            false,
+            arrayResources,
+            arrayEvents,
+            dateAction,
+            eventAction);
+
+        console.log("TypeOf Instance")
+        console.log(calendarResult)
+
+        // sessionStorage.setItem("instanciaCvg", JSON.stringify(calendarResult))
+        if (stage == "Render") {
+            renders(calendarResult);
+        } else {
+            calendarResult.refetchEvents()
+        }
+        
+    }
 
 
 
@@ -317,50 +244,29 @@ document.addEventListener('DOMContentLoaded', function () {
     let showTitlePage = (value) => {
         document.getElementById("titlePage").innerHTML = value;
     }
-    showSelect("hidden")
-    showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
-    let calendarResult = buildCalendar(
-        calendarEl,
-        timeLineView,
-        timeLine,
-        false,
-        false,
-        arrayResources,
-        getEvents,
-        dateAction,
-        eventAction)
-    renders(calendarResult);
-
-    calendarResult.refetchEvents();
 
 
-// Refetch =============================
+    // @INSTANCIA DEFAULT
+    defaultView("Render")
 
- 
-    
+
+
+
+
+
+
 
     // menuActions ===========================================================
 
 
     $(".generalView").on("click", () => {
-        showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
-        showSelect("hidden")
-        let calendarResult = buildCalendar(
-            calendarEl,
-            timeLineView,
-            timeLine,
-            false,
-            false,
-            arrayResources,
-            arrayEvents,
-            dateAction,
-            eventAction)
-        renders(calendarResult)
+        defaultView("Render");
     });
 
     // Buttons ===============================================================
     // ConfigCalendar
     let configCalendarDefault = () => {
+        // @INSTANCE CALENDAR GENERAL -> CALENDAR
         let calendarResult = buildCalendar(
             calendarEl,
             generalCalendarView,
@@ -368,13 +274,13 @@ document.addEventListener('DOMContentLoaded', function () {
             false,
             false,
             arrayResources,
-            getEvents,
+            arrayEvents,
             dateAction,
             eventAction);
-
         return calendarResult
     }
     let configCalendarSchedult = () => {
+        // @INSTANCE CALENDAR GENERAL -> SCHEDULT
         let calendarResult = buildCalendar(
             calendarEl,
             scheduleView,
@@ -382,13 +288,17 @@ document.addEventListener('DOMContentLoaded', function () {
             true,
             true,
             arrayResources,
-            getEvents,
-            dateActionNone,
+            arrayEvents,
+            dateAction,
             eventAction);
 
         return calendarResult
     }
 
+
+    // ================================
+    // FN: Load calendar button actions
+    // ================================
     let actionsGeneralCalendar = () => {
         showSelect("visible")
         $('.js-select').select2({
@@ -415,9 +325,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $(".logout").on("click", () => {
-        
+        defaultView("refetch")
     });
 
+
+    // FN: Get the input time in number format
+    // IN: "stage" -> Begin or End
+    // RETURN: Time in parts
     let getTime = (stage) => {
         let dateValue = $("#date").val();
         let timeValue = $(`#time${stage}`).val();
@@ -429,6 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return { year, month, day, hours, minutes }
     }
 
+    // @@instance of Luxon library
     let DateTime = luxon.DateTime;
 
     // FN: Calc the difference of minutes
@@ -453,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function () {
         minResult = Math.abs(minResult);
 
 
-        if (minResult < 29 ) {
+        if (minResult < 29) {
             let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
             let minute;
             let hour;
