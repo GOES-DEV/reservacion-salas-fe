@@ -399,12 +399,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // FN: Calc the difference of minutes
     // IN: input time begin and end
     // RETURN: Difference of minutes
-    let minutesDiff = (time,time2) => {
+    let minutesDiff = (time, time2) => {
         let timeCompare = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
         let timeCompare2 = DateTime.local(time2.year, time2.month, time2.day, time2.hours, time2.minutes);
 
         let { milliseconds } = timeCompare2.diff(timeCompare).toObject()
-        return  Math.floor(milliseconds / 60000);
+        return Math.floor(milliseconds / 60000);
     }
 
     // FN: Add difference of 30 min if it is not greater than that difference
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let time = getTime("Begin");
         let time2 = getTime("End");
 
-        let minResult= minutesDiff(time,time2);
+        let minResult = minutesDiff(time, time2);
         if (minResult < 30) {
             let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
             let minute;
@@ -468,7 +468,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             $("#timeBegin").val(`${hour}:${minute}`);
-
             carryTime();
         }
     });
@@ -505,8 +504,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
-
     $("#plusEnd").on("click", () => {
         let time = getTime("End");
 
@@ -541,14 +538,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $("#minusEnd").on("click", () => {
-        let time = getTime("End");
-        let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
+
+        let time = getTime("Begin");
+        let time2 = getTime("End");
+
+        let minResult = minutesDiff(time, time2);
+
+        console.log("menos minResult");
+        console.log(minResult);
+
 
         // Verify the limit
-        if (c.minute == 00 && c.hour == 00) {
+        if (minResult <= 30) {
             console.log("Horario maximo")
         } else {
-            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).minus({ minutes: 30 });
+            let { c } = DateTime.local(time2.year, time2.month, time2.day, time2.hours, time2.minutes).minus({ minutes: 30 });
             let minute;
             let hour;
             if (c.minute == 0) {
