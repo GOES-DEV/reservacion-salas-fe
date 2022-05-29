@@ -1,98 +1,68 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Obtener token
+
+    // ========================================================================================================================
+    // @1° |  Set Global variables : token api , calendar instance
+    // @2° |  Configure UI calendar data and actions : 
+    // -------> @@Set title and hide/show select control rooms
+    // -------> @@HTML buttons  
+    // -------> @@Handlers actions calendar (use modal)
+    // @3° |  Set the resources(rooms) and events in sessionStorage : 
+    // -------> @@Get Rooms
+    // -------> @@Select fill
+    // -------> @@Change event on select
+    // -------> @@Get events (Default get resourceTimelineDay events)
+    // -------> @@Get current month
+    // @4° |  Config calendar, get and set resources and events from sessionStorage and finally render calendar 
+    // -------> @@Resources
+    // -------> @@Config default
+    // -------> @@Render calendar
+    // @5° |  Set the resources(rooms) and events in sessionStorage : 
+    // -------> @@Get the input time in number format
+    // -------> @@Calc the difference of minutes
+    // -------> @@Add difference of 30 min if it is not greater than that difference
+    // -------> @@Buttons action time 
+    // @6° |  Calendar & menu buttons actions : 
+    // -------> @@Calendar buttons 
+    // ---------------------------> Buttons prev & next control events call
+    // -------> @@Menu buttons 
+    // =======================================================================================================================
+
+
+    // ________________________________________________________________________________________________________________________
+    // @1° GLOBAL VARIABLES ___________________________________________________________________________________________________
+    // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+
     const token = atob(sessionStorage.getItem("tok"));
-    console.log(token);
+    let calendarEl = document.getElementById('calendar');
+    let calendar = "";
 
+    //instance of Luxon library
+    let DateTime = luxon.DateTime;
 
-    // Get Rooms
-    api.get('/listarSalas', {
-        params: {
-            api_token: token
-        }
-    }).then(function ({ data }) {
-        let { datos } = data;
-        fillSelect(datos)
-        sessionStorage.setItem("rooms", btoa(JSON.stringify(datos)))
-
-    }).catch(function (error) {
-        console.log(error);
-        alert("Ha ocurrido un error")
+    // Select2 inicialite
+    $('.js-select').select2({
+        containerCssClass: "",
+        // theme: 'bootstrap',
     });
+    // ________________________________________________________________________________________________________________________
+    // @2° CONFIGURE UI CALENDAR DATA AND ACTIONS _____________________________________________________________________________
+    // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
-    // Select fill and change event
-    let fillSelect = (arrayResources) => {
-        let select = document.getElementById("resourcesSelect");
-        let count = 1;
-        select.innerHTML = "";
-        arrayResources.forEach(({ id, title }) => {
-            // let option = `<option value="${id}">${title}</option>`
-            if (count == 1) {
-                let roomInfo = btoa(JSON.stringify({ id, title }));
-                sessionStorage.setItem("roomSelected", roomInfo)
-            }
-            let option = document.createElement("option");
-            option.value = id;
-            option.innerText = title;
-            select.appendChild(option)
-            count++;
-        });
+    // @@Set title and hide/show select control rooms
+    let showSelect = (value) => {
+        document.getElementById("resourceContent").style.visibility = value;
+    }
+    let showTitlePage = (value) => {
+        document.getElementById("titlePage").innerHTML = value;
     }
 
-    // Change event on select
-    $("#resourcesSelect").on("change", ({ target }) => {
-        let id = target.value;
-        let title = target.options[target.selectedIndex].text;
-        let roomInfo = btoa(JSON.stringify({ id, title }));
-        sessionStorage.setItem("roomSelected", roomInfo)
-    })
-
-
-
-
-    // Eventos ===========
-    // Ejecutar api que trae todos los eventos diarios por default
-
-    // TODO: Al clickear en los botones de navegacion ejecutar api de consulta por sala y rango de fecha
-    api.post('/obtenerEventos', {
-        api_token: token,
-        sala_id: 1,
-        fecha_inicio: "2022-05-01 00:00:00",
-        fecha_fin: "2022-05-31 23:59:00"
-    }).then(function ({ data }) {
-        console.log(data)
-        let { datos } = data;
-        sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
-    }).catch(function (error) {
-        console.log(error);
-        alert("Ha ocurrido un error")
-    });
-
-
-
-    // CONFIG CALENDAR
-    // Resources =======================
-    let arrayResources = JSON.parse(atob(sessionStorage.getItem("rooms")));
-    let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
-
-
-    // =========================================================
-
-    // Initial view ====================
-    const timeLineView = "resourceTimelineDay";
-    const generalCalendarView = 'dayGridMonth'
-    const scheduleView = 'listWeek'
-    // Actions tools ===================
-    const timeLine = "resourceTimelineDay";
-    const generalCalendar = 'dayGridMonth,listWeek'
-
-    // html buttons
+    //-> @@html buttons
     const btnAdd = `<button id="add" class="btn"><i class="fa-solid fa-square-plus"></i>Agregar</button>`;
     const btnUpdate = `<button id="update"  class="btn"><i class="fa-solid fa-square-pen"></i>Modificar</button>`;
     const btnDelete = `<button  id="delete" class="btn"><i class="fa-solid fa-trash"></i>Borrar</button>`;
     const btnCancel = `<button id="cancel" class="btn">Cancelar</button>`;
-
-    // Handlers
+    //-> @@Handlers actions calendar (use modal)
     let dateAction = ({ dateStr, resource = "empty" }) => {
 
         let dateText;
@@ -125,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("buttons").innerHTML = `${btnAdd} ${btnCancel}`;
         $('#modal').modal("show");
     }
-
     let eventAction = (info) => {
         // let postionLetter = dateStr.indexOf("T");
         // let dateText = dateStr.substr(0, postionLetter)
@@ -138,198 +107,208 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#modal').modal("show");
     }
 
-    let dateActionNone = async () => await console.log("no action day")
-    let eventActionNone = async () => await console.log("no action event")
+    let dateActionNone = async () => await console.log("no action day");
+    let eventActionNone = async () => await console.log("no action event");
 
 
+    // ________________________________________________________________________________________________________________________
+    // @3° SET THE RESOURCES(ROOMS) AND EVENTS IN SESSIONSTORAGE ______________________________________________________________
+    // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
 
-    // CALENDAR ===================================================================================================
-    let calendarEl = document.getElementById('calendar');
-    let buildCalendar = (
-        calendarEl,
-        pageView,
-        page,
-        isTimeBegin,
-        isTimeEnd,
-        arrayResources,
-        eventsGet,
-        dateActionNone,
-        eventAction) => {
-        let calendar = new FullCalendar.Calendar(calendarEl, {
-            // initialView: 'dayGridMonth',
-            schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-            initialView: pageView,
-            themeSystem: 'standard',
-            aspectRatio: 1,
-            height: "auto",
-            locale: "es-us",
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: page
-            },
-            buttonText: {
-                today: 'Hoy',
-                month: 'Mes',
-                week: 'Semana',
-                day: 'Dia',
-                list: 'Agenda'
-            },
-            eventTimeFormat: {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: true,
-                meridiem: false
-            },
-            slotLabelFormat: { hour: 'numeric', omitZeroMinute: true, hour12: true },
-            displayEventTime: isTimeBegin,
-            displayEventEnd: isTimeEnd,
-            dayHeaderFormat: { weekday: 'short', omitCommas: true },
-            hiddenDays: [],
-            eventDisplay: 'block',
-            eventBorderColor: 'rgba(0, 0, 0, 0)',
-            resourceAreaHeaderContent: 'Salas',
-            resources: arrayResources,
-            events: eventsGet,
-            dateClick: dateActionNone,
-            eventClick: eventAction
-        });
-        return calendar
-    }
-
-    let renders = (calendar) => {
-        calendar.destroy();
-        calendar.render();
-    }
-
-
-
-    let defaultView = (stage) => {
-        showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
-        showSelect("hidden")
-        // @INSTANCE Vista general
-        let calendarResult = buildCalendar(
-            calendarEl,
-            timeLineView,
-            timeLine,
-            false,
-            false,
-            arrayResources,
-            arrayEvents,
-            dateAction,
-            eventAction);
-
-        console.log("TypeOf Instance")
-        console.log(calendarResult)
-
-        // sessionStorage.setItem("instanciaCvg", JSON.stringify(calendarResult))
-        if (stage == "Render") {
-            renders(calendarResult);
-        } else {
-            calendarResult.refetchEvents()
+    //-> @@Get Rooms
+    api.get('/listarSalas', {
+        params: {
+            api_token: token
         }
-        
-    }
+    }).then(function ({ data }) {
+        let { datos } = data;
+        fillSelect(datos)
+        sessionStorage.setItem("rooms", btoa(JSON.stringify(datos)))
 
-
-
-
-
-    // Render Calendar Default timeLine view
-    let showSelect = (value) => {
-        document.getElementById("resourceContent").style.visibility = value;
-    }
-    let showTitlePage = (value) => {
-        document.getElementById("titlePage").innerHTML = value;
-    }
-
-
-    // @INSTANCIA DEFAULT
-    defaultView("Render")
-
-
-
-
-
-
-
-
-    // menuActions ===========================================================
-
-
-    $(".generalView").on("click", () => {
-        defaultView("Render");
+    }).catch(function (error) {
+        console.log(error);
+        alert("Ha ocurrido un error")
     });
 
-    // Buttons ===============================================================
-    // ConfigCalendar
-    let configCalendarDefault = () => {
-        // @INSTANCE CALENDAR GENERAL -> CALENDAR
-        let calendarResult = buildCalendar(
-            calendarEl,
-            generalCalendarView,
-            generalCalendar,
-            false,
-            false,
-            arrayResources,
-            arrayEvents,
-            dateAction,
-            eventAction);
-        return calendarResult
-    }
-    let configCalendarSchedult = () => {
-        // @INSTANCE CALENDAR GENERAL -> SCHEDULT
-        let calendarResult = buildCalendar(
-            calendarEl,
-            scheduleView,
-            generalCalendar,
-            true,
-            true,
-            arrayResources,
-            arrayEvents,
-            dateAction,
-            eventAction);
-
-        return calendarResult
-    }
-
-
-    // ================================
-    // FN: Load calendar button actions
-    // ================================
-    let actionsGeneralCalendar = () => {
-        showSelect("visible")
-        $('.js-select').select2({
-            containerCssClass: "",
-            // theme: 'bootstrap',
-        });
-
-        $(".fc-listWeek-button").on("click", () => {
-            renders(configCalendarSchedult());
-            actionsGeneralCalendar();
-        });
-
-        $(".fc-dayGridMonth-button").on("click", () => {
-            renders(configCalendarDefault());
-            actionsGeneralCalendar();
+    //-> @@Select fill
+    let fillSelect = (arrayResources) => {
+        let select = document.getElementById("resourcesSelect");
+        let count = 1;
+        select.innerHTML = "";
+        arrayResources.forEach(({ id, title }) => {
+            // let option = `<option value="${id}">${title}</option>`
+            if (count == 1) {
+                let roomInfo = btoa(JSON.stringify({ id, title }));
+                sessionStorage.setItem("roomSelected", roomInfo)
+            }
+            let option = document.createElement("option");
+            option.value = id;
+            option.innerText = title;
+            select.appendChild(option)
+            count++;
         });
     }
 
-    $(".generalCalendar").on("click", () => {
-        showTitlePage(`<p>Calendario general</p><i class="fa-solid fa-calendar-days"></i>`)
+    //-> @@Change event on select
+    $("#resourcesSelect").on("change", ({ target }) => {
+        let id = target.value;
+        let title = target.options[target.selectedIndex].text;
+        let roomInfo = btoa(JSON.stringify({ id, title }));
+        sessionStorage.setItem("roomSelected", roomInfo)
+    })
 
-        renders(configCalendarDefault());
-        actionsGeneralCalendar();
+
+    // TODO: Al clickear en los botones de navegacion ejecutar api de consulta por sala y rango de fecha
+    //-> @@Get events (Default get resourceTimelineDay events)
+
+
+    // Add the estage of the date
+    // -----> 1 | Day 
+    // -----> 2 | Week 
+    // -----> 3 | Month
+    sessionStorage.setItem("dateStage", 1);
+    // Info: Default load actual date (month)
+
+    // Set hours, minutes and seconds
+    let setTimeFormat = (primerDia, ultimoDia) => {
+        primerDia.setHours(00);
+        primerDia.setMinutes(00);
+        primerDia.setSeconds(00);
+        ultimoDia.setHours(23);
+        ultimoDia.setMinutes(59);
+        ultimoDia.setSeconds(00);
+
+        return [
+            primerDia, ultimoDia
+        ];
+    }
+    //-> @@get current month
+    let getCurrentMonth = (date) => {
+        let stage = sessionStorage.getItem("dateStage");
+        let currentDate;
+
+        if (stage == 1) {
+            console.log("Dia ======================================================")
+            let primerDia = new Date(date);
+            let ultimoDia = new Date(date);
+            let timeFormat = setTimeFormat(primerDia, ultimoDia);
+
+            currentDate = [
+                timeFormat[0],
+                timeFormat[1]
+            ];
+        } else if (stage == 2) {
+
+            console.log("Semana ======================================================")
+            let primerDia = new Date(date);
+            let ultimoDia = new Date(date);
+            let timeFormat = setTimeFormat(primerDia, ultimoDia);
+
+            timeFormat[1].setDate(timeFormat[1].getDate() + 6);
+
+            currentDate = [
+                timeFormat[0],
+                timeFormat[1]
+            ];
+
+        } else {
+            console.log("Mes ======================================================")
+            let primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+            let ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+            let timeFormat = setTimeFormat(primerDia, ultimoDia);
+
+            currentDate = [
+                timeFormat[0],
+                timeFormat[1]
+            ];
+        }
+        return currentDate;
+    }
+
+
+    let [primerDia, ultimoDia] = getCurrentMonth(new Date())
+    api.post('/obtenerTodosEventos', {
+        api_token: token,
+        sala_id: 1,
+        fecha_inicio: primerDia,
+        fecha_fin: ultimoDia
+    }).then(function ({ data }) {
+        console.log(data)
+        let { datos } = data;
+        sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
+    }).catch(function (error) {
+        console.log(error);
+        alert("Ha ocurrido un error")
     });
 
-    $(".logout").on("click", () => {
-        defaultView("refetch")
+
+    // ________________________________________________________________________________________________________________________
+    // @4° CONFIG CALENDAR, GET AND SET RESOURCES AND EVENTS FROM SESSIONSTORAGE AND FINALLY RENDER CALENDAR __________________
+    // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+
+    //-> @@Resources and events
+    let arrayResources = JSON.parse(atob(sessionStorage.getItem("rooms")));
+    let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
+
+
+    //-> @@Config default
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+        initialView: "resourceTimelineDay",
+        themeSystem: 'standard',
+        aspectRatio: 1,
+        height: "auto",
+        locale: "es-us",
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: "resourceTimelineDay dayGridMonth,listWeek"
+        },
+        buttonText: {
+            today: 'Hoy',
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Dia',
+            list: 'Agenda'
+        },
+        eventTimeFormat: {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+            meridiem: false
+        },
+        slotLabelFormat: { hour: 'numeric', omitZeroMinute: true, hour12: true },
+        displayEventTime: false,
+        displayEventEnd: false,
+        dayHeaderFormat: { weekday: 'short', omitCommas: true },
+        hiddenDays: [],
+        eventDisplay: 'block',
+        eventBorderColor: 'rgba(0, 0, 0, 0)',
+        resourceAreaHeaderContent: 'Salas',
+        resources: arrayResources,
+        events: arrayEvents,
+        dateClick: dateAction,
+        eventClick: eventAction
     });
 
+    //-> @@Render calendar
+    calendar.render();
 
-    // FN: Get the input time in number format
+    //-> @@Load default title and hide select rooms control
+    showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
+    showSelect("hidden")
+
+
+
+
+    // ________________________________________________________________________________________________________________________
+    // @5° CONTROL TIME IN MODAL  _____________________________________________________________________________________________
+    // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+
+
+    //-> @@Get the input time in number format
     // IN: "stage" -> Begin or End
     // RETURN: Time in parts
     let getTime = (stage) => {
@@ -343,10 +322,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return { year, month, day, hours, minutes }
     }
 
-    // @@instance of Luxon library
-    let DateTime = luxon.DateTime;
 
-    // FN: Calc the difference of minutes
+    //-> @@Calc the difference of minutes
     // IN: input time begin and end
     // RETURN: Difference of minutes
     let minutesDiff = (time, time2) => {
@@ -357,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return Math.floor(milliseconds / 60000);
     }
 
-    // FN: Add difference of 30 min if it is not greater than that difference
+    //-> @@Add difference of 30 min if it is not greater than that difference
     // IN: NA
     // RETURN: NA
     let carryTime = () => {
@@ -391,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#timeEnd").val(`${hour}:${minute}`)
         }
     }
-    // Buttons action time 
+    //-> @@Buttons action time 
     $("#plusBegin").on("click", () => {
         let time = getTime("Begin");
 
@@ -467,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Horario maximo")
         } else {
 
-            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 29 });
+            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
             let minute;
             let hour;
             if (c.minute == 0) {
@@ -525,5 +502,63 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-});
+    // ________________________________________________________________________________________________________________________
+    // @6° CALENDAR & MENU BUTTONS ACTIONS __________________________________________________________________________________________________
+    // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
+    //-> @@Calendar buttons
+    $(".fc-resourceTimelineDay-button").on("click", () => {
+        sessionStorage.setItem("dateStage", 1);
+        calendar.setOption('displayEventTime', 'false');
+        calendar.setOption('displayEventEnd', 'false');
+    });
+
+    $(".fc-listWeek-button").on("click", () => {
+        sessionStorage.setItem("dateStage", 2);
+        calendar.setOption('displayEventTime', 'true');
+        calendar.setOption('displayEventEnd', 'true');
+    });
+
+    $(".fc-dayGridMonth-button").on("click", () => {
+        sessionStorage.setItem("dateStage", 3);
+        calendar.setOption('displayEventTime', 'false');
+        calendar.setOption('displayEventEnd', 'false');
+    });
+
+
+    // TODO agregar aqui la insercion y eliminacion de eventos
+    $(".fc-next-button").on("click", () => {
+        let dateRecovered = getCurrentMonth(calendar.getDate());
+        // console.log(dateRecovered); TODO agregar aqui el llamado de api y validacion de tiempo
+    });
+
+    $(".fc-prev-button").on("click", () => {
+        let dateRecovered = getCurrentMonth(calendar.getDate());
+        // console.log(dateRecovered);
+    });
+
+
+    //-> @@Menu buttons
+
+
+    $(".generalView").on("click", () => {
+        sessionStorage.setItem("dateStage", 1);
+        showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
+        showSelect("hidden")
+        calendar.changeView('resourceTimelineDay');
+        // TODO call events
+    });
+
+    $(".generalCalendar").on("click", () => {
+        sessionStorage.setItem("dateStage", 3);
+        showTitlePage(`<p>Calendario general</p><i class="fa-solid fa-calendar-days"></i>`)
+        showSelect("visible")
+        calendar.changeView('dayGridMonth');
+        // TODO call events
+    });
+
+    $(".logout").on("click", () => {
+                    
+    });
+
+})
