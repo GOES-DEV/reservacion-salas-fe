@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-
-
     // ========================================================================================================================
     // @1° |  Set Global variables : token api , calendar instance
     // @2° |  Configure UI calendar data and actions : 
@@ -34,28 +32,37 @@ document.addEventListener('DOMContentLoaded', function () {
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
     const token = atob(sessionStorage.getItem("tok"));
+    console.log(token)
     let calendarEl = document.getElementById('calendar');
     let calendar = "";
 
     //instance of Luxon library
     let DateTime = luxon.DateTime;
 
-    // Select2 inicialite
-    $('.js-select').select2({
-        containerCssClass: "",
-        // theme: 'bootstrap',
-    });
+
     // ________________________________________________________________________________________________________________________
     // @2° CONFIGURE UI CALENDAR DATA AND ACTIONS _____________________________________________________________________________
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
-    // @@Set title and hide/show select control rooms
+    // @@Set title and hide/show select control rooms & Select2 inicialite
     let showSelect = (value) => {
         document.getElementById("resourceContent").style.visibility = value;
     }
     let showTitlePage = (value) => {
         document.getElementById("titlePage").innerHTML = value;
     }
+    $('.js-select').select2({
+        containerCssClass: "",
+        // theme: 'bootstrap',
+    });
+
+    let showHideCalendarButtons = (value, value2) => {
+        $(".fc-resourceTimelineDay-button").css("visibility", `${value}`);
+        $(".fc-dayGridMonth-button").css("visibility", `${value2}`);
+        $(".fc-listWeek-button").css("visibility", `${value2}`);
+    }
+
+
 
     //-> @@html buttons
     const btnAdd = `<button id="add" class="btn"><i class="fa-solid fa-square-plus"></i>Agregar</button>`;
@@ -67,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let dateText;
         if (dateStr.length > 10) {
-            let postionLetter = dateStr.indexOf("T");
-            dateText = dateStr.substr(0, postionLetter);
+            let positionLetter = dateStr.indexOf("T");
+            dateText = dateStr.substr(0, positionLetter);
         } else {
             dateText = dateStr;
         }
@@ -227,20 +234,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    let [primerDia, ultimoDia] = getCurrentMonth(new Date())
-    api.post('/obtenerTodosEventos', {
-        api_token: token,
-        sala_id: 1,
-        fecha_inicio: primerDia,
-        fecha_fin: ultimoDia
-    }).then(function ({ data }) {
-        console.log(data)
-        let { datos } = data;
-        sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
-    }).catch(function (error) {
-        console.log(error);
-        alert("Ha ocurrido un error")
-    });
+    // Get current dat
+    let [primerDia, ultimoDia] = getCurrentMonth(new Date());
+    // SetTime
+    sessionStorage.setItem("firstDate", primerDia);
+    sessionStorage.setItem("lastDate", ultimoDia);
+
 
 
     // ________________________________________________________________________________________________________________________
@@ -295,11 +294,87 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //-> @@Render calendar
     calendar.render();
+    console.log("Opciones a setear after render ===================================")
+    console.log(calendar.currentData.calendarOptions.displayEventTime)
+    console.log(calendar.currentData.calendarOptions.displayEventEnd)
+    console.log("=====================================================")
+    sessionStorage.setItem("instanceLoaded", 1);
 
     //-> @@Load default title and hide select rooms control
-    showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
-    showSelect("hidden")
+    showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`);
+    showSelect("hidden");
+    showHideCalendarButtons("visible", "hidden");
 
+
+
+
+    // TODO evaluate event
+    let clearEvents = () => {
+        calendar.getEvents().forEach(evento => evento.remove())
+        // TODO: Open loader
+    }
+    let iniciateAndLoadEvents = () => {
+        console.log("Opciones a setear ===================================")
+        console.log(calendar.currentData.calendarOptions.displayEventTime)
+        console.log(calendar.currentData.calendarOptions.displayEventEnd)
+        console.log("=====================================================")
+
+
+        if (sessionStorage.getItem("instanceLoaded") == 2) {
+            let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
+            console.log("arrayEvents ==========loaded =============");
+            console.log(arrayEvents);
+            setTimeout(() => {
+                arrayEvents.forEach(evento => {
+                    // console.log(evento)
+                    calendar.addEvent(evento);
+                })
+            }, 500);
+        }
+
+        // TODO: Close loader
+    }
+
+
+    let loadEvents = () => {
+        let primerDiaValue = new Date(sessionStorage.getItem("firstDate"));
+        let ultimoDiaValue = new Date(sessionStorage.getItem("lastDate"));
+
+
+        if (sessionStorage.getItem("dateStage") == 1) {
+            api.post('/obtenerTodosEventos', {
+                api_token: token,
+                fecha_inicio: primerDiaValue,
+                fecha_fin: ultimoDiaValue
+            }).then(function ({ data }) {
+                console.log(data)
+                let { datos } = data;
+                sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
+                iniciateAndLoadEvents();
+            }).catch(function (error) {
+                console.log(error);
+                alert("Ha ocurrido un error")
+            });
+        } else {
+            let { id } = JSON.parse(atob(sessionStorage.getItem("roomSelected")));
+            api.post('/obtenerEventos', {
+                api_token: token,
+                sala_id: id,
+                fecha_inicio: primerDiaValue,
+                fecha_fin: ultimoDiaValue
+            }).then(function ({ data }) {
+                console.log(data)
+                let { datos } = data;
+                sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
+                iniciateAndLoadEvents();
+            }).catch(function (error) {
+                console.log(error);
+                alert("Ha ocurrido un error")
+            });
+        }
+
+    }
+    loadEvents();
 
 
 
@@ -506,59 +581,79 @@ document.addEventListener('DOMContentLoaded', function () {
     // @6° CALENDAR & MENU BUTTONS ACTIONS __________________________________________________________________________________________________
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
+    // Cargar eventos
+
+    let startEventsToUI = () => {
+
+        let [primerDia, ultimoDia] = getCurrentMonth(calendar.getDate());
+        // SetTime
+        sessionStorage.setItem("firstDate", primerDia);
+        sessionStorage.setItem("lastDate", ultimoDia);
+        loadEvents();
+    }
+
+
     //-> @@Calendar buttons
     $(".fc-resourceTimelineDay-button").on("click", () => {
+        sessionStorage.setItem("instanceLoaded", 2);
+        clearEvents();
         sessionStorage.setItem("dateStage", 1);
-        calendar.setOption('displayEventTime', 'false');
-        calendar.setOption('displayEventEnd', 'false');
+        startEventsToUI();
     });
 
     $(".fc-listWeek-button").on("click", () => {
+        sessionStorage.setItem("instanceLoaded", 2);
+        clearEvents();
         sessionStorage.setItem("dateStage", 2);
-        calendar.setOption('displayEventTime', 'true');
-        calendar.setOption('displayEventEnd', 'true');
+        startEventsToUI();
     });
 
     $(".fc-dayGridMonth-button").on("click", () => {
+        sessionStorage.setItem("instanceLoaded", 2);
+        clearEvents();
         sessionStorage.setItem("dateStage", 3);
-        calendar.setOption('displayEventTime', 'false');
-        calendar.setOption('displayEventEnd', 'false');
+        startEventsToUI();
     });
 
 
     // TODO agregar aqui la insercion y eliminacion de eventos
     $(".fc-next-button").on("click", () => {
-        let dateRecovered = getCurrentMonth(calendar.getDate());
-        // console.log(dateRecovered); TODO agregar aqui el llamado de api y validacion de tiempo
+        sessionStorage.setItem("instanceLoaded", 2);
+        clearEvents();
+        startEventsToUI();
     });
 
     $(".fc-prev-button").on("click", () => {
-        let dateRecovered = getCurrentMonth(calendar.getDate());
-        // console.log(dateRecovered);
+        sessionStorage.setItem("instanceLoaded", 2);
+        clearEvents();
+        startEventsToUI();
     });
 
 
     //-> @@Menu buttons
-
-
     $(".generalView").on("click", () => {
+        sessionStorage.setItem("instanceLoaded", 2);
+        clearEvents();
         sessionStorage.setItem("dateStage", 1);
         showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
-        showSelect("hidden")
+        showSelect("hidden");
         calendar.changeView('resourceTimelineDay');
-        // TODO call events
+        showHideCalendarButtons("visible", "hidden");
+        startEventsToUI();
     });
 
     $(".generalCalendar").on("click", () => {
+        sessionStorage.setItem("instanceLoaded", 2);
+        clearEvents();
         sessionStorage.setItem("dateStage", 3);
         showTitlePage(`<p>Calendario general</p><i class="fa-solid fa-calendar-days"></i>`)
-        showSelect("visible")
-        calendar.changeView('dayGridMonth');
-        // TODO call events
+        showSelect("visible"),
+            calendar.changeView('dayGridMonth');
+        showHideCalendarButtons("hidden", "visible");
+        startEventsToUI();
     });
 
     $(".logout").on("click", () => {
-                    
     });
 
 })
