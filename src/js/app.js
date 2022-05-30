@@ -39,24 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
     //instance of Luxon library
     let DateTime = luxon.DateTime;
 
-    // Swal.fire({
-    //     title: 'Do you want to save the changes?',
-    //     showDenyButton: true,
-    //     showCancelButton: true,
-    //     confirmButtonText: 'Save',
-    //     denyButtonText: `Don't save`,
-    // }).then((result) => {
-    //     /* Read more about isConfirmed, isDenied below */
-    //     if (result.isConfirmed) {
-    //         Swal.fire('Saved!', '', 'success')
-    //     } else if (result.isDenied) {
-    //         Swal.fire('Changes are not saved', '', 'info')
-    //     }
-    // })
-
-
-
-
 
     // ________________________________________________________________________________________________________________________
     // @2° CONFIGURE UI CALENDAR DATA AND ACTIONS _____________________________________________________________________________
@@ -180,11 +162,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 confirmButtonText: 'Si, borrar evento'
             }).then((result) => {
                 if (result.isConfirmed) {
-
-
-
-
-
 
                     let id = $("#name").attr("data");
 
@@ -939,6 +916,49 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $(".logout").on("click", () => {
+
+        Swal.fire({
+            title: '¿Desea cerrar sesión?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Cerrar sesión'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                api.get('/logout', {
+                    params: {
+                        api_token: token
+                    }
+                }).then(function ({ data }) {
+                    sessionStorage.removeItem("tok")
+                    sessionStorage.removeItem("roomSelected")
+                    sessionStorage.removeItem("dateStage")
+                    sessionStorage.removeItem("lastDate")
+                    sessionStorage.removeItem("rooms")
+                    sessionStorage.removeItem("user")
+                    sessionStorage.removeItem("firstDate")
+                    sessionStorage.removeItem("events")
+                    sessionStorage.removeItem("instanceLoaded")
+                    $(location).prop('href', `../index.html`);
+            
+                }).catch(function (error) {
+                    console.log(error);
+                    Swal.fire({
+                        title: '¡Error al borrar evento!',
+                        text: "Intentalo más tarde",
+                        icon: 'error',
+                        confirmButtonColor: '#313945',
+                        confirmButtonText: 'Entendido',
+                        allowOutsideClick: false
+                    })
+                });
+
+
+
+            }
+        })
     });
 
     // Modal

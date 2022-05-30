@@ -10,7 +10,7 @@ body .content-login {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: #f7f8fa;
+  background-color: #313945;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -45,19 +45,19 @@ body .content-login .info {
 }
 
 body .content-login .info .logo {
-  width: 18em;
+  width: 30em;
 }
 
 body .content-login #login {
-  width: 22em;
+  width: 40em;
   height: 20em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: row;
+          flex-direction: row;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -65,13 +65,38 @@ body .content-login #login {
       -ms-flex-pack: center;
           justify-content: center;
   background-color: white;
+  border-radius: 8px;
+  -webkit-box-shadow: 0.5em 1em 1em #00000026;
+          box-shadow: 0.5em 1em 1em #00000026;
 }
 
-body .content-login #login .title-form {
-  color: #313945;
-  font-size: 1.5em;
-  font-family: Arial !important;
-  font-weight: 700;
+body .content-login #login .animatedTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  top: 2em;
+  left: -1.5em;
+  z-index: 1;
+  width: 35em;
+}
+
+body .content-login #login .animatedTitle #calendarAnimate {
+  width: 35em;
+}
+
+body .content-login #login .contentInput {
+  width: 22em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -79,23 +104,35 @@ body .content-login #login .title-form {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  left: -11em;
+  z-index: 2;
 }
 
-body .content-login #login .title-form span {
-  margin-top: -14px;
+body .content-login #login .contentInput .title-form {
+  width: 14em;
+  line-height: 24px;
+  color: white;
+  font-size: 1.5em;
+  font-family: Arial !important;
+  font-weight: 700;
+  background: #313945;
+  text-align: center;
+  padding: 0.5em 2em;
+  border-radius: 8px;
 }
 
-body .content-login #login .form-group {
-  width: 80%;
+body .content-login #login .contentInput #userControl {
+  width: 21em !important;
 }
 
-body .content-login #login .form-group label {
+body .content-login #login .contentInput #userControl label {
   font-size: 0.8em;
   font-weight: bold;
   margin-bottom: 0px;
@@ -103,122 +140,42 @@ body .content-login #login .form-group label {
   font-family: Arial !important;
 }
 
-body .content-login #login .form-group input {
+body .content-login #login .contentInput #userControl input {
   background-color: var(--gray-form);
 }
 
-body .content-login #login .btn {
+body .content-login #login .contentInput #passControl {
+  width: 21em !important;
+  height: 4em;
+}
+
+body .content-login #login .contentInput #passControl label {
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-bottom: 0px;
+  color: #bdbcc1;
+  font-family: Arial !important;
+}
+
+body .content-login #login .contentInput #passControl input {
+  background-color: var(--gray-form);
+}
+
+body .content-login #login .contentInput #passControl #showPass {
+  position: relative;
+  left: calc(100% - 3em);
+  width: 3em;
+  top: -38px;
+  color: #313945;
+  background-color: #bdbcc1;
+}
+
+body .content-login #login .contentInput .btn {
   background-color: #313945;
-  width: 80%;
+  width: 21em;
 }
 
-body .content-login #login .btn i {
+body .content-login #login .contentInput .btn i {
   margin-right: 0.5em;
-}
-
-@media (min-width: 430px) {
-  body {
-    margin: 0px;
-    padding: 0px;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-  }
-  body .content-login {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #f7f8fa;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
-  body .content-login .info {
-    width: 100%;
-    height: 10em;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
-  body .content-login .info .logo {
-    width: 30em;
-  }
-  body .content-login #login {
-    width: 30em;
-    height: 20em;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    background-color: white;
-  }
-  body .content-login #login .title-form {
-    color: #313945c3;
-    font-size: 1.5em;
-    font-family: Arial !important;
-    font-weight: 700;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  body .content-login #login .title-form span {
-    margin-top: -8px;
-  }
-  body .content-login #login .form-group {
-    width: 80%;
-  }
-  body .content-login #login .form-group label {
-    font-size: 0.8em;
-    font-weight: bold;
-    margin-bottom: 0px;
-    color: #bdbcc1;
-    font-family: Arial !important;
-  }
-  body .content-login #login .form-group input {
-    background-color: var(--gray-form);
-  }
-  body .content-login #login .btn {
-    background-color: #313945;
-    width: 80%;
-  }
 }
 /*# sourceMappingURL=login.css.map */

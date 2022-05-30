@@ -17,25 +17,42 @@
 <body>
     <div class="content-login">
         <div class="info">
-            <img class="logo" src="./src/assets/escudo.png" alt="">
+            <img class="logo" src="./src/assets/escudoBlanco.png" alt="">
         </div>
         <form method="post" id="login">
-            <p class="title-form">Sistema de reserva <span>para salas internas</span></p>
-            <div class="form-group">
-                <label for="user">Usuario</label>
-                <input type="text" class="form-control" id="user" name="user" placeholder="">
+            <div class="animatedTitle">
+                <div id="calendarAnimate"></div>
             </div>
-            <div class="form-group">
-                <label for="pass">Contraseña</label>
-                <input type="text" class="form-control" id="pass" name="pass" placeholder="">
+
+            <div class="contentInput">
+                <p class="title-form">Sistema de reserva para salas internas</p>
+                <div class="form-group" id="userControl">
+                    <label for="user">Usuario</label>
+                    <input type="text" class="form-control" id="user" name="user" placeholder="" maxlength="15">
+                </div>
+                <div class="form-group" id="passControl">
+                    <label for="pass">Contraseña</label>
+                    <input type="password" class="form-control" id="pass" name="pass" placeholder="" maxlength="20">
+                    <div class="btn" id="showPass">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary"><i
+                        class="fa-solid fa-right-to-bracket"></i>Entrar</button>
             </div>
-            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-right-to-bracket"></i>Entrar</button>
+
+
+
         </form>
+
+
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./src/js/config.js"></script>
     <script src="./src/js/log.js"></script>
+    <script src="./src/js/sweetAlert2.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -46,7 +63,14 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.1/lottie.min.js"
+        integrity="sha512-CWKGqmXoxo+9RjazbVIaiFcD+bYEIcUbBHwEzPlT0FilQq3TCUac+/uxZ5KDmvYiXJvp32O8rcgchkYw6J6zOA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.3/lottie.min.js"
+        integrity="sha512-e0f5QhAghpnR7F96ocZHSXHNrM1ugw32mmQJsKg02ADeVj7uxFkG5UA+HgrcTTxcPWp415lH+1l1b4nZtyqnsg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
 
 </html>
