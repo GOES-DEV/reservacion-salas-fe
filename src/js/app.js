@@ -87,8 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let timeBegin = $("#timeBegin").val();
             let timeEnd = $("#timeEnd").val();
             let usuario_id = atob(sessionStorage.getItem("user"));
-            console.log("usuario_id")
-            console.log(usuario_id)
+
 
             if (descripcion.length == 0) {
                 alert("Debe llenar")
@@ -121,41 +120,101 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //-> @@Handlers actions calendar (use modal)
     let dateAction = ({ dateStr, resource = "empty" }) => {
-        cleanModal();
-        let dateText;
-        if (dateStr.length > 10) {
-            let positionLetter = dateStr.indexOf("T");
-            dateText = dateStr.substr(0, positionLetter);
-        } else {
-            dateText = dateStr;
+
+        let clickedDate = new Date(dateStr)
+        let today = new Date()
+        clickedDate.setHours(00)
+        clickedDate.setMinutes(00)
+        clickedDate.setSeconds(00)
+        clickedDate.setMilliseconds(00)
+        today.setHours(00)
+        today.setMinutes(00)
+        today.setSeconds(00)
+        today.setMilliseconds(00)
+
+
+        if (clickedDate >= today) {
+
+
+            cleanModal();
+            let dateText;
+            if (dateStr.length > 10) {
+                let positionLetter = dateStr.indexOf("T");
+                dateText = dateStr.substr(0, positionLetter);
+            } else {
+                dateText = dateStr;
+            }
+
+            let titleEvent = "";
+            let idEvent = "";
+
+            if (resource == "empty") {
+                // Obtener de session storage name room selected
+                let info = atob(sessionStorage.getItem("roomSelected"));
+                let { id, title } = JSON.parse(info);
+
+                titleEvent = title;
+                idEvent = id;
+            } else {
+                const { _resource } = resource;
+                titleEvent = _resource.title
+                idEvent = _resource.id;
+            }
+
+            console.log("Evaluar hora")
+            console.log(clickedDate)
+            console.log(today)
+            if (clickedDate <= today) {
+
+                let time = new Date();
+                console.log("Obtener tiempo");
+                let hours = parseInt(time.getHours());
+                let minutes = parseInt(time.getMinutes());
+
+                let hoursEnd;
+                let minutesEnd;
+
+                if (minutes < 31) {
+                    minutes = 31;
+                    minutesEnd = "00"
+
+
+                    hoursEnd = hours + 1
+                    if (hoursEnd < 10) {
+                        hoursEnd = `0${hoursEnd}`;
+                    }
+                } else {
+                    minutes = "01";
+                    minutesEnd = "31"
+
+                    hours = hours + 1
+                    hoursEnd = hours;
+                    if (hours < 10) {
+                        hours = `0${hours}`;
+                    }
+                }
+
+                console.log(`${hours}:${minutes}`);
+                console.log(`${hoursEnd}:${minutesEnd}`);
+
+                $("#timeBegin").val(`${hours}:${minutes}`)
+                $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
+            }
+
+
+
+            document.getElementById("date").value = dateText;
+            document.getElementById("room").value = titleEvent;
+            document.getElementById("room").setAttribute("data", idEvent);
+            document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
+            document.getElementById("buttons").innerHTML = "";
+            document.getElementById("buttons").innerHTML = `${btnAdd} ${btnCancel}`;
+            $('#modal').modal("show");
+
+            loadEventsOnModal();
+
         }
 
-        let titleEvent = "";
-        let idEvent = "";
-
-        if (resource == "empty") {
-            // Obtener de session storage name room selected
-            let info = atob(sessionStorage.getItem("roomSelected"));
-            let { id, title } = JSON.parse(info);
-
-            titleEvent = title;
-            idEvent = id;
-        } else {
-            const { _resource } = resource;
-            titleEvent = _resource.title
-            idEvent = _resource.id;
-        }
-
-
-        document.getElementById("date").value = dateText;
-        document.getElementById("room").value = titleEvent;
-        document.getElementById("room").setAttribute("data", idEvent);
-        document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
-        document.getElementById("buttons").innerHTML = "";
-        document.getElementById("buttons").innerHTML = `${btnAdd} ${btnCancel}`;
-        $('#modal').modal("show");
-
-        loadEventsOnModal();
     }
     let eventAction = (info) => {
         cleanModal();
