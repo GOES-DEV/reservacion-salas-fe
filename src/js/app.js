@@ -86,6 +86,9 @@ document.addEventListener('DOMContentLoaded', function () {
             let date = $("#date").val();
             let timeBegin = $("#timeBegin").val();
             let timeEnd = $("#timeEnd").val();
+            let usuario_id = atob(sessionStorage.getItem("user"));
+            console.log("usuario_id")
+            console.log(usuario_id)
 
             if (descripcion.length == 0) {
                 alert("Debe llenar")
@@ -93,17 +96,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 api.post('/crearEvento', {
                     api_token: token,
                     sala_id,
-                    usuario_id: 1,
+                    usuario_id,
                     descripcion,
                     inicio_evento: `${date} ${timeBegin}:00`,
                     fin_evento: `${date} ${timeEnd}:00`
                 }).then(function ({ data }) {
                     let { datos } = data;
                     if (datos == 1) {
-                        console.log("Se guardo")
-                        console.log(datos)
-                        loadEvents();
                         $('#modal').modal("hide");
+                        alert("Se guardo correctamente");
+                        location.reload();
                     } else {
                         console.log("No se ha podido registrar su evento, verifica que el rango de horario que buscas este disponible en la sala")
                         console.log(datos)
@@ -193,6 +195,19 @@ document.addEventListener('DOMContentLoaded', function () {
         alert("Ha ocurrido un error")
     });
 
+    api.get('/obtenerUsuario', {
+        params: {
+            api_token: token
+        }
+    }).then(function ({ data }) {
+        let { datos } = data;
+        sessionStorage.setItem("user", btoa(datos.usuario_id));
+
+    }).catch(function (error) {
+        console.log(error);
+        alert("Ha ocurrido un error")
+    });
+
     //-> @@Select fill
     let fillSelect = (arrayResources) => {
         let select = document.getElementById("resourcesSelect");
@@ -262,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let formatEnd = addZero(ultimoDia);
 
         let formatDayBegin = `${primerDia.getFullYear()}-${formatBegin[1]}-${formatBegin[0]} 00:00:00`;
-        let formatDayEnd = `${ultimoDia.getFullYear()}-${formatEnd[1]}-${formatEnd[0]} 23:59:00`;
+        let formatDayEnd = `${ultimoDia.getFullYear()}-${formatEnd[1]}-${formatEnd[0]} 23:59:59`;
         return [
             formatDayBegin, formatDayEnd
         ];
