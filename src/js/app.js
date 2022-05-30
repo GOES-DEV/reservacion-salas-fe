@@ -69,9 +69,63 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnUpdate = `<button id="update"  class="btn"><i class="fa-solid fa-square-pen"></i>Modificar</button>`;
     const btnDelete = `<button  id="delete" class="btn"><i class="fa-solid fa-trash"></i>Borrar</button>`;
     const btnCancel = `<button id="cancel" class="btn">Cancelar</button>`;
+
+    // let clean modal
+    let cleanModal = () => {
+        $('#name').val("");
+        $('#timeBegin').val("00:01");
+        $('#timeEnd').val("00:30");
+    }
+
+    let loadEventsOnModal = () => {
+
+        // Cancel button
+        $("#cancel").on("click", () => {
+            $('#modal').modal("hide");
+        });
+
+        // Add event button
+        $("#add").on("click", () => {
+            // TODO VALIDATION input name
+            let sala_id = parseInt($("#room").attr("data"));
+            let descripcion = $("#name").val();
+            let date = $("#date").val();
+            let timeBegin = $("#timeBegin").val();
+            let timeEnd = $("#timeEnd").val();
+
+            if (descripcion.length == 0) {
+                alert("Debe llenar")
+            } else {
+                api.post('/crearEvento', {
+                    api_token: token,
+                    sala_id,
+                    usuario_id: 1,
+                    descripcion,
+                    inicio_evento: `${date} ${timeBegin}:00`,
+                    fin_evento: `${date} ${timeEnd}:00`
+                }).then(function ({ data }) {
+                    let { datos } = data;
+                    if (datos == 1) {
+                        console.log("Se guardo")
+                        console.log(datos)
+                        loadEvents();
+                        $('#modal').modal("hide");
+                    } else {
+                        console.log("No se ha podido registrar su evento, verifica que el rango de horario que buscas este disponible en la sala")
+                        console.log(datos)
+                    }
+
+                }).catch(function (error) {
+                    console.log(error);
+                    alert("Ha ocurrido un error")
+                });
+            }
+        });
+    }
+
     //-> @@Handlers actions calendar (use modal)
     let dateAction = ({ dateStr, resource = "empty" }) => {
-
+        cleanModal();
         let dateText;
         if (dateStr.length > 10) {
             let positionLetter = dateStr.indexOf("T");
@@ -81,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         let titleEvent = "";
+        let idEvent = "";
 
         if (resource == "empty") {
             // Obtener de session storage name room selected
@@ -88,21 +143,26 @@ document.addEventListener('DOMContentLoaded', function () {
             let { id, title } = JSON.parse(info);
 
             titleEvent = title;
+            idEvent = id;
         } else {
             const { _resource } = resource;
             titleEvent = _resource.title
-            // const { id, title } = _resource;
+            idEvent = _resource.id;
         }
 
 
         document.getElementById("date").value = dateText;
         document.getElementById("room").value = titleEvent;
+        document.getElementById("room").setAttribute("data", idEvent);
         document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
         document.getElementById("buttons").innerHTML = "";
         document.getElementById("buttons").innerHTML = `${btnAdd} ${btnCancel}`;
         $('#modal').modal("show");
+
+        loadEventsOnModal();
     }
     let eventAction = (info) => {
+        cleanModal();
         // let postionLetter = dateStr.indexOf("T");
         // let dateText = dateStr.substr(0, postionLetter)
 
@@ -113,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("buttons").innerHTML = `${btnUpdate} ${btnDelete}  ${btnCancel}`;
         $('#modal').modal("show");
     }
+
 
     let dateActionNone = async () => await console.log("no action day");
     let eventActionNone = async () => await console.log("no action event");
@@ -162,7 +223,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let id = target.value;
         let title = target.options[target.selectedIndex].text;
         let roomInfo = btoa(JSON.stringify({ id, title }));
-        sessionStorage.setItem("roomSelected", roomInfo)
+        sessionStorage.setItem("roomSelected", roomInfo);
+        loadEvents();
     })
 
 
@@ -177,17 +239,37 @@ document.addEventListener('DOMContentLoaded', function () {
     sessionStorage.setItem("dateStage", 1);
     // Info: Default load actual date (month)
 
+    let addZero = (day) => {
+
+        if (day.getDate() < 10) {
+            dayFormat = `0${day.getDate()}`;
+        } else {
+            dayFormat = day.getDate();
+        }
+
+        if (day.getMonth() + 1 < 10) {
+            monthFormat = `0${day.getMonth() + 1}`;
+        } else {
+            monthFormat = day.getMonth() + 1;
+        }
+
+        return format = [
+            dayFormat,
+            monthFormat
+        ];
+
+    }
+
     // Set hours, minutes and seconds
     let setTimeFormat = (primerDia, ultimoDia) => {
-        primerDia.setHours(00);
-        primerDia.setMinutes(00);
-        primerDia.setSeconds(00);
-        ultimoDia.setHours(23);
-        ultimoDia.setMinutes(59);
-        ultimoDia.setSeconds(00);
 
+        let formatBegin = addZero(primerDia);
+        let formatEnd = addZero(ultimoDia);
+
+        let formatDayBegin = `${primerDia.getFullYear()}-${formatBegin[1]}-${formatBegin[0]} 00:00:00`;
+        let formatDayEnd = `${ultimoDia.getFullYear()}-${formatEnd[1]}-${formatEnd[0]} 23:59:00`;
         return [
-            primerDia, ultimoDia
+            formatDayBegin, formatDayEnd
         ];
     }
     //-> @@get current month
@@ -201,6 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let ultimoDia = new Date(date);
             let timeFormat = setTimeFormat(primerDia, ultimoDia);
 
+            console.log(timeFormat)
             currentDate = [
                 timeFormat[0],
                 timeFormat[1]
@@ -246,59 +329,85 @@ document.addEventListener('DOMContentLoaded', function () {
     // @4° CONFIG CALENDAR, GET AND SET RESOURCES AND EVENTS FROM SESSIONSTORAGE AND FINALLY RENDER CALENDAR __________________
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
-    //-> @@Resources and events
-    let arrayResources = JSON.parse(atob(sessionStorage.getItem("rooms")));
-    let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
+    let runCalendar = () => {
+        //-> @@Resources and events
+        let arrayResources = JSON.parse(atob(sessionStorage.getItem("rooms")));
+        // let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
+        let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
+        console.log("arrayEvents recuperados")
+        console.log(arrayEvents)
 
 
-    //-> @@Config default
-    calendar = new FullCalendar.Calendar(calendarEl, {
-        schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-        initialView: "resourceTimelineDay",
-        themeSystem: 'standard',
-        aspectRatio: 1,
-        height: "auto",
-        locale: "es-us",
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: "resourceTimelineDay dayGridMonth,listWeek"
-        },
-        buttonText: {
-            today: 'Hoy',
-            month: 'Mes',
-            week: 'Semana',
-            day: 'Dia',
-            list: 'Agenda'
-        },
-        eventTimeFormat: {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true,
-            meridiem: false
-        },
-        slotLabelFormat: { hour: 'numeric', omitZeroMinute: true, hour12: true },
-        displayEventTime: false,
-        displayEventEnd: false,
-        dayHeaderFormat: { weekday: 'short', omitCommas: true },
-        hiddenDays: [],
-        eventDisplay: 'block',
-        eventBorderColor: 'rgba(0, 0, 0, 0)',
-        resourceAreaHeaderContent: 'Salas',
-        resources: arrayResources,
-        events: arrayEvents,
-        dateClick: dateAction,
-        eventClick: eventAction
+        //-> @@Config default
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+            initialView: "resourceTimelineDay",
+            themeSystem: 'standard',
+            aspectRatio: 1,
+            height: "auto",
+            locale: "es-us",
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: "resourceTimelineDay dayGridMonth,listWeek"
+            },
+            buttonText: {
+                today: 'Hoy',
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Dia',
+                list: 'Agenda'
+            },
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true,
+                meridiem: false
+            },
+            slotLabelFormat: { hour: 'numeric', omitZeroMinute: true, hour12: true },
+            displayEventTime: false,
+            displayEventEnd: false,
+            dayHeaderFormat: { weekday: 'short', omitCommas: true },
+            hiddenDays: [],
+            eventDisplay: 'block',
+            eventBorderColor: 'rgba(0, 0, 0, 0)',
+            resourceAreaHeaderContent: 'Salas',
+            resources: arrayResources,
+            events: arrayEvents,
+            dateClick: dateAction,
+            eventClick: eventAction
+        });
+
+        //-> @@Render calendar
+        calendar.render();
+        sessionStorage.setItem("instanceLoaded", 1);
+    }
+    // Load default events important
+    let primerDiaValue = sessionStorage.getItem("firstDate");
+    let ultimoDiaValue = sessionStorage.getItem("lastDate");
+
+    api.post('/obtenerTodosEventos', {
+        api_token: token,
+        fecha_inicio: primerDiaValue,
+        fecha_fin: ultimoDiaValue
+    }).then(function ({ data }) {
+        let { datos } = data;
+        console.log("obtenerTodosEventos");
+        console.log(datos);
+        // sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
+        sessionStorage.setItem("events", JSON.stringify(datos));
+        runCalendar();
+        iniciateAndLoadEvents();
+    }).catch(function (error) {
+        console.log(error);
+        alert("Ha ocurrido un error")
     });
 
-    //-> @@Render calendar
-    calendar.render();
-    console.log("Opciones a setear after render ===================================")
-    console.log(calendar.currentData.calendarOptions.displayEventTime)
-    console.log(calendar.currentData.calendarOptions.displayEventEnd)
-    console.log("=====================================================")
-    sessionStorage.setItem("instanceLoaded", 1);
+
+
+
+
 
     //-> @@Load default title and hide select rooms control
     showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`);
@@ -314,14 +423,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // TODO: Open loader
     }
     let iniciateAndLoadEvents = () => {
-        console.log("Opciones a setear ===================================")
-        console.log(calendar.currentData.calendarOptions.displayEventTime)
-        console.log(calendar.currentData.calendarOptions.displayEventEnd)
-        console.log("=====================================================")
-
-
         if (sessionStorage.getItem("instanceLoaded") == 2) {
-            let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
+            // let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
+            let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
             console.log("arrayEvents ==========loaded =============");
             console.log(arrayEvents);
             setTimeout(() => {
@@ -337,8 +441,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     let loadEvents = () => {
-        let primerDiaValue = new Date(sessionStorage.getItem("firstDate"));
-        let ultimoDiaValue = new Date(sessionStorage.getItem("lastDate"));
+        console.log("Call loadEvents =======================Here=======")
+        let primerDiaValue = sessionStorage.getItem("firstDate");
+        let ultimoDiaValue = sessionStorage.getItem("lastDate");
 
 
         if (sessionStorage.getItem("dateStage") == 1) {
@@ -347,9 +452,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 fecha_inicio: primerDiaValue,
                 fecha_fin: ultimoDiaValue
             }).then(function ({ data }) {
-                console.log(data)
                 let { datos } = data;
-                sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
+                // sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
+                sessionStorage.setItem("events", JSON.stringify(datos));
                 iniciateAndLoadEvents();
             }).catch(function (error) {
                 console.log(error);
@@ -363,9 +468,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 fecha_inicio: primerDiaValue,
                 fecha_fin: ultimoDiaValue
             }).then(function ({ data }) {
+                console.log("data events rango")
                 console.log(data)
                 let { datos } = data;
-                sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
+                // sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
+                sessionStorage.setItem("events", JSON.stringify(datos))
                 iniciateAndLoadEvents();
             }).catch(function (error) {
                 console.log(error);
@@ -446,9 +553,13 @@ document.addEventListener('DOMContentLoaded', function () {
     //-> @@Buttons action time 
     $("#plusBegin").on("click", () => {
         let time = getTime("Begin");
+        // console.log("time que pasa")
+        // console.log(time)
 
         let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
         // Verify the limit
+        // console.log("c plus click ============")
+        // console.log(c)
         if (c.minute == 01 && c.hour == 23) {
             console.log("Horario maximo")
         } else {
@@ -655,5 +766,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $(".logout").on("click", () => {
     });
+
+    // Modal
 
 })
