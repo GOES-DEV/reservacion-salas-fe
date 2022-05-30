@@ -39,6 +39,24 @@ document.addEventListener('DOMContentLoaded', function () {
     //instance of Luxon library
     let DateTime = luxon.DateTime;
 
+    // Swal.fire({
+    //     title: 'Do you want to save the changes?',
+    //     showDenyButton: true,
+    //     showCancelButton: true,
+    //     confirmButtonText: 'Save',
+    //     denyButtonText: `Don't save`,
+    // }).then((result) => {
+    //     /* Read more about isConfirmed, isDenied below */
+    //     if (result.isConfirmed) {
+    //         Swal.fire('Saved!', '', 'success')
+    //     } else if (result.isDenied) {
+    //         Swal.fire('Changes are not saved', '', 'info')
+    //     }
+    // })
+
+
+
+
 
     // ________________________________________________________________________________________________________________________
     // @2° CONFIGURE UI CALENDAR DATA AND ACTIONS _____________________________________________________________________________
@@ -72,6 +90,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     let loadEventsOnModal = () => {
+        let nameInput = $("#name");
+        nameInput.on("keyup", () => {
+            nameInput.css("box-shadow", "none")
+        })
 
         // Cancel button
         $("#cancel").on("click", () => {
@@ -90,7 +112,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             if (descripcion.length == 0) {
-                alert("Debe llenar")
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Nombre de evento vacio!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                nameInput.css("box-shadow", "inset 0px 0px 0.5em #ff000080")
             } else {
                 api.post('/crearEvento', {
                     api_token: token,
@@ -103,24 +132,101 @@ document.addEventListener('DOMContentLoaded', function () {
                     let { datos } = data;
                     if (datos == 1) {
                         $('#modal').modal("hide");
-                        alert("Se guardo correctamente");
-                        location.reload();
+                        Swal.fire({
+                            title: '¡Evento agregado con exito!',
+                            icon: 'success',
+                            confirmButtonColor: '#313945',
+                            confirmButtonText: 'Entendido',
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
                     } else {
-                        console.log("No se ha podido registrar su evento, verifica que el rango de horario que buscas este disponible en la sala")
-                        console.log(datos)
+                        Swal.fire({
+                            title: '¡Verifica los datos ingresados!',
+                            text: "Puede que el rango de horario ya este ocupado",
+                            icon: 'info',
+                            confirmButtonColor: '#313945',
+                            confirmButtonText: 'Entendido',
+                            allowOutsideClick: false
+                        })
                     }
 
                 }).catch(function (error) {
                     console.log(error);
-                    alert("Ha ocurrido un error")
+                    Swal.fire({
+                        title: '¡Verifica los datos ingresados!',
+                        text: "No puedes agregar eventos antes de la hora actual",
+                        icon: 'info',
+                        confirmButtonColor: '#313945',
+                        confirmButtonText: 'Entendido',
+                        allowOutsideClick: false
+                    })
                 });
             }
+        });
+
+        $("#delete").on("click", () => {
+            Swal.fire({
+                title: '¿Desea borrar este evento?',
+                text: "El evento se borrara permanente",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, borrar evento'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+
+
+
+
+
+                    let id = $("#name").attr("data");
+
+                    api.post('/eliminarEvento', {
+                        api_token: token,
+                        id
+                    }).then(function ({ data }) {
+                       
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Evento borrado!',
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
+
+                    }).catch(function (error) {
+                        console.log(error);
+                        Swal.fire({
+                            title: '¡Error al borrar evento!',
+                            text: "Intentalo más tarde",
+                            icon: 'error',
+                            confirmButtonColor: '#313945',
+                            confirmButtonText: 'Entendido',
+                            allowOutsideClick: false
+                        })
+                    });
+
+
+                }
+            })
         });
     }
 
     //-> @@Handlers actions calendar (use modal)
     let dateAction = ({ dateStr, resource = "empty" }) => {
-
+        $(".info-event").css("display", "flex");
+        $("#name").attr("readonly", false)
         let clickedDate = new Date(dateStr)
         let today = new Date()
         clickedDate.setHours(00)
@@ -134,7 +240,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         if (clickedDate >= today) {
-
 
             cleanModal();
             let dateText;
@@ -185,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 } else {
                     minutes = "01";
-                    minutesEnd = "31"
+                    minutesEnd = "30"
 
                     hours = hours + 1
                     hoursEnd = hours;
@@ -218,15 +323,39 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     let eventAction = (info) => {
         cleanModal();
-        // let postionLetter = dateStr.indexOf("T");
-        // let dateText = dateStr.substr(0, postionLetter)
+        $(".info-event").css("display", "none");
 
-        // document.getElementById("date").value = dateText;
-        // document.getElementById("room").value = title;
-        document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-pen"></i> Modificar evento`;
+
+        let timeBegin = new Date(info.event.start);
+        let timeEnd = new Date(info.event.end);
+        let hoursBegin = timeBegin.getHours()
+        let minutesBegin = timeBegin.getMinutes()
+        let hoursEnd = timeEnd.getHours()
+        let minutesEnd = timeEnd.getMinutes()
+        if (hoursBegin < 10) {
+            hoursBegin = `0${hoursBegin}`
+        }
+        if (minutesBegin < 10) {
+            minutesBegin = `0${minutesBegin}`
+        }
+
+        if (hoursEnd < 10) {
+            hoursEnd = `0${hoursEnd}`
+        }
+        if (minutesEnd < 10) {
+            minutesEnd = `0${minutesEnd}`
+        }
+
+        $("#timeBegin").val(`${hoursBegin}:${minutesBegin}`);
+        $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`);
+        $("#name").attr("readonly", true);
+        $("#name").attr("data", info.event.id);
+        $("#name").val(info.event.title);
+        document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-trash"></i> Eliminar evento`;
         document.getElementById("buttons").innerHTML = "";
-        document.getElementById("buttons").innerHTML = `${btnUpdate} ${btnDelete}  ${btnCancel}`;
+        document.getElementById("buttons").innerHTML = `${btnDelete}`;
         $('#modal').modal("show");
+        loadEventsOnModal();
     }
 
 
