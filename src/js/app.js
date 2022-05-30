@@ -56,12 +56,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // theme: 'bootstrap',
     });
 
-    let showHideCalendarButtons = (value, value2) => {
-        $(".fc-resourceTimelineDay-button").css("visibility", `${value}`);
-        $(".fc-dayGridMonth-button").css("visibility", `${value2}`);
-        $(".fc-listWeek-button").css("visibility", `${value2}`);
-    }
-
 
 
     //-> @@html buttons
@@ -224,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let title = target.options[target.selectedIndex].text;
         let roomInfo = btoa(JSON.stringify({ id, title }));
         sessionStorage.setItem("roomSelected", roomInfo);
+        clearEvents()
         loadEvents();
     })
 
@@ -283,25 +278,10 @@ document.addEventListener('DOMContentLoaded', function () {
             let ultimoDia = new Date(date);
             let timeFormat = setTimeFormat(primerDia, ultimoDia);
 
-            console.log(timeFormat)
             currentDate = [
                 timeFormat[0],
                 timeFormat[1]
             ];
-        } else if (stage == 2) {
-
-            console.log("Semana ======================================================")
-            let primerDia = new Date(date);
-            let ultimoDia = new Date(date);
-            let timeFormat = setTimeFormat(primerDia, ultimoDia);
-
-            timeFormat[1].setDate(timeFormat[1].getDate() + 6);
-
-            currentDate = [
-                timeFormat[0],
-                timeFormat[1]
-            ];
-
         } else {
             console.log("Mes ======================================================")
             let primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -334,8 +314,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let arrayResources = JSON.parse(atob(sessionStorage.getItem("rooms")));
         // let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
         let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
-        console.log("arrayEvents recuperados")
-        console.log(arrayEvents)
 
 
         //-> @@Config default
@@ -349,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
-                right: "resourceTimelineDay dayGridMonth,listWeek"
+                right: "resourceTimelineDay dayGridMonth"
             },
             buttonText: {
                 today: 'Hoy',
@@ -405,14 +383,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-
-
-
-
     //-> @@Load default title and hide select rooms control
     showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`);
     showSelect("hidden");
-    showHideCalendarButtons("visible", "hidden");
+
 
 
 
@@ -441,7 +415,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     let loadEvents = () => {
-        console.log("Call loadEvents =======================Here=======")
         let primerDiaValue = sessionStorage.getItem("firstDate");
         let ultimoDiaValue = sessionStorage.getItem("lastDate");
 
@@ -468,8 +441,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 fecha_inicio: primerDiaValue,
                 fecha_fin: ultimoDiaValue
             }).then(function ({ data }) {
-                console.log("data events rango")
-                console.log(data)
                 let { datos } = data;
                 // sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
                 sessionStorage.setItem("events", JSON.stringify(datos))
@@ -481,7 +452,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
     }
-    loadEvents();
 
 
 
@@ -704,41 +674,52 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    //-> @@Calendar buttons
-    $(".fc-resourceTimelineDay-button").on("click", () => {
-        sessionStorage.setItem("instanceLoaded", 2);
-        clearEvents();
-        sessionStorage.setItem("dateStage", 1);
-        startEventsToUI();
-    });
-
-    $(".fc-listWeek-button").on("click", () => {
-        sessionStorage.setItem("instanceLoaded", 2);
-        clearEvents();
-        sessionStorage.setItem("dateStage", 2);
-        startEventsToUI();
-    });
-
-    $(".fc-dayGridMonth-button").on("click", () => {
-        sessionStorage.setItem("instanceLoaded", 2);
-        clearEvents();
-        sessionStorage.setItem("dateStage", 3);
-        startEventsToUI();
-    });
+    setTimeout(() => {
+        //-> @@Calendar buttons
+        $(".fc-resourceTimelineDay-button").on("click", () => {
+            // alert("resourceTimelineDay");
+            sessionStorage.setItem("instanceLoaded", 2);
+            showSelect("hidden");
+            clearEvents();
+            sessionStorage.setItem("dateStage", 1);
+            console.log("calendar resourceTimelineDay ========");
+            console.log(calendar.getDate());
+            startEventsToUI();
+        });
 
 
-    // TODO agregar aqui la insercion y eliminacion de eventos
-    $(".fc-next-button").on("click", () => {
-        sessionStorage.setItem("instanceLoaded", 2);
-        clearEvents();
-        startEventsToUI();
-    });
+        $(".fc-dayGridMonth-button").on("click", () => {
+            // alert("dayGridMonth");
+            sessionStorage.setItem("instanceLoaded", 2);
+            showSelect("visible");
+            clearEvents();
+            sessionStorage.setItem("dateStage", 3);
+            console.log("calendar dayGridMonth ========");
+            console.log(calendar.getDate());
+            startEventsToUI();
+        });
 
-    $(".fc-prev-button").on("click", () => {
-        sessionStorage.setItem("instanceLoaded", 2);
-        clearEvents();
-        startEventsToUI();
-    });
+
+        // TODO agregar aqui la insercion y eliminacion de eventos
+        $(".fc-next-button").on("click", () => {
+            // alert("next");
+            sessionStorage.setItem("instanceLoaded", 2);
+            clearEvents();
+            console.log("calendar ========");
+            console.log(calendar.getDate());
+            startEventsToUI();
+        });
+
+        $(".fc-prev-button").on("click", () => {
+            // alert("prev");
+            sessionStorage.setItem("instanceLoaded", 2);
+            clearEvents();
+            console.log("calendar ========");
+            console.log(calendar.getDate());
+            startEventsToUI();
+        });
+
+    }, 500);
 
 
     //-> @@Menu buttons
@@ -749,18 +730,8 @@ document.addEventListener('DOMContentLoaded', function () {
         showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
         showSelect("hidden");
         calendar.changeView('resourceTimelineDay');
-        showHideCalendarButtons("visible", "hidden");
-        startEventsToUI();
-    });
-
-    $(".generalCalendar").on("click", () => {
-        sessionStorage.setItem("instanceLoaded", 2);
-        clearEvents();
-        sessionStorage.setItem("dateStage", 3);
-        showTitlePage(`<p>Calendario general</p><i class="fa-solid fa-calendar-days"></i>`)
-        showSelect("visible"),
-            calendar.changeView('dayGridMonth');
-        showHideCalendarButtons("hidden", "visible");
+        console.log("calendar ========");
+        console.log(calendar.getDate());
         startEventsToUI();
     });
 
