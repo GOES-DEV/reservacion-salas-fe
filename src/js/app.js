@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('#btnMenuResponsive').attr("data", 1);
             $('#btnMenuResponsive').css("left", "12em")
             $('.nav').css("left", "0em")
-            
+
         } else {
             $('#btnMenuResponsive').html(`<i class="fa-solid fa-bars"></i>`);
             $('#btnMenuResponsive').attr("data", 0);
@@ -101,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Add event button
         $("#add").on("click", () => {
-            // TODO VALIDATION input name
             let sala_id = parseInt($("#room").attr("data"));
             let descripcion = $("#name").val();
             let date = $("#date").val();
@@ -228,149 +227,168 @@ document.addEventListener('DOMContentLoaded', function () {
         dateStr,
         resource = "empty"
     }) => {
-        $(".info-event").css("display", "flex");
-        $("#name").attr("readonly", false)
-        let clickedDate = new Date(dateStr)
-        let today = new Date()
-        clickedDate.setHours(00)
-        clickedDate.setMinutes(00)
-        clickedDate.setSeconds(00)
-        clickedDate.setMilliseconds(00)
-        today.setHours(00)
-        today.setMinutes(00)
-        today.setSeconds(00)
-        today.setMilliseconds(00)
+
+        let rol = parseInt(atob(sessionStorage.getItem("rol")))
+
+        if (rol == 1) {
+            $(".info-event").css("display", "flex");
+            $("#name").attr("readonly", false)
+            let clickedDate = new Date(dateStr)
+            let today = new Date()
+            clickedDate.setHours(00)
+            clickedDate.setMinutes(00)
+            clickedDate.setSeconds(00)
+            clickedDate.setMilliseconds(00)
+            today.setHours(00)
+            today.setMinutes(00)
+            today.setSeconds(00)
+            today.setMilliseconds(00)
 
 
-        if (clickedDate >= today) {
+            if (clickedDate >= today) {
 
-            cleanModal();
-            let dateText;
-            if (dateStr.length > 10) {
-                let positionLetter = dateStr.indexOf("T");
-                dateText = dateStr.substr(0, positionLetter);
-            } else {
-                dateText = dateStr;
-            }
-
-            let titleEvent = "";
-            let idEvent = "";
-
-            if (resource == "empty") {
-                // Obtener de session storage name room selected
-                let info = atob(sessionStorage.getItem("roomSelected"));
-                let {
-                    id,
-                    title
-                } = JSON.parse(info);
-
-                titleEvent = title;
-                idEvent = id;
-            } else {
-                const {
-                    _resource
-                } = resource;
-                titleEvent = _resource.title
-                idEvent = _resource.id;
-            }
-
-            console.log("Evaluar hora")
-            console.log(clickedDate)
-            console.log(today)
-            if (clickedDate <= today) {
-
-                let time = new Date();
-                console.log("Obtener tiempo");
-                let hours = parseInt(time.getHours());
-                let minutes = parseInt(time.getMinutes());
-
-                let hoursEnd;
-                let minutesEnd;
-
-                if (minutes < 31) {
-                    minutes = 31;
-                    minutesEnd = "00"
-
-
-                    hoursEnd = hours + 1
-                    if (hoursEnd < 10) {
-                        hoursEnd = `0${hoursEnd}`;
-                    }
-                    if (hours < 10) {
-                        hours = `0${hours}`;
-                    }
-
+                cleanModal();
+                let dateText;
+                if (dateStr.length > 10) {
+                    let positionLetter = dateStr.indexOf("T");
+                    dateText = dateStr.substr(0, positionLetter);
                 } else {
-                    minutes = "01";
-                    minutesEnd = "30"
-
-                    hours = hours + 1
-                    hoursEnd = hours;
-                    if (hours < 10) {
-                        hours = `0${hours}`;
-                    }
-                    if (hoursEnd < 10) {
-                        hoursEnd = `0${hoursEnd}`;
-                    }
+                    dateText = dateStr;
                 }
 
-                console.log(`${hours}:${minutes}`);
-                console.log(`${hoursEnd}:${minutesEnd}`);
+                let titleEvent = "";
+                let idEvent = "";
 
-                $("#timeBegin").val(`${hours}:${minutes}`)
-                $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
+                if (resource == "empty") {
+                    // Obtener de session storage name room selected
+                    let info = atob(sessionStorage.getItem("roomSelected"));
+                    let {
+                        id,
+                        title
+                    } = JSON.parse(info);
+
+                    titleEvent = title;
+                    idEvent = id;
+                } else {
+                    const {
+                        _resource
+                    } = resource;
+                    titleEvent = _resource.title
+                    idEvent = _resource.id;
+                }
+
+                console.log("Evaluar hora")
+                console.log(clickedDate)
+                console.log(today)
+                if (clickedDate <= today) {
+
+                    let time = new Date();
+                    console.log("Obtener tiempo");
+                    let hours = parseInt(time.getHours());
+                    let minutes = parseInt(time.getMinutes());
+
+                    let hoursEnd;
+                    let minutesEnd;
+
+                    if (minutes < 31) {
+                        minutes = 31;
+                        minutesEnd = "00"
+
+
+                        hoursEnd = hours + 1
+                        if (hoursEnd < 10) {
+                            hoursEnd = `0${hoursEnd}`;
+                        }
+                        if (hours < 10) {
+                            hours = `0${hours}`;
+                        }
+
+                    } else {
+                        minutes = "01";
+                        minutesEnd = "30"
+
+                        hours = hours + 1
+                        hoursEnd = hours;
+                        if (hours < 10) {
+                            hours = `0${hours}`;
+                        }
+                        if (hoursEnd < 10) {
+                            hoursEnd = `0${hoursEnd}`;
+                        }
+                    }
+
+                    console.log(`${hours}:${minutes}`);
+                    console.log(`${hoursEnd}:${minutesEnd}`);
+
+                    $("#timeBegin").val(`${hours}:${minutes}`)
+                    $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
+                }
+
+
+
+                document.getElementById("date").value = dateText;
+                document.getElementById("room").value = titleEvent;
+                document.getElementById("room").setAttribute("data", idEvent);
+                document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
+                document.getElementById("buttons").innerHTML = "";
+                document.getElementById("buttons").innerHTML = `${btnAdd} ${btnCancel}`;
+                $('#modal').modal("show");
+
+                loadEventsOnModal();
+
+            }
+        }
+
+
+
+
+
+
+    }
+    let eventAction = (info) => {
+
+        let rol = parseInt(atob(sessionStorage.getItem("rol")))
+
+        if (rol == 1) {
+
+            cleanModal();
+            $(".info-event").css("display", "none");
+
+
+            let timeBegin = new Date(info.event.start);
+            let timeEnd = new Date(info.event.end);
+            let hoursBegin = timeBegin.getHours()
+            let minutesBegin = timeBegin.getMinutes()
+            let hoursEnd = timeEnd.getHours()
+            let minutesEnd = timeEnd.getMinutes()
+            if (hoursBegin < 10) {
+                hoursBegin = `0${hoursBegin}`
+            }
+            if (minutesBegin < 10) {
+                minutesBegin = `0${minutesBegin}`
             }
 
+            if (hoursEnd < 10) {
+                hoursEnd = `0${hoursEnd}`
+            }
+            if (minutesEnd < 10) {
+                minutesEnd = `0${minutesEnd}`
+            }
 
-
-            document.getElementById("date").value = dateText;
-            document.getElementById("room").value = titleEvent;
-            document.getElementById("room").setAttribute("data", idEvent);
-            document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
+            $("#timeBegin").val(`${hoursBegin}:${minutesBegin}`);
+            $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`);
+            $("#name").attr("readonly", true);
+            $("#name").attr("data", info.event.id);
+            $("#name").val(info.event.title);
+            document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-trash"></i> Eliminar evento`;
             document.getElementById("buttons").innerHTML = "";
-            document.getElementById("buttons").innerHTML = `${btnAdd} ${btnCancel}`;
+            document.getElementById("buttons").innerHTML = `${btnDelete}`;
             $('#modal').modal("show");
-
             loadEventsOnModal();
 
         }
 
-    }
-    let eventAction = (info) => {
-        cleanModal();
-        $(".info-event").css("display", "none");
 
-
-        let timeBegin = new Date(info.event.start);
-        let timeEnd = new Date(info.event.end);
-        let hoursBegin = timeBegin.getHours()
-        let minutesBegin = timeBegin.getMinutes()
-        let hoursEnd = timeEnd.getHours()
-        let minutesEnd = timeEnd.getMinutes()
-        if (hoursBegin < 10) {
-            hoursBegin = `0${hoursBegin}`
-        }
-        if (minutesBegin < 10) {
-            minutesBegin = `0${minutesBegin}`
-        }
-
-        if (hoursEnd < 10) {
-            hoursEnd = `0${hoursEnd}`
-        }
-        if (minutesEnd < 10) {
-            minutesEnd = `0${minutesEnd}`
-        }
-
-        $("#timeBegin").val(`${hoursBegin}:${minutesBegin}`);
-        $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`);
-        $("#name").attr("readonly", true);
-        $("#name").attr("data", info.event.id);
-        $("#name").val(info.event.title);
-        document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-trash"></i> Eliminar evento`;
-        document.getElementById("buttons").innerHTML = "";
-        document.getElementById("buttons").innerHTML = `${btnDelete}`;
-        $('#modal').modal("show");
-        loadEventsOnModal();
     }
 
 
@@ -413,6 +431,7 @@ document.addEventListener('DOMContentLoaded', function () {
             datos
         } = data;
         sessionStorage.setItem("user", btoa(datos.usuario_id));
+        sessionStorage.setItem("rol", btoa(datos.rol));
 
     }).catch(function (error) {
         console.log(error);
@@ -1059,14 +1078,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 }).catch(function (error) {
                     console.log(error);
-                    Swal.fire({
-                        title: '¡Error al borrar evento!',
-                        text: "Intentalo más tarde",
-                        icon: 'error',
-                        confirmButtonColor: '#313945',
-                        confirmButtonText: 'Entendido',
-                        allowOutsideClick: false
-                    })
                 });
 
 
