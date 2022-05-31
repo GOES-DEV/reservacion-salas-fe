@@ -34,7 +34,7 @@ body .content-calendar .nav {
   background-color: #313945;
   position: fixed;
   top: 0px;
-  left: 0px;
+  left: -12em;
   height: 100vh;
   width: 12em;
   display: -webkit-box;
@@ -51,6 +51,8 @@ body .content-calendar .nav {
       -ms-flex-align: center;
           align-items: center;
   z-index: 99;
+  -webkit-transition: 0.6s ease-in-out;
+  transition: 0.6s ease-in-out;
 }
 
 body .content-calendar .nav .nav-header {
@@ -130,9 +132,33 @@ body .content-calendar .nav ol li:hover {
   transition: 0.3s ease-in-out;
 }
 
+body .content-calendar .btnMenuResponsive {
+  width: 2em;
+  height: 2em;
+  position: fixed;
+  top: 0em;
+  left: 0em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #f7f8fa;
+  background-color: #162b3e;
+  cursor: pointer;
+  -webkit-transition: 0.6s ease-in-out;
+  transition: 0.6s ease-in-out;
+  border-radius: 0px 6px 6px 0px;
+  z-index: 9;
+}
+
 body .content-calendar .calendar-section {
-  width: calc(100vw - 12em);
-  margin-left: 12em;
+  width: 100%;
+  margin-left: 0em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -158,8 +184,9 @@ body .content-calendar .calendar-section .info-section {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -184,6 +211,11 @@ body .content-calendar .calendar-section .info-section .resource-content {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-right: 0.2em;
+  visibility: visible;
+  position: relative;
+  z-index: 2;
+  left: 9em;
 }
 
 body .content-calendar .calendar-section .info-section .resource-content label {
@@ -205,22 +237,25 @@ body .content-calendar .calendar-section .info-section .resource-content #select
 }
 
 body .content-calendar .calendar-section .info-section #titlePage {
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: bold;
   color: #313945;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
+  z-index: 1;
+  left: -5em;
 }
 
 body .content-calendar .calendar-section .info-section #titlePage i {
@@ -228,9 +263,11 @@ body .content-calendar .calendar-section .info-section #titlePage i {
   background: #313945;
   border-radius: 4px;
   color: white;
+  margin-right: 0.2em;
 }
 
 body .content-calendar .calendar-section .info-section #titlePage p {
+  width: 8em;
   margin: 0px;
   margin-right: 0.5em;
 }
@@ -345,6 +382,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times {
 }
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group {
+  font-size: 0.9em;
   width: 11em !important;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -404,7 +442,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content {
-  width: calc( 4em + 3px);
+  width: calc(4em + 3px);
   height: 4em;
   position: relative;
   z-index: 1;
@@ -421,7 +459,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-left: calc( -4em - 3px);
+  margin-left: calc(-4em - 3px);
 }
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin,
@@ -517,5 +555,482 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #delete
 body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #cancel {
   background-color: #7d7d7d;
   color: white;
+}
+
+@media (min-width: 430px) {
+  body {
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    /* Track */
+    /* Handle */
+    /* Handle on hover */
+  }
+  body .content-calendar {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #f7f8fa;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  body .content-calendar .nav {
+    background-color: #313945;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 12em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    z-index: 99;
+  }
+  body .content-calendar .nav .nav-header {
+    height: 10em;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  body .content-calendar .nav .nav-header .logo {
+    width: 5em;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  body .content-calendar .nav ol {
+    list-style: none;
+    width: 100%;
+    padding: 0px;
+  }
+  body .content-calendar .nav ol li {
+    color: white;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 1em 0em;
+    cursor: pointer;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  body .content-calendar .nav ol li i {
+    margin-right: 0.5em;
+  }
+  body .content-calendar .nav ol li p {
+    font-size: 0.9em;
+    font-weight: bold;
+    width: 50%;
+    line-height: 0.9em;
+    margin: 0px;
+  }
+  body .content-calendar .nav ol li:hover {
+    color: #313945;
+    background-color: #f7f8fa;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+  }
+  body .content-calendar .btnMenuResponsive {
+    display: none;
+  }
+  body .content-calendar .calendar-section {
+    width: calc(100vw - 12em);
+    margin-left: 12em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  body .content-calendar .calendar-section .info-section {
+    width: 100%;
+    height: 5em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  body .content-calendar .calendar-section .info-section .resource-content {
+    background: #313945;
+    padding: 0.5em;
+    border-radius: 4px;
+    width: 20em;
+    height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  body .content-calendar .calendar-section .info-section .resource-content label {
+    width: 4em;
+    color: #f7f8fa;
+    margin: 0px;
+  }
+  body .content-calendar .calendar-section .info-section .resource-content .select2-container {
+    width: 15em !important;
+  }
+  body .content-calendar .calendar-section .info-section .resource-content #select2-resourcesSelect-container {
+    font-size: 1em;
+    font-weight: bold;
+    background: white;
+    border-radius: 2px;
+    width: 15em;
+  }
+  body .content-calendar .calendar-section .info-section #titlePage {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #313945;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  body .content-calendar .calendar-section .info-section #titlePage i {
+    padding: 0.3em;
+    background: #313945;
+    border-radius: 4px;
+    color: white;
+  }
+  body .content-calendar .calendar-section .info-section #titlePage p {
+    margin: 0px;
+    margin-right: 0.5em;
+  }
+  body .content-calendar .calendar-section #calendar {
+    width: 95%;
+    margin-bottom: 0.5em;
+  }
+  body ::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+  }
+  body ::-webkit-scrollbar-track {
+    background: #162b3e;
+  }
+  body ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  body ::-webkit-scrollbar-thumb:hover {
+    background: #c9a892;
+  }
+  body #modal .modal-dialog .modal-content .modal-header {
+    background: #313945;
+    color: white;
+  }
+  body #modal .modal-dialog .modal-content .modal-header .close {
+    color: white;
+  }
+  body #modal .modal-dialog .modal-content .modal-body {
+    width: 100%;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm {
+    width: 100%;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .info-event {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .info-event .form-group {
+    width: 45%;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .info-event .form-group label {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #162b3e;
+    margin: 0px;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .info-event .form-group input {
+    background-color: #162b3e;
+    color: white;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .name-event {
+    width: 100% !important;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .name-event label {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #162b3e;
+    margin: 0px;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    padding: 0.5em 0.5em 0em 0.5em;
+    background: #76767a12;
+    border: solid 1px #80808042;
+    border-radius: 8px;
+    margin-top: 1.3em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group {
+    width: 11em !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group label {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #162b3e;
+    margin: 0px;
+    margin-bottom: -0.8em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content {
+    width: 11em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content #timeBegin,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content #timeEnd,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeBegin,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeEnd {
+    width: 11em !important;
+    background-color: #162b3e;
+    color: white;
+    position: relative;
+    z-index: 1;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content {
+    width: calc(4em + 3px);
+    height: 4em;
+    position: relative;
+    z-index: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-left: calc(-4em - 3px);
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusBegin,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusEnd,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusEnd,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusBegin,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #minusBegin,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusEnd,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #minusEnd {
+    width: 2em;
+    background-color: #162b3e;
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border: none;
+    margin: 0em 3px;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusBegin i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusEnd i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusEnd i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusBegin i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #minusBegin i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusEnd i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #minusEnd i {
+    font-size: 1.8em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin:focus,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusBegin:focus {
+    border: none;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons {
+    margin-top: 2em;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #add,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #cancel,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #update,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #delete {
+    width: 30%;
+    font-weight: 600;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #add i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #cancel i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #update i,
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #delete i {
+    margin-right: 0.5em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #add {
+    background-color: #12bc45;
+    color: white;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #update {
+    background-color: #41d2e9;
+    color: white;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #delete {
+    background-color: #de4646;
+    color: white;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #cancel {
+    background-color: #7d7d7d;
+    color: white;
+  }
 }
 /*# sourceMappingURL=calendar.css.map */

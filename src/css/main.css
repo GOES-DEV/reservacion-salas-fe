@@ -152,6 +152,8 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 
 }
 
+
+
 .fc .fc-button {
     border-radius: 0;
     overflow: visible;
@@ -160,6 +162,12 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+} 
+
+@media (max-width: 430px) {
+    .fc .fc-button {
+        font-size: 0.6em !important;
+    }
 }
 
 .fc .fc-button:focus {
@@ -342,6 +350,12 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 .fc .fc-toolbar-title {
     font-size: 1.75em;
     margin: 0;
+}
+
+@media (max-width: 430px) {
+    .fc .fc-toolbar-title {
+        font-size: 1em !important;
+    }
 }
 
 .fc-direction-ltr .fc-toolbar>*> :not(:first-child) {

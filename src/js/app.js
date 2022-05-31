@@ -56,6 +56,23 @@ document.addEventListener('DOMContentLoaded', function () {
         // theme: 'bootstrap',
     });
 
+    $("#btnMenuResponsive").on("click", () => {
+        let isOpen = parseInt($('#btnMenuResponsive').attr("data"));
+        if (isOpen == 0) {
+            $('#btnMenuResponsive').html(`<i class="fa-solid fa-xmark"></i>`);
+            $('#btnMenuResponsive').attr("data", 1);
+            $('#btnMenuResponsive').css("left", "12em")
+            $('.nav').css("left", "0em")
+            
+        } else {
+            $('#btnMenuResponsive').html(`<i class="fa-solid fa-bars"></i>`);
+            $('#btnMenuResponsive').attr("data", 0);
+            $('#btnMenuResponsive').css("left", "0em")
+            $('.nav').css("left", "-12em")
+
+        }
+
+    });
 
 
     //-> @@html buttons
@@ -110,8 +127,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     descripcion,
                     inicio_evento: `${date} ${timeBegin}:00`,
                     fin_evento: `${date} ${timeEnd}:00`
-                }).then(function ({ data }) {
-                    let { datos } = data;
+                }).then(function ({
+                    data
+                }) {
+                    let {
+                        datos
+                    } = data;
                     if (datos == 1) {
                         $('#modal').modal("hide");
                         Swal.fire({
@@ -168,8 +189,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     api.post('/eliminarEvento', {
                         api_token: token,
                         id
-                    }).then(function ({ data }) {
-                       
+                    }).then(function ({
+                        data
+                    }) {
+
 
                         Swal.fire({
                             icon: 'success',
@@ -201,7 +224,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     //-> @@Handlers actions calendar (use modal)
-    let dateAction = ({ dateStr, resource = "empty" }) => {
+    let dateAction = ({
+        dateStr,
+        resource = "empty"
+    }) => {
         $(".info-event").css("display", "flex");
         $("#name").attr("readonly", false)
         let clickedDate = new Date(dateStr)
@@ -233,12 +259,17 @@ document.addEventListener('DOMContentLoaded', function () {
             if (resource == "empty") {
                 // Obtener de session storage name room selected
                 let info = atob(sessionStorage.getItem("roomSelected"));
-                let { id, title } = JSON.parse(info);
+                let {
+                    id,
+                    title
+                } = JSON.parse(info);
 
                 titleEvent = title;
                 idEvent = id;
             } else {
-                const { _resource } = resource;
+                const {
+                    _resource
+                } = resource;
                 titleEvent = _resource.title
                 idEvent = _resource.id;
             }
@@ -265,6 +296,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (hoursEnd < 10) {
                         hoursEnd = `0${hoursEnd}`;
                     }
+                    if (hours < 10) {
+                        hours = `0${hours}`;
+                    }
+
                 } else {
                     minutes = "01";
                     minutesEnd = "30"
@@ -273,6 +308,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     hoursEnd = hours;
                     if (hours < 10) {
                         hours = `0${hours}`;
+                    }
+                    if (hoursEnd < 10) {
+                        hoursEnd = `0${hoursEnd}`;
                     }
                 }
 
@@ -350,8 +388,12 @@ document.addEventListener('DOMContentLoaded', function () {
         params: {
             api_token: token
         }
-    }).then(function ({ data }) {
-        let { datos } = data;
+    }).then(function ({
+        data
+    }) {
+        let {
+            datos
+        } = data;
         fillSelect(datos)
         sessionStorage.setItem("rooms", btoa(JSON.stringify(datos)))
 
@@ -364,8 +406,12 @@ document.addEventListener('DOMContentLoaded', function () {
         params: {
             api_token: token
         }
-    }).then(function ({ data }) {
-        let { datos } = data;
+    }).then(function ({
+        data
+    }) {
+        let {
+            datos
+        } = data;
         sessionStorage.setItem("user", btoa(datos.usuario_id));
 
     }).catch(function (error) {
@@ -378,10 +424,16 @@ document.addEventListener('DOMContentLoaded', function () {
         let select = document.getElementById("resourcesSelect");
         let count = 1;
         select.innerHTML = "";
-        arrayResources.forEach(({ id, title }) => {
+        arrayResources.forEach(({
+            id,
+            title
+        }) => {
             // let option = `<option value="${id}">${title}</option>`
             if (count == 1) {
-                let roomInfo = btoa(JSON.stringify({ id, title }));
+                let roomInfo = btoa(JSON.stringify({
+                    id,
+                    title
+                }));
                 sessionStorage.setItem("roomSelected", roomInfo)
             }
             let option = document.createElement("option");
@@ -393,10 +445,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     //-> @@Change event on select
-    $("#resourcesSelect").on("change", ({ target }) => {
+    $("#resourcesSelect").on("change", ({
+        target
+    }) => {
         let id = target.value;
         let title = target.options[target.selectedIndex].text;
-        let roomInfo = btoa(JSON.stringify({ id, title }));
+        let roomInfo = btoa(JSON.stringify({
+            id,
+            title
+        }));
         sessionStorage.setItem("roomSelected", roomInfo);
         clearEvents()
         loadEvents();
@@ -523,10 +580,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 hour12: true,
                 meridiem: false
             },
-            slotLabelFormat: { hour: 'numeric', omitZeroMinute: true, hour12: true },
+            slotLabelFormat: {
+                hour: 'numeric',
+                omitZeroMinute: true,
+                hour12: true
+            },
             displayEventTime: false,
             displayEventEnd: false,
-            dayHeaderFormat: { weekday: 'short', omitCommas: true },
+            dayHeaderFormat: {
+                weekday: 'short',
+                omitCommas: true
+            },
             hiddenDays: [],
             eventDisplay: 'block',
             eventBorderColor: 'rgba(0, 0, 0, 0)',
@@ -549,8 +613,12 @@ document.addEventListener('DOMContentLoaded', function () {
         api_token: token,
         fecha_inicio: primerDiaValue,
         fecha_fin: ultimoDiaValue
-    }).then(function ({ data }) {
-        let { datos } = data;
+    }).then(function ({
+        data
+    }) {
+        let {
+            datos
+        } = data;
         console.log("obtenerTodosEventos");
         console.log(datos);
         // sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
@@ -604,8 +672,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 api_token: token,
                 fecha_inicio: primerDiaValue,
                 fecha_fin: ultimoDiaValue
-            }).then(function ({ data }) {
-                let { datos } = data;
+            }).then(function ({
+                data
+            }) {
+                let {
+                    datos
+                } = data;
                 // sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
                 sessionStorage.setItem("events", JSON.stringify(datos));
                 iniciateAndLoadEvents();
@@ -614,14 +686,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert("Ha ocurrido un error")
             });
         } else {
-            let { id } = JSON.parse(atob(sessionStorage.getItem("roomSelected")));
+            let {
+                id
+            } = JSON.parse(atob(sessionStorage.getItem("roomSelected")));
             api.post('/obtenerEventos', {
                 api_token: token,
                 sala_id: id,
                 fecha_inicio: primerDiaValue,
                 fecha_fin: ultimoDiaValue
-            }).then(function ({ data }) {
-                let { datos } = data;
+            }).then(function ({
+                data
+            }) {
+                let {
+                    datos
+                } = data;
                 // sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
                 sessionStorage.setItem("events", JSON.stringify(datos))
                 iniciateAndLoadEvents();
@@ -651,7 +729,13 @@ document.addEventListener('DOMContentLoaded', function () {
         let day = parseInt(dateValue.substr(8, 2));
         let hours = parseInt(timeValue.substr(0, 2));
         let minutes = parseInt(timeValue.substr(3, 2));
-        return { year, month, day, hours, minutes }
+        return {
+            year,
+            month,
+            day,
+            hours,
+            minutes
+        }
     }
 
 
@@ -662,7 +746,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let timeCompare = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
         let timeCompare2 = DateTime.local(time2.year, time2.month, time2.day, time2.hours, time2.minutes);
 
-        let { milliseconds } = timeCompare2.diff(timeCompare).toObject()
+        let {
+            milliseconds
+        } = timeCompare2.diff(timeCompare).toObject()
         return Math.floor(milliseconds / 60000);
     }
 
@@ -678,7 +764,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         if (minResult < 29) {
-            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
+            let {
+                c
+            } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({
+                minutes: 30
+            });
             let minute;
             let hour;
             if (c.minute == 1) {
@@ -706,14 +796,20 @@ document.addEventListener('DOMContentLoaded', function () {
         // console.log("time que pasa")
         // console.log(time)
 
-        let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
+        let {
+            c
+        } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
         // Verify the limit
         // console.log("c plus click ============")
         // console.log(c)
         if (c.minute == 01 && c.hour == 23) {
             console.log("Horario maximo")
         } else {
-            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
+            let {
+                c
+            } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({
+                minutes: 30
+            });
             let minute;
             let hour;
             if (c.minute == 1) {
@@ -740,13 +836,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $("#minusBegin").on("click", () => {
         let time = getTime("Begin");
-        let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
+        let {
+            c
+        } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
 
         // Verify the limit
         if (c.minute == 01 && c.hour == 00) {
             console.log("Horario maximo")
         } else {
-            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).minus({ minutes: 30 });
+            let {
+                c
+            } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).minus({
+                minutes: 30
+            });
             let minute;
             let hour;
             if (c.minute == 1) {
@@ -773,14 +875,20 @@ document.addEventListener('DOMContentLoaded', function () {
     $("#plusEnd").on("click", () => {
         let time = getTime("End");
 
-        let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
+        let {
+            c
+        } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
 
         // Verify the limit
         if (c.minute == 30 && c.hour == 23) {
             console.log("Horario maximo")
         } else {
 
-            let { c } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({ minutes: 30 });
+            let {
+                c
+            } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes).plus({
+                minutes: 30
+            });
             let minute;
             let hour;
             if (c.minute == 0) {
@@ -813,7 +921,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (minResult <= 30) {
             console.log("Horario maximo")
         } else {
-            let { c } = DateTime.local(time2.year, time2.month, time2.day, time2.hours, time2.minutes).minus({ minutes: 30 });
+            let {
+                c
+            } = DateTime.local(time2.year, time2.month, time2.day, time2.hours, time2.minutes).minus({
+                minutes: 30
+            });
             let minute;
             let hour;
             if (c.minute == 0) {
@@ -931,7 +1043,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     params: {
                         api_token: token
                     }
-                }).then(function ({ data }) {
+                }).then(function ({
+                    data
+                }) {
                     sessionStorage.removeItem("tok")
                     sessionStorage.removeItem("roomSelected")
                     sessionStorage.removeItem("dateStage")
@@ -942,7 +1056,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     sessionStorage.removeItem("events")
                     sessionStorage.removeItem("instanceLoaded")
                     $(location).prop('href', `../index.html`);
-            
+
                 }).catch(function (error) {
                     console.log(error);
                     Swal.fire({
