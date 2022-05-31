@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // @1° GLOBAL VARIABLES ___________________________________________________________________________________________________
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
+    !sessionStorage.getItem("tok") && $(location).prop('href', `../index.html`);
     const token = atob(sessionStorage.getItem("tok"));
     console.log(token)
     let calendarEl = document.getElementById('calendar');
@@ -1066,6 +1067,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     data
                 }) {
                     sessionStorage.removeItem("tok")
+                    sessionStorage.removeItem("rol")
                     sessionStorage.removeItem("roomSelected")
                     sessionStorage.removeItem("dateStage")
                     sessionStorage.removeItem("lastDate")
