@@ -28,7 +28,9 @@ body .content-login {
 
 body .content-login .info {
   width: 100%;
-  height: 10em;
+  height: 12em;
+  margin-top: -2em;
+  margin-bottom: 1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -45,19 +47,25 @@ body .content-login .info {
 }
 
 body .content-login .info .logo {
-  width: 30em;
+  width: 18em;
+  display: none;
+}
+
+body .content-login .info .logoResponsive {
+  display: block;
+  width: 8em;
 }
 
 body .content-login #login {
-  width: 40em;
-  height: 20em;
+  width: 20em;
+  height: 34em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -86,7 +94,7 @@ body .content-login #login .animatedTitle {
           align-items: center;
   position: relative;
   top: 2em;
-  left: -1.5em;
+  left: 0.5em;
   z-index: 1;
   width: 35em;
 }
@@ -96,7 +104,7 @@ body .content-login #login .animatedTitle #calendarAnimate {
 }
 
 body .content-login #login .contentInput {
-  width: 22em;
+  width: 18em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -111,7 +119,8 @@ body .content-login #login .contentInput {
       -ms-flex-align: center;
           align-items: center;
   position: relative;
-  left: -11em;
+  left: 0em;
+  top: -1em;
   z-index: 2;
 }
 
@@ -119,7 +128,7 @@ body .content-login #login .contentInput .title-form {
   width: 14em;
   line-height: 24px;
   color: white;
-  font-size: 1.5em;
+  font-size: 1em;
   font-family: Arial !important;
   font-weight: 700;
   background: #313945;
@@ -129,7 +138,7 @@ body .content-login #login .contentInput .title-form {
 }
 
 body .content-login #login .contentInput #userControl {
-  width: 21em !important;
+  width: 18em !important;
 }
 
 body .content-login #login .contentInput #userControl label {
@@ -145,7 +154,7 @@ body .content-login #login .contentInput #userControl input {
 }
 
 body .content-login #login .contentInput #passControl {
-  width: 21em !important;
+  width: 18em !important;
   height: 4em;
 }
 
@@ -172,10 +181,182 @@ body .content-login #login .contentInput #passControl #showPass {
 
 body .content-login #login .contentInput .btn {
   background-color: #313945;
-  width: 21em;
+  width: 18em;
 }
 
 body .content-login #login .contentInput .btn i {
   margin-right: 0.5em;
+}
+
+@media (min-width: 430px) {
+  body {
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  body .content-login {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #313945;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  body .content-login .info {
+    width: 100%;
+    height: 10em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  body .content-login .info .logo {
+    width: 30em;
+    display: block;
+  }
+  body .content-login .info .logoResponsive {
+    display: none;
+    width: 18em;
+  }
+  body .content-login #login {
+    width: 40em;
+    height: 20em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    background-color: white;
+    border-radius: 8px;
+    -webkit-box-shadow: 0.5em 1em 1em #00000026;
+            box-shadow: 0.5em 1em 1em #00000026;
+  }
+  body .content-login #login .animatedTitle {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: relative;
+    top: 2em;
+    left: -1.5em;
+    z-index: 1;
+    width: 35em;
+  }
+  body .content-login #login .animatedTitle #calendarAnimate {
+    width: 35em;
+  }
+  body .content-login #login .contentInput {
+    width: 22em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: relative;
+    top: 0.2em;
+    left: -11em;
+    z-index: 2;
+  }
+  body .content-login #login .contentInput .title-form {
+    width: 14em;
+    line-height: 24px;
+    color: white;
+    font-size: 1.5em;
+    font-family: Arial !important;
+    font-weight: 700;
+    background: #313945;
+    text-align: center;
+    padding: 0.5em 2em;
+    border-radius: 8px;
+  }
+  body .content-login #login .contentInput #userControl {
+    width: 21em !important;
+  }
+  body .content-login #login .contentInput #userControl label {
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #bdbcc1;
+    font-family: Arial !important;
+  }
+  body .content-login #login .contentInput #userControl input {
+    background-color: var(--gray-form);
+  }
+  body .content-login #login .contentInput #passControl {
+    width: 21em !important;
+    height: 4em;
+  }
+  body .content-login #login .contentInput #passControl label {
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #bdbcc1;
+    font-family: Arial !important;
+  }
+  body .content-login #login .contentInput #passControl input {
+    background-color: var(--gray-form);
+  }
+  body .content-login #login .contentInput #passControl #showPass {
+    position: relative;
+    left: calc(100% - 3em);
+    width: 3em;
+    top: -38px;
+    color: #313945;
+    background-color: #bdbcc1;
+  }
+  body .content-login #login .contentInput .btn {
+    background-color: #313945;
+    width: 21em;
+  }
+  body .content-login #login .contentInput .btn i {
+    margin-right: 0.5em;
+  }
 }
 /*# sourceMappingURL=login.css.map */

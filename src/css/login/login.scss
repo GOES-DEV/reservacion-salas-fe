@@ -1,4 +1,149 @@
 body {
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  .content-login {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #313945;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .info {
+      width: 100%;
+      height: 12em;
+      margin-top: -2em;
+      margin-bottom: 1em;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      .logo {
+        width: 18em;
+        display: none;
+      }
+
+      .logoResponsive {
+        display: block;
+        width: 8em;
+      }
+    }
+
+    #login {
+      width: 20em;
+      height: 34em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0.5em 1em 1em #00000026;
+
+      .animatedTitle {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        top: 2em;
+        left: 0.5em;
+        z-index: 1;
+        width: 35em;
+
+        #calendarAnimate {
+          width: 35em;
+        }
+      }
+
+      .contentInput {
+        width: 18em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        left: 0em;
+        top: -1em;
+        z-index: 2;
+
+        .title-form {
+          width: 14em;
+          line-height: 24px;
+          color: white;
+          font-size: 1em;
+          font-family: Arial !important;
+          font-weight: 700;
+          background: #313945;
+          text-align: center;
+          padding: 0.5em 2em;
+          border-radius: 8px;
+        }
+
+        #userControl {
+          width: 18em !important;
+
+          label {
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 0px;
+            color: #bdbcc1;
+            font-family: Arial !important;
+          }
+
+          input {
+            background-color: var(--gray-form);
+          }
+        }
+
+        #passControl {
+          width: 18em !important;
+          height: 4em;
+
+          label {
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 0px;
+            color: #bdbcc1;
+            font-family: Arial !important;
+          }
+
+          input {
+            background-color: var(--gray-form);
+          }
+
+          #showPass {
+            position: relative;
+            left: calc(100% - 3em);
+            width: 3em;
+            top: -38px;
+            color: #313945;
+            background-color: #bdbcc1;
+          }
+        }
+
+        .btn {
+          background-color: #313945;
+          width: 18em;
+
+          i {
+            margin-right: 0.5em;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 430px) {
+  body {
     margin: 0px;
     padding: 0px;
     width: 100vw;
@@ -6,137 +151,137 @@ body {
     overflow: hidden;
 
     .content-login {
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        background-color: #313945;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #313945;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .info {
+        width: 100%;
+        height: 10em;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
 
-        .info {
-            width: 100%;
-            height: 10em;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-
-            .logo {
-                width: 30em;
-            }
+        .logo {
+          width: 30em;
+          display: block;
         }
 
-        #login {
-            width: 40em;
-            height: 20em;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
+        .logoResponsive {
+          display: none;
+          width: 18em;
+        }
+      }
+
+      #login {
+        width: 40em;
+        height: 20em;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0.5em 1em 1em #00000026;
+
+        .animatedTitle {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          top: 2em;
+          left: -1.5em;
+          z-index: 1;
+          width: 35em;
+
+          #calendarAnimate {
+            width: 35em;
+          }
+        }
+
+        .contentInput {
+          width: 22em;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          top: 0.2em;
+          left: -11em;
+          z-index: 2;
+
+          .title-form {
+            width: 14em;
+            line-height: 24px;
+            color: white;
+            font-size: 1.5em;
+            font-family: Arial !important;
+            font-weight: 700;
+            background: #313945;
+            text-align: center;
+            padding: 0.5em 2em;
             border-radius: 8px;
-            box-shadow: 0.5em 1em 1em #00000026;
+          }
 
-            .animatedTitle {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                top: 2em;
-                left: -1.5em;
-                z-index: 1;
-                width: 35em;
+          #userControl {
+            width: 21em !important;
 
-
-                #calendarAnimate {
-                    width: 35em;
-                }
-
-
+            label {
+              font-size: 0.8em;
+              font-weight: bold;
+              margin-bottom: 0px;
+              color: #bdbcc1;
+              font-family: Arial !important;
             }
 
-            .contentInput {
-                width: 22em;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                left: -11em;
-                z-index: 2;
+            input {
+              background-color: var(--gray-form);
+            }
+          }
 
-                .title-form {
-                    width: 14em;
-                    line-height: 24px;
-                    color: white;
-                    font-size: 1.5em;
-                    font-family: Arial !important;
-                    font-weight: 700;
-                    background: #313945;
-                    text-align: center;
-                    padding: 0.5em 2em;
-                    border-radius: 8px;
-                }
+          #passControl {
+            width: 21em !important;
+            height: 4em;
 
-
-                #userControl {
-                    width: 21em !important;
-
-                    label {
-                        font-size: 0.8em;
-                        font-weight: bold;
-                        margin-bottom: 0px;
-                        color: #bdbcc1;
-                        font-family: Arial !important;
-                    }
-
-                    input {
-                        background-color: var(--gray-form);
-                    }
-                }
-
-                #passControl {
-                    width: 21em !important;
-                    height: 4em;
-
-                    label {
-                        font-size: 0.8em;
-                        font-weight: bold;
-                        margin-bottom: 0px;
-                        color: #bdbcc1;
-                        font-family: Arial !important;
-                    }
-
-                    input {
-                        background-color: var(--gray-form);
-                    }
-
-                    #showPass {
-                        position: relative;
-                        left: calc(100% - 3em);
-                        width: 3em;
-                        top: -38px;
-                        color: #313945;
-                        background-color: #bdbcc1;
-                    }
-                
+            label {
+              font-size: 0.8em;
+              font-weight: bold;
+              margin-bottom: 0px;
+              color: #bdbcc1;
+              font-family: Arial !important;
             }
 
-
-            .btn {
-                background-color: #313945;
-                width: 21em;
-
-                i {
-                    margin-right: 0.5em;
-                }
+            input {
+              background-color: var(--gray-form);
             }
+
+            #showPass {
+              position: relative;
+              left: calc(100% - 3em);
+              width: 3em;
+              top: -38px;
+              color: #313945;
+              background-color: #bdbcc1;
+            }
+          }
+
+          .btn {
+            background-color: #313945;
+            width: 21em;
+
+            i {
+              margin-right: 0.5em;
+            }
+          }
         }
-
-
+      }
     }
-}
+  }
 }
