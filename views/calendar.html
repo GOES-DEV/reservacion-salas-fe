@@ -78,8 +78,13 @@
 
                         <div class="form-group name-event">
                             <label for="name">Nombre evento</label>
-                            <input type="text" class="form-control" id="name" placeholder="Evento de ejemplo"
+                            <input type="text" class="form-control" id="name" placeholder="Evento"
                                 maxlength="90">
+                        </div>
+                        <div class="form-group name-event">
+                            <label for="nameApplicant">Solicitante</label>
+                            <input type="text" class="form-control" id="nameApplicant" placeholder="Solicitante"
+                                maxlength="45">
                         </div>
 
                         <div class="times">
@@ -112,6 +117,67 @@
             </div>
         </div>
     </div>
+
+
+
+    <!-- Modal info -->
+    <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modal" data-backdrop="static"
+        data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalInfoTitle">Detalles de sala</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <td id="nombreSala" colspan="2">Nombre sala</td>
+                        </tr>
+                        <tr>
+                            <td>Capacidad</td>
+                            <td>
+                                <p id="capacity"><span>12</span> personas</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tv</td>
+                            <td>
+                                <p id="tv"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Video conferencia</td>
+                            <td>
+                                <p id="videoConferency"><i class="fa-solid fa-circle-check"></i></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>HDMI</td>
+                            <td>
+                                <p id="hdmi"><i class="fa-solid fa-circle-check"></i></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Descripcion</td>
+                            <td>
+                                <p id="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente,
+                                    perspiciatis fugiat quis, quibusdam recusandae iusto molestiae facilis corporis hic
+                                    magnam suscipit culpa dolor distinctio velit, accusamus neque doloribus? Fugit,
+                                    dolorem.</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="button" class="btn" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 

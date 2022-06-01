@@ -40,6 +40,38 @@ document.addEventListener('DOMContentLoaded', function () {
     //instance of Luxon library
     let DateTime = luxon.DateTime;
 
+    let logoutSession = () => {
+        sessionStorage.removeItem("tok")
+        sessionStorage.removeItem("rol")
+        sessionStorage.removeItem("roomSelected")
+        sessionStorage.removeItem("dateStage")
+        sessionStorage.removeItem("lastDate")
+        sessionStorage.removeItem("rooms")
+        sessionStorage.removeItem("user")
+        sessionStorage.removeItem("firstDate")
+        sessionStorage.removeItem("events")
+        sessionStorage.removeItem("instanceLoaded")
+        $(location).prop('href', `../index.html`);
+    }
+
+    let getColor = (sala_id) => {
+        api.post('/obtenerSala', {
+            api_token: token,
+            sala_id
+        }).then(function ({
+            data
+        }) {
+            let {
+                datos
+            } = data
+            sessionStorage.setItem("colorRoom", datos.color)
+
+        }).catch(function (error) {
+            console.log(error);
+            logoutSession();
+        });
+    }
+
 
     // ________________________________________________________________________________________________________________________
     // @2° CONFIGURE UI CALENDAR DATA AND ACTIONS _____________________________________________________________________________
@@ -91,8 +123,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let loadEventsOnModal = () => {
         let nameInput = $("#name");
+        let applicantInput = $("#nameApplicant");
         nameInput.on("keyup", () => {
             nameInput.css("box-shadow", "none")
+        })
+
+        applicantInput.on("keyup", () => {
+            applicantInput.css("box-shadow", "none")
         })
 
         // Cancel button
@@ -102,12 +139,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Add event button
         $("#add").on("click", () => {
+            $("#add").prop("disabled", true);
             let sala_id = parseInt($("#room").attr("data"));
             let descripcion = $("#name").val();
+            let solicitante = $("#nameApplicant").val();
             let date = $("#date").val();
             let timeBegin = $("#timeBegin").val();
             let timeEnd = $("#timeEnd").val();
             let usuario_id = atob(sessionStorage.getItem("user"));
+            getColor(sala_id);
+            let color = sessionStorage.getItem("colorRoom")
+
+            let isName = true;
+            let isApplicant = true;
+
+
+
+            if (solicitante.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Solicitante de evento vacio!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                applicantInput.css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isApplicant = false;
+                $("#add").prop("disabled", false);
+
+            }
 
 
             if (descripcion.length == 0) {
@@ -118,57 +178,70 @@ document.addEventListener('DOMContentLoaded', function () {
                     timer: 1500,
                     showConfirmButton: false,
                 });
-                nameInput.css("box-shadow", "inset 0px 0px 0.5em #ff000080")
-            } else {
-                api.post('/crearEvento', {
-                    api_token: token,
-                    sala_id,
-                    usuario_id,
-                    descripcion,
-                    inicio_evento: `${date} ${timeBegin}:00`,
-                    fin_evento: `${date} ${timeEnd}:00`
-                }).then(function ({
-                    data
-                }) {
-                    let {
-                        datos
-                    } = data;
-                    if (datos == 1) {
-                        $('#modal').modal("hide");
-                        Swal.fire({
-                            title: '¡Evento agregado con exito!',
-                            icon: 'success',
-                            confirmButtonColor: '#313945',
-                            confirmButtonText: 'Entendido',
-                            allowOutsideClick: false
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
-                        })
+                nameInput.css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isName = false;
+                $("#add").prop("disabled", false);
+            }
 
-                    } else {
+
+            if (isName == true && isApplicant == true) {
+
+                setTimeout(() => {
+                    api.post('/crearEvento', {
+                        api_token: token,
+                        sala_id,
+                        usuario_id,
+                        descripcion,
+                        solicitante,
+                        inicio_evento: `${date} ${timeBegin}:00`,
+                        fin_evento: `${date} ${timeEnd}:00`,
+                        color
+                    }).then(function ({
+                        data
+                    }) {
+                        let {
+                            datos
+                        } = data;
+                        if (datos == 1) {
+                            $('#modal').modal("hide");
+                            Swal.fire({
+                                title: '¡Evento agregado con exito!',
+                                icon: 'success',
+                                confirmButtonColor: '#313945',
+                                confirmButtonText: 'Entendido',
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+
+                        } else {
+                            Swal.fire({
+                                title: '¡Verifica los datos ingresados!',
+                                text: "Puede que el rango de horario ya este ocupado",
+                                icon: 'info',
+                                confirmButtonColor: '#313945',
+                                confirmButtonText: 'Entendido',
+                                allowOutsideClick: false
+                            });
+                            $("#add").prop("disabled", true);
+                        }
+
+                    }).catch(function (error) {
+                        console.log(error);
                         Swal.fire({
                             title: '¡Verifica los datos ingresados!',
-                            text: "Puede que el rango de horario ya este ocupado",
+                            text: "No puedes agregar eventos antes de la hora actual",
                             icon: 'info',
                             confirmButtonColor: '#313945',
                             confirmButtonText: 'Entendido',
                             allowOutsideClick: false
-                        })
-                    }
+                        });
+                        $("#add").prop("disabled", true);
+                    });
+                }, 500);
 
-                }).catch(function (error) {
-                    console.log(error);
-                    Swal.fire({
-                        title: '¡Verifica los datos ingresados!',
-                        text: "No puedes agregar eventos antes de la hora actual",
-                        icon: 'info',
-                        confirmButtonColor: '#313945',
-                        confirmButtonText: 'Entendido',
-                        allowOutsideClick: false
-                    })
-                });
             }
         });
 
@@ -192,8 +265,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }).then(function ({
                         data
                     }) {
-
-
                         Swal.fire({
                             icon: 'success',
                             title: '¡Evento borrado!',
@@ -203,8 +274,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 location.reload();
                             }
                         })
-
-
                     }).catch(function (error) {
                         console.log(error);
                         Swal.fire({
@@ -347,6 +416,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
     let eventAction = (info) => {
+        console.log("info del evento")
+        console.log(info.event.id)
 
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
 
@@ -418,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }).catch(function (error) {
         console.log(error);
-        alert("Ha ocurrido un error")
+        logoutSession();
     });
 
     api.get('/obtenerUsuario', {
@@ -436,7 +507,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }).catch(function (error) {
         console.log(error);
-        alert("Ha ocurrido un error")
+        logoutSession();
     });
 
     //-> @@Select fill
@@ -647,7 +718,7 @@ document.addEventListener('DOMContentLoaded', function () {
         iniciateAndLoadEvents();
     }).catch(function (error) {
         console.log(error);
-        alert("Ha ocurrido un error")
+        logoutSession();
     });
 
 
@@ -703,7 +774,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 iniciateAndLoadEvents();
             }).catch(function (error) {
                 console.log(error);
-                alert("Ha ocurrido un error")
+                logoutSession();
             });
         } else {
             let {
@@ -725,7 +796,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 iniciateAndLoadEvents();
             }).catch(function (error) {
                 console.log(error);
-                alert("Ha ocurrido un error")
+                logoutSession();
             });
         }
 
@@ -987,6 +1058,72 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     setTimeout(() => {
+
+        let idRecursosClickeables = () => {
+            let content = document.getElementsByClassName("fc-datagrid-cell")
+            let count = 0;
+            let arrayIdResources = [];
+            for (let item of content) {
+                if (count != 0) {
+                    item.setAttribute("id", `sala${item.getAttribute("data-resource-id")}`)
+                    arrayIdResources.push(`sala${item.getAttribute("data-resource-id")}`)
+                    item.setAttribute("style", "cursor:pointer")
+                }
+                count++;
+            }
+
+            arrayIdResources.forEach(idSala => {
+                $(`#${idSala}`).on("click", () => {
+
+                    let sala_id = $(`#${idSala}`).data("resource-id")
+
+                    api.post('/obtenerSala', {
+                        api_token: token,
+                        sala_id
+                    }).then(function ({
+                        data
+                    }) {
+                        let {
+                            datos
+                        } = data
+
+                        $("#nombreSala").html(datos.nombre)
+                        $("#capacity").html(`<span>${datos.capacidad}</span> personas`)
+
+
+                        if (datos.tv === null || datos.tv == 0) {
+                            $("#tv").html(`<i class="fa-solid fa-circle-xmark"></i>`)
+                        } else {
+                            $("#tv").html(`<i class="fa-solid fa-circle-check"></i>`)
+                        }
+
+                        if (datos.video_conferencia === null || datos.video_conferencia == 0) {
+                            $("#videoConferency").html(`<i class="fa-solid fa-circle-xmark"></i>`)
+                        } else {
+                            $("#videoConferency").html(`<i class="fa-solid fa-circle-check"></i>`)
+                        }
+
+                        if (datos.hdmi === null || datos.hdmi == 0) {
+                            $("#hdmi").html(`<i class="fa-solid fa-circle-xmark"></i>`)
+                        } else {
+                            $("#hdmi").html(`<i class="fa-solid fa-circle-check"></i>`)
+                        }
+
+                        $("#description").html(datos.descripcion)
+
+                    }).catch(function (error) {
+                        console.log(error);
+                        logoutSession();
+                    });
+
+
+                    $('#modalInfo').modal("show");
+                })
+            });
+        }
+        idRecursosClickeables()
+
+
         //-> @@Calendar buttons
         $(".fc-resourceTimelineDay-button").on("click", () => {
             // alert("resourceTimelineDay");
@@ -997,6 +1134,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("calendar resourceTimelineDay ========");
             console.log(calendar.getDate());
             startEventsToUI();
+            idRecursosClickeables()
         });
 
 
@@ -1066,20 +1204,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }).then(function ({
                     data
                 }) {
-                    sessionStorage.removeItem("tok")
-                    sessionStorage.removeItem("rol")
-                    sessionStorage.removeItem("roomSelected")
-                    sessionStorage.removeItem("dateStage")
-                    sessionStorage.removeItem("lastDate")
-                    sessionStorage.removeItem("rooms")
-                    sessionStorage.removeItem("user")
-                    sessionStorage.removeItem("firstDate")
-                    sessionStorage.removeItem("events")
-                    sessionStorage.removeItem("instanceLoaded")
-                    $(location).prop('href', `../index.html`);
-
+                    logoutSession();
                 }).catch(function (error) {
                     console.log(error);
+                    logoutSession();
                 });
 
 
