@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 confirmButtonText: 'Entendido',
                                 allowOutsideClick: false
                             });
-                            $("#add").prop("disabled", true);
+                            $("#add").prop("disabled", false);
                         }
 
                     }).catch(function (error) {
@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             confirmButtonText: 'Entendido',
                             allowOutsideClick: false
                         });
-                        $("#add").prop("disabled", true);
+                        $("#add").prop("disabled", false);
                     });
                 }, 500);
 
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         })
                     }).catch(function (error) {
-                        console.log(error);
+                        // console.log(error);
                         Swal.fire({
                             title: '¡Error al borrar evento!',
                             text: "Intentalo más tarde",
@@ -309,6 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (rol == 1) {
             $(".info-event").css("display", "flex");
             $("#name").attr("readonly", false)
+            $("#nameApplicant").attr("readonly", false)
             let clickedDate = new Date(dateStr)
             let today = new Date()
             clickedDate.setHours(00)
@@ -477,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                 }).catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
 
 
@@ -509,7 +510,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem("rooms", btoa(JSON.stringify(datos)))
 
     }).catch(function (error) {
-        console.log(error);
+        // console.log(error);
         logoutSession();
     });
 
@@ -530,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showTitlePage();
 
     }).catch(function (error) {
-        console.log(error);
+        // console.log(error);
         logoutSession();
     });
 
@@ -735,12 +736,12 @@ document.addEventListener('DOMContentLoaded', function () {
         let {
             datos
         } = data;
-        
+
         sessionStorage.setItem("events", JSON.stringify(datos));
         runCalendar();
         iniciateAndLoadEvents();
     }).catch(function (error) {
-        console.log(error);
+        // console.log(error);
         logoutSession();
     });
 
@@ -794,7 +795,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 sessionStorage.setItem("events", JSON.stringify(datos));
                 iniciateAndLoadEvents();
             }).catch(function (error) {
-                console.log(error);
+                // console.log(error);
                 logoutSession();
             });
         } else {
@@ -816,7 +817,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 sessionStorage.setItem("events", JSON.stringify(datos))
                 iniciateAndLoadEvents();
             }).catch(function (error) {
-                console.log(error);
+                // console.log(error);
                 logoutSession();
             });
         }
@@ -1119,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#description").html(datos.descripcion)
 
                 }).catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                     logoutSession();
                 });
 
