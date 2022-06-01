@@ -175,21 +175,24 @@ body .content-calendar .calendar-section {
 }
 
 body .content-calendar .calendar-section .info-section {
+  overflow: hidden;
   width: 100%;
   height: 5em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 body .content-calendar .calendar-section .info-section .resource-content {
@@ -213,9 +216,6 @@ body .content-calendar .calendar-section .info-section .resource-content {
           align-items: center;
   margin-right: 0.2em;
   visibility: visible;
-  position: relative;
-  z-index: 2;
-  left: 9em;
 }
 
 body .content-calendar .calendar-section .info-section .resource-content label {
@@ -239,7 +239,8 @@ body .content-calendar .calendar-section .info-section .resource-content #select
 body .content-calendar .calendar-section .info-section #titlePage {
   font-size: 1em;
   font-weight: bold;
-  color: #313945;
+  color: white;
+  background: #313945;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -253,23 +254,27 @@ body .content-calendar .calendar-section .info-section #titlePage {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  position: relative;
-  z-index: 1;
-  left: -5em;
+  width: 75%;
+  padding: 0.3em 0em;
+  border-radius: 8px 8px 8px 8px;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  margin-top: 3em;
 }
 
-body .content-calendar .calendar-section .info-section #titlePage i {
+body .content-calendar .calendar-section .info-section #titlePage p {
+  width: 100%;
+  margin: 0px;
+  margin-right: 0.5em;
+  text-align: center;
+}
+
+body .content-calendar .calendar-section .info-section #titlePage p i {
   padding: 0.3em;
   background: #313945;
   border-radius: 4px;
   color: white;
   margin-right: 0.2em;
-}
-
-body .content-calendar .calendar-section .info-section #titlePage p {
-  width: 8em;
-  margin: 0px;
-  margin-right: 0.5em;
 }
 
 body .content-calendar .calendar-section #calendar {
@@ -941,7 +946,8 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
   body .content-calendar .calendar-section .info-section #titlePage {
     font-size: 1.5em;
     font-weight: bold;
-    color: #313945;
+    color: white;
+    background: #313945;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -955,16 +961,21 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    width: 75%;
+    padding: 0.3em 0em;
+    border-radius: 8px 8px 8px 8px;
+    margin-top: 0em !important;
   }
-  body .content-calendar .calendar-section .info-section #titlePage i {
+  body .content-calendar .calendar-section .info-section #titlePage p {
+    width: 100%;
+    margin: 0px;
+    margin-right: 0.5em;
+  }
+  body .content-calendar .calendar-section .info-section #titlePage p i {
     padding: 0.3em;
     background: #313945;
     border-radius: 4px;
     color: white;
-  }
-  body .content-calendar .calendar-section .info-section #titlePage p {
-    margin: 0px;
-    margin-right: 0.5em;
   }
   body .content-calendar .calendar-section #calendar {
     width: 95%;

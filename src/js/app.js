@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.removeItem("firstDate")
         sessionStorage.removeItem("events")
         sessionStorage.removeItem("instanceLoaded")
+        sessionStorage.removeItem("group")
         $(location).prop('href', `../index.html`);
     }
 
@@ -81,8 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let showSelect = (value) => {
         document.getElementById("resourceContent").style.visibility = value;
     }
-    let showTitlePage = (value) => {
-        document.getElementById("titlePage").innerHTML = value;
+    let showTitlePage = () => {
+        document.getElementById("titlePage").innerHTML = ""
+        let title = sessionStorage.getItem("group")
+        document.getElementById("titlePage").innerHTML = `<p><i class="fa-solid fa-square"></i> GRUPO ${title}</p>`;
     }
     $('.js-select').select2({
         containerCssClass: "",
@@ -255,8 +258,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Si, borrar evento'
             }).then((result) => {
-                console.log("result.isConfirmed")
-                console.log(result.isConfirmed)
                 if (result.isConfirmed) {
 
                     let id = $("#name").attr("data");
@@ -290,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
 
 
-                }else{
+                } else {
                     $("#delete").prop("disabled", false);
                 }
             })
@@ -352,13 +353,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     idEvent = _resource.id;
                 }
 
-                console.log("Evaluar hora")
-                console.log(clickedDate)
-                console.log(today)
+                
                 if (clickedDate <= today) {
 
                     let time = new Date();
-                    console.log("Obtener tiempo");
                     let hours = parseInt(time.getHours());
                     let minutes = parseInt(time.getMinutes());
 
@@ -392,8 +390,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     }
 
-                    console.log(`${hours}:${minutes}`);
-                    console.log(`${hoursEnd}:${minutesEnd}`);
 
                     $("#timeBegin").val(`${hours}:${minutes}`)
                     $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
@@ -421,7 +417,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
     let eventAction = (info) => {
-        console.log(info.event.id)
 
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
 
@@ -440,9 +435,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     data
                 }) {
 
-                    let {datos} = data
-                    console.log("data detalle evento")
-                    console.log(datos)
+                    let {
+                        datos
+                    } = data
+                    
 
                     let applicant = datos.solicitante;
                     let timeBegin = new Date(info.event.start);
@@ -480,26 +476,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -511,10 +487,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     }
-
-
-    let dateActionNone = async () => await console.log("no action day");
-    let eventActionNone = async () => await console.log("no action event");
 
 
     // ________________________________________________________________________________________________________________________
@@ -553,6 +525,9 @@ document.addEventListener('DOMContentLoaded', function () {
         } = data;
         sessionStorage.setItem("user", btoa(datos.usuario_id));
         sessionStorage.setItem("rol", btoa(datos.rol));
+        sessionStorage.setItem("group", datos.grupo);
+
+        showTitlePage();
 
     }).catch(function (error) {
         console.log(error);
@@ -660,7 +635,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 timeFormat[1]
             ];
         } else {
-            console.log("Mes ======================================================")
+            // console.log("Mes ======================================================")
             let primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
             let ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
             let timeFormat = setTimeFormat(primerDia, ultimoDia);
@@ -772,7 +747,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     //-> @@Load default title and hide select rooms control
-    showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`);
     showSelect("hidden");
 
 
@@ -788,8 +762,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (sessionStorage.getItem("instanceLoaded") == 2) {
             // let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
             let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
-            console.log("arrayEvents ==========loaded =============");
-            console.log(arrayEvents);
+            
             setTimeout(() => {
                 arrayEvents.forEach(evento => {
                     // console.log(evento)
@@ -1180,10 +1153,21 @@ document.addEventListener('DOMContentLoaded', function () {
             showSelect("hidden");
             clearEvents();
             sessionStorage.setItem("dateStage", 1);
-            console.log("calendar resourceTimelineDay ========");
-            console.log(calendar.getDate());
+            
             startEventsToUI();
             idRecursosClickeables()
+
+            if (window.screen.width < 430) {
+                $("#titlePage").css({
+                    "border-radius": "8px 8px 8px 8px",
+                    "margin-top": "3em"
+                })
+                $(".info-section").css({
+                    "height": "5em"
+                })
+            }
+
+
         });
 
 
@@ -1193,9 +1177,18 @@ document.addEventListener('DOMContentLoaded', function () {
             showSelect("visible");
             clearEvents();
             sessionStorage.setItem("dateStage", 3);
-            console.log("calendar dayGridMonth ========");
-            console.log(calendar.getDate());
+            
             startEventsToUI();
+
+            if (window.screen.width < 430) {
+                $("#titlePage").css({
+                    "border-radius": "8px 8px 0px 0px",
+                    "margin-top": "0em"
+                })
+                $(".info-section").css({
+                    "height": "8em"
+                })
+            }
         });
 
 
@@ -1204,8 +1197,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // alert("next");
             sessionStorage.setItem("instanceLoaded", 2);
             clearEvents();
-            console.log("calendar ========");
-            console.log(calendar.getDate());
+            
             startEventsToUI();
         });
 
@@ -1213,8 +1205,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // alert("prev");
             sessionStorage.setItem("instanceLoaded", 2);
             clearEvents();
-            console.log("calendar ========");
-            console.log(calendar.getDate());
+            
             startEventsToUI();
         });
 
@@ -1226,11 +1217,9 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem("instanceLoaded", 2);
         clearEvents();
         sessionStorage.setItem("dateStage", 1);
-        showTitlePage(`<p>Vista general</p><i class="fa-solid fa-clock"></i>`)
         showSelect("hidden");
         calendar.changeView('resourceTimelineDay');
-        console.log("calendar ========");
-        console.log(calendar.getDate());
+        
         startEventsToUI();
     });
 
