@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     idEvent = _resource.id;
                 }
 
-                
+
                 if (clickedDate <= today) {
 
                     let time = new Date();
@@ -438,7 +438,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let {
                         datos
                     } = data
-                    
+
 
                     let applicant = datos.solicitante;
                     let timeBegin = new Date(info.event.start);
@@ -710,6 +710,7 @@ document.addEventListener('DOMContentLoaded', function () {
             eventDisplay: 'block',
             eventBorderColor: 'rgba(0, 0, 0, 0)',
             resourceAreaHeaderContent: 'Salas',
+            resourceGroupField: "building",
             resources: arrayResources,
             events: arrayEvents,
             dateClick: dateAction,
@@ -762,7 +763,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (sessionStorage.getItem("instanceLoaded") == 2) {
             // let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
             let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
-            
+
             setTimeout(() => {
                 arrayEvents.forEach(evento => {
                     // console.log(evento)
@@ -1087,9 +1088,13 @@ document.addEventListener('DOMContentLoaded', function () {
             let arrayIdResources = [];
             for (let item of content) {
                 if (count != 0) {
-                    item.setAttribute("id", `sala${item.getAttribute("data-resource-id")}`)
-                    arrayIdResources.push(`sala${item.getAttribute("data-resource-id")}`)
-                    item.setAttribute("style", "cursor:pointer")
+                    
+                    if (item.getAttribute("data-resource-id") != null) {
+                        console.log(item.getAttribute("data-resource-id"))
+                        item.setAttribute("id", `sala${item.getAttribute("data-resource-id")}`)
+                        arrayIdResources.push(`sala${item.getAttribute("data-resource-id")}`)
+                        item.setAttribute("style", "cursor:pointer")
+                    }
                 }
                 count++;
             }
@@ -1109,6 +1114,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             datos
                         } = data
 
+                        $("#nombreGrupo").html(`Grupo ${datos.grupo}`)
                         $("#nombreSala").html(datos.nombre)
                         $("#capacity").html(`<span>${datos.capacidad}</span> personas`)
 
@@ -1153,7 +1159,7 @@ document.addEventListener('DOMContentLoaded', function () {
             showSelect("hidden");
             clearEvents();
             sessionStorage.setItem("dateStage", 1);
-            
+
             startEventsToUI();
             idRecursosClickeables()
 
@@ -1177,7 +1183,7 @@ document.addEventListener('DOMContentLoaded', function () {
             showSelect("visible");
             clearEvents();
             sessionStorage.setItem("dateStage", 3);
-            
+
             startEventsToUI();
 
             if (window.screen.width < 430) {
@@ -1197,7 +1203,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // alert("next");
             sessionStorage.setItem("instanceLoaded", 2);
             clearEvents();
-            
+
             startEventsToUI();
         });
 
@@ -1205,7 +1211,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // alert("prev");
             sessionStorage.setItem("instanceLoaded", 2);
             clearEvents();
-            
+
             startEventsToUI();
         });
 
@@ -1219,7 +1225,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem("dateStage", 1);
         showSelect("hidden");
         calendar.changeView('resourceTimelineDay');
-        
+
         startEventsToUI();
     });
 

@@ -595,31 +595,12 @@ body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(1) t
   text-align: center;
 }
 
-body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(2) td:nth-child(1) {
+body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(2) td {
   background: #313945;
   color: white;
+  font-size: 1.2em;
   font-weight: 600;
-  height: 3.5em !important;
-  line-height: 2;
   text-align: center;
-  padding: 0px;
-  vertical-align: middle;
-}
-
-body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(2) td:nth-child(2) {
-  height: 3.5em !important;
-  line-height: 2;
-  text-align: center;
-  padding: 0px;
-  vertical-align: middle;
-}
-
-body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(2) td:nth-child(2) p {
-  margin: 0px;
-}
-
-body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(2) td:nth-child(2) p span {
-  font-weight: 600;
 }
 
 body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(3) td:nth-child(1) {
@@ -645,14 +626,8 @@ body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(3) t
   margin: 0px;
 }
 
-body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(3) td:nth-child(2) p .fa-circle-xmark {
-  color: red;
-  font-size: 1.5em;
-}
-
-body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(3) td:nth-child(2) p .fa-circle-check {
-  color: green;
-  font-size: 1.5em;
+body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(3) td:nth-child(2) p span {
+  font-weight: 600;
 }
 
 body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(4) td:nth-child(1) {
@@ -660,7 +635,7 @@ body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(4) t
   color: white;
   font-weight: 600;
   height: 3.5em !important;
-  line-height: 1;
+  line-height: 2;
   text-align: center;
   padding: 0px;
   vertical-align: middle;
@@ -693,7 +668,7 @@ body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(5) t
   color: white;
   font-weight: 600;
   height: 3.5em !important;
-  line-height: 2;
+  line-height: 1;
   text-align: center;
   padding: 0px;
   vertical-align: middle;
@@ -734,12 +709,45 @@ body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(6) t
 
 body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(6) td:nth-child(2) {
   height: 3.5em !important;
-  line-height: 1.5;
+  line-height: 2;
+  text-align: center;
   padding: 0px;
   vertical-align: middle;
 }
 
 body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(6) td:nth-child(2) p {
+  margin: 0px;
+}
+
+body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(6) td:nth-child(2) p .fa-circle-xmark {
+  color: red;
+  font-size: 1.5em;
+}
+
+body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(6) td:nth-child(2) p .fa-circle-check {
+  color: green;
+  font-size: 1.5em;
+}
+
+body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(7) td:nth-child(1) {
+  background: #313945;
+  color: white;
+  font-weight: 600;
+  height: 3.5em !important;
+  line-height: 2;
+  text-align: center;
+  padding: 0px;
+  vertical-align: middle;
+}
+
+body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(7) td:nth-child(2) {
+  height: 3.5em !important;
+  line-height: 1.5;
+  padding: 0px;
+  vertical-align: middle;
+}
+
+body #modalInfo .modal-dialog .modal-content .modal-body table tr:nth-child(7) td:nth-child(2) p {
   margin: 0.5em auto;
   width: 90%;
   text-align: start;
