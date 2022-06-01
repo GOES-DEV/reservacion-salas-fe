@@ -1179,6 +1179,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //-> @@Calendar buttons
         $(".fc-resourceTimelineDay-button").on("click", () => {
+            $(".fc-resourceTimelineDay-button").disa
             // alert("resourceTimelineDay");
             sessionStorage.setItem("instanceLoaded", 2);
             showSelect("hidden");

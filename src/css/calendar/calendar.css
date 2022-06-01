@@ -916,7 +916,7 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
             align-items: center;
   }
   body .content-calendar .calendar-section .info-section {
-    width: 100%;
+    width: 95%;
     height: 5em;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -984,7 +984,7 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    width: 75%;
+    width: 50%;
     padding: 0.3em 0em;
     border-radius: 8px 8px 8px 8px;
     margin-top: 0em !important;

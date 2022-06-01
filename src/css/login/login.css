@@ -149,6 +149,14 @@ body .content-login #login .contentInput #userControl label {
   font-family: Arial !important;
 }
 
+body .content-login #login .contentInput #userControl label .fa-check-circle {
+  color: #09dc09;
+}
+
+body .content-login #login .contentInput #userControl label .fa-times-circle {
+  color: #df1616;
+}
+
 body .content-login #login .contentInput #userControl input {
   background-color: var(--gray-form);
 }
@@ -325,6 +333,12 @@ body .content-login #login .contentInput .btn i {
     margin-bottom: 0px;
     color: #bdbcc1;
     font-family: Arial !important;
+  }
+  body .content-login #login .contentInput #userControl label .fa-check-circle {
+    color: #09dc09;
+  }
+  body .content-login #login .contentInput #userControl label .fa-times-circle {
+    color: #df1616;
   }
   body .content-login #login .contentInput #userControl input {
     background-color: var(--gray-form);

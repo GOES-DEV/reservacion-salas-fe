@@ -96,6 +96,14 @@ body {
             margin-bottom: 0px;
             color: #bdbcc1;
             font-family: Arial !important;
+
+            .fa-check-circle {
+              color: rgb(9, 220, 9);
+            }
+
+            .fa-times-circle {
+              color: rgb(223, 22, 22);
+            }
           }
 
           input {
@@ -239,6 +247,14 @@ body {
               margin-bottom: 0px;
               color: #bdbcc1;
               font-family: Arial !important;
+
+              .fa-check-circle {
+                color: rgb(9, 220, 9);
+              }
+
+              .fa-times-circle {
+                color: rgb(223, 22, 22);
+              }
             }
 
             input {

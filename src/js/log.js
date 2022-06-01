@@ -1,4 +1,45 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+
+
+    let expresiones = {
+        text: /[*{}\[\]\^~`<>"'`´¨0-9?¿¡!+-.,;:_|#$%&/()=°¬]/g,
+        textMail: /[*{}\[\]\^~`"'`´¨,;:_|()=°¬\s]/g,
+        mail: /^[-\w%-.$#+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
+    }
+    sessionStorage.setItem("eOk", "0")
+
+    /**
+     * FN: Validation of correct email format
+     */
+    let mailTest = () => {
+        //Replace some special characters at correo
+        let mail = document.getElementById("user");
+        mail.setAttribute("maxlength", 40);
+        mail.addEventListener("input", () => {
+            let valido = document.getElementById('emailOK');
+            if (expresiones.mail.test(mail.value)) {
+                valido.innerHTML = `Correo electrónico <i class="far fa-check-circle"></i>`;
+                sessionStorage.setItem("eOk", 1)
+            } else {
+                valido.innerHTML = `Correo electrónico <i class="far fa-times-circle"></i>`;
+                sessionStorage.setItem("eOk", 0)
+            }
+        });
+
+        mail.addEventListener("keyup", (e) => {
+            //Replace special characters
+            let valor = e.target.value;
+            let nuevoValor = valor.replace(expresiones.textMail, '');
+            document.getElementById(e.target.id).value = nuevoValor.toLowerCase();
+        });
+    }
+
+    mailTest();
+
+
+
+
     $("#user").on("keyup", () => {
         $("#user").css("box-shadow", "none")
     })
@@ -8,11 +49,11 @@ document.addEventListener('DOMContentLoaded', function () {
     $("#showPass").on("click", () => {
         let typeInput = $("#pass").attr("type")
         if (typeInput == "password") {
-            let typeInput = $("#pass").attr("type", "text")
+            $("#pass").attr("type", "text")
             $("#showPass").html(`<i class="fa-solid fa-eye-slash"></i>`)
 
         } else {
-            let typeInput = $("#pass").attr("type", "password")
+            $("#pass").attr("type", "password")
             $("#showPass").html(`<i class="fa-solid fa-eye"></i>`)
 
         }
@@ -27,10 +68,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = new FormData(e.target);
         const { user, pass } = Object.fromEntries(formData);
 
+        
         if (user.length == 0) {
             Swal.fire({
                 icon: 'info',
-                title: '¡Complete el campo usuario!',
+                title: '¡Complete el campo correo electrónico!',
+                toast: true,
+                timer: 1500,
+                showConfirmButton: false,
+            });
+            $("#user").css("box-shadow", "inset 0px 0px 0.5em #ff000080")
+        }else if (sessionStorage.getItem("eOk") == 0){
+            Swal.fire({
+                icon: 'info',
+                title: '¡Formato de correo invalido!',
                 toast: true,
                 timer: 1500,
                 showConfirmButton: false,
