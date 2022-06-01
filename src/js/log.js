@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#pass").css("box-shadow", "inset 0px 0px 0.5em #ff000080")
         } else {
             api.post('/login', {
-                dui: user,
+                correo: user,
                 contra: pass
             }).then(function ({ data }) {
                 let { datos } = data;
