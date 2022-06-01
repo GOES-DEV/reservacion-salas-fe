@@ -597,6 +597,21 @@ body {
   }
 }
 
+#moreIcon{
+  position: absolute;
+  left: 1em;
+  height: 1em;
+  font-size: 0.9em;
+  margin: 0px;
+  margin-top: -2em;
+  font-weight: 500;
+  color: #313945;
+
+  i{
+    margin-right: 1em;
+  }
+}
+
 @media (min-width: 430px) {
   body {
     margin: 0px;

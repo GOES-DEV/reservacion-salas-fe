@@ -735,9 +735,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let {
             datos
         } = data;
-        // console.log("obtenerTodosEventos");
-        // console.log(datos);
-        // sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
+        
         sessionStorage.setItem("events", JSON.stringify(datos));
         runCalendar();
         iniciateAndLoadEvents();
@@ -1149,6 +1147,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         item.setAttribute("id", `sala${item.getAttribute("data-resource-id")}`)
                         arrayIdResources.push(`sala${item.getAttribute("data-resource-id")}`)
                         item.setAttribute("style", "cursor:pointer")
+
+                        const p = document.createElement("p");
+                        const i = document.createElement("i");
+                        i.classList.add("fa-solid")
+                        i.classList.add("fa-square-caret-down")
+                        p.appendChild(i);
+                        p.setAttribute("id", "moreIcon");
+
+                        // const icon = document.createElement("i");
+                        item.appendChild(p);
                     }
                 }
                 count++;
@@ -1164,7 +1172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
         }
 
-        
+
         idRecursosClickeables()
 
 
