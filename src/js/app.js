@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     !sessionStorage.getItem("tok") && $(location).prop('href', `../index.html`);
     const token = atob(sessionStorage.getItem("tok"));
-    console.log(token)
+    // console.log(token)
     let calendarEl = document.getElementById('calendar');
     let calendar = "";
 
@@ -255,6 +255,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Si, borrar evento'
             }).then((result) => {
+                console.log("result.isConfirmed")
+                console.log(result.isConfirmed)
                 if (result.isConfirmed) {
 
                     let id = $("#name").attr("data");
@@ -265,6 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }).then(function ({
                         data
                     }) {
+                        $("#delete").prop("disabled", false);
                         Swal.fire({
                             icon: 'success',
                             title: '¡Evento borrado!',
@@ -287,6 +290,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
 
 
+                }else{
+                    $("#delete").prop("disabled", false);
                 }
             })
         });
@@ -401,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById("room").setAttribute("data", idEvent);
                 document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
                 document.getElementById("buttons").innerHTML = "";
-                document.getElementById("buttons").innerHTML = `${btnAdd} ${btnCancel}`;
+                document.getElementById("buttons").innerHTML = `${btnAdd} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
                 $('#modal').modal("show");
 
                 loadEventsOnModal();
@@ -416,47 +421,91 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
     let eventAction = (info) => {
-        console.log("info del evento")
         console.log(info.event.id)
 
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
 
         if (rol == 1) {
 
+            $("#delete").prop("disabled", true);
             cleanModal();
             $(".info-event").css("display", "none");
 
+            setTimeout(() => {
 
-            let timeBegin = new Date(info.event.start);
-            let timeEnd = new Date(info.event.end);
-            let hoursBegin = timeBegin.getHours()
-            let minutesBegin = timeBegin.getMinutes()
-            let hoursEnd = timeEnd.getHours()
-            let minutesEnd = timeEnd.getMinutes()
-            if (hoursBegin < 10) {
-                hoursBegin = `0${hoursBegin}`
-            }
-            if (minutesBegin < 10) {
-                minutesBegin = `0${minutesBegin}`
-            }
+                api.post('/detalleEvento', {
+                    api_token: token,
+                    id: info.event.id
+                }).then(function ({
+                    data
+                }) {
 
-            if (hoursEnd < 10) {
-                hoursEnd = `0${hoursEnd}`
-            }
-            if (minutesEnd < 10) {
-                minutesEnd = `0${minutesEnd}`
-            }
+                    let {datos} = data
+                    console.log("data detalle evento")
+                    console.log(datos)
 
-            $("#timeBegin").val(`${hoursBegin}:${minutesBegin}`);
-            $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`);
-            $("#name").attr("readonly", true);
-            $("#name").attr("data", info.event.id);
-            $("#name").val(info.event.title);
-            document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-trash"></i> Eliminar evento`;
-            document.getElementById("buttons").innerHTML = "";
-            document.getElementById("buttons").innerHTML = `${btnDelete}`;
-            $('#modal').modal("show");
-            loadEventsOnModal();
+                    let applicant = datos.solicitante;
+                    let timeBegin = new Date(info.event.start);
+                    let timeEnd = new Date(info.event.end);
+                    let hoursBegin = timeBegin.getHours()
+                    let minutesBegin = timeBegin.getMinutes()
+                    let hoursEnd = timeEnd.getHours()
+                    let minutesEnd = timeEnd.getMinutes()
+                    if (hoursBegin < 10) {
+                        hoursBegin = `0${hoursBegin}`
+                    }
+                    if (minutesBegin < 10) {
+                        minutesBegin = `0${minutesBegin}`
+                    }
+
+                    if (hoursEnd < 10) {
+                        hoursEnd = `0${hoursEnd}`
+                    }
+                    if (minutesEnd < 10) {
+                        minutesEnd = `0${minutesEnd}`
+                    }
+
+                    $("#timeBegin").val(`${hoursBegin}:${minutesBegin}`);
+                    $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`);
+                    $("#name").attr("readonly", true);
+                    $("#nameApplicant").attr("readonly", true);
+                    $("#name").attr("data", info.event.id);
+                    $("#name").val(info.event.title);
+                    $("#nameApplicant").val(applicant);
+                    document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-trash"></i> Eliminar evento`;
+                    document.getElementById("buttons").innerHTML = "";
+                    document.getElementById("buttons").innerHTML = `${btnDelete} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
+                    $('#modal').modal("show");
+                    loadEventsOnModal();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+
+            }, 500);
 
         }
 
@@ -601,7 +650,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let currentDate;
 
         if (stage == 1) {
-            console.log("Dia ======================================================")
+            // console.log("Dia ======================================================")
             let primerDia = new Date(date);
             let ultimoDia = new Date(date);
             let timeFormat = setTimeFormat(primerDia, ultimoDia);
@@ -710,8 +759,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let {
             datos
         } = data;
-        console.log("obtenerTodosEventos");
-        console.log(datos);
+        // console.log("obtenerTodosEventos");
+        // console.log(datos);
         // sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
         sessionStorage.setItem("events", JSON.stringify(datos));
         runCalendar();
@@ -1193,7 +1242,8 @@ document.addEventListener('DOMContentLoaded', function () {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Cerrar sesión'
+            confirmButtonText: 'Cerrar sesión',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
 
