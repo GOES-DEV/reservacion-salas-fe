@@ -1079,18 +1079,73 @@ document.addEventListener('DOMContentLoaded', function () {
         loadEvents();
     }
 
+    let runActionOnRooms = (arrayIdResources) => {
+        arrayIdResources.forEach(idSala => {
+            $(`#${idSala}`).on("click", () => {
 
+                let sala_id = $(`#${idSala}`).data("resource-id")
+
+                api.post('/obtenerSala', {
+                    api_token: token,
+                    sala_id
+                }).then(function ({
+                    data
+                }) {
+                    let {
+                        datos
+                    } = data
+
+                    $("#nombreGrupo").html(`Grupo ${datos.grupo}`)
+                    $("#nombreSala").html(datos.nombre)
+                    $("#capacity").html(`<span>${datos.capacidad}</span> personas`)
+
+
+                    if (datos.tv === null || datos.tv == 0) {
+                        $("#tv").html(`<i class="fa-solid fa-circle-xmark"></i>`)
+                    } else {
+                        $("#tv").html(`<i class="fa-solid fa-circle-check"></i>`)
+                    }
+
+                    if (datos.video_conferencia === null || datos.video_conferencia == 0) {
+                        $("#videoConferency").html(`<i class="fa-solid fa-circle-xmark"></i>`)
+                    } else {
+                        $("#videoConferency").html(`<i class="fa-solid fa-circle-check"></i>`)
+                    }
+
+                    if (datos.hdmi === null || datos.hdmi == 0) {
+                        $("#hdmi").html(`<i class="fa-solid fa-circle-xmark"></i>`)
+                    } else {
+                        $("#hdmi").html(`<i class="fa-solid fa-circle-check"></i>`)
+                    }
+
+                    $("#description").html(datos.descripcion)
+
+                }).catch(function (error) {
+                    console.log(error);
+                    logoutSession();
+                });
+
+
+                $('#modalInfo').modal("show");
+            })
+        });
+    }
     setTimeout(() => {
 
         let idRecursosClickeables = () => {
             let content = document.getElementsByClassName("fc-datagrid-cell")
+            let contentButtons = document.getElementsByClassName("fc-datagrid-expander")
             let count = 0;
             let arrayIdResources = [];
+
+            console.log(contentButtons)
+
             for (let item of content) {
+
+                // console.log(item.getAttribute("data-resource-id"))
                 if (count != 0) {
-                    
+
                     if (item.getAttribute("data-resource-id") != null) {
-                        console.log(item.getAttribute("data-resource-id"))
                         item.setAttribute("id", `sala${item.getAttribute("data-resource-id")}`)
                         arrayIdResources.push(`sala${item.getAttribute("data-resource-id")}`)
                         item.setAttribute("style", "cursor:pointer")
@@ -1099,56 +1154,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 count++;
             }
 
-            arrayIdResources.forEach(idSala => {
-                $(`#${idSala}`).on("click", () => {
+            runActionOnRooms(arrayIdResources);
 
-                    let sala_id = $(`#${idSala}`).data("resource-id")
-
-                    api.post('/obtenerSala', {
-                        api_token: token,
-                        sala_id
-                    }).then(function ({
-                        data
-                    }) {
-                        let {
-                            datos
-                        } = data
-
-                        $("#nombreGrupo").html(`Grupo ${datos.grupo}`)
-                        $("#nombreSala").html(datos.nombre)
-                        $("#capacity").html(`<span>${datos.capacidad}</span> personas`)
-
-
-                        if (datos.tv === null || datos.tv == 0) {
-                            $("#tv").html(`<i class="fa-solid fa-circle-xmark"></i>`)
-                        } else {
-                            $("#tv").html(`<i class="fa-solid fa-circle-check"></i>`)
-                        }
-
-                        if (datos.video_conferencia === null || datos.video_conferencia == 0) {
-                            $("#videoConferency").html(`<i class="fa-solid fa-circle-xmark"></i>`)
-                        } else {
-                            $("#videoConferency").html(`<i class="fa-solid fa-circle-check"></i>`)
-                        }
-
-                        if (datos.hdmi === null || datos.hdmi == 0) {
-                            $("#hdmi").html(`<i class="fa-solid fa-circle-xmark"></i>`)
-                        } else {
-                            $("#hdmi").html(`<i class="fa-solid fa-circle-check"></i>`)
-                        }
-
-                        $("#description").html(datos.descripcion)
-
-                    }).catch(function (error) {
-                        console.log(error);
-                        logoutSession();
-                    });
-
-
-                    $('#modalInfo').modal("show");
-                })
-            });
+            // Re asignent actions on rooms
+            $(".fc-datagrid-expander").on("click", () => {
+                setTimeout(() => {
+                    idRecursosClickeables()
+                }, 500);
+            })
         }
+
+        
         idRecursosClickeables()
 
 
