@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } = data
             sessionStorage.setItem("colorRoom", datos.color)
         }).catch(function (error) {
-            // logoutSession();
+            logoutSession();
         });
     }
 
@@ -351,6 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         idInputs.forEach(name => {
             $(`#${name}QuantitySection`).hide(1000)
+            $(`#${name}Row`).show(1000)
         });
 
         let now = new Date();
@@ -493,16 +494,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cleanModal();
             $(".info-event").css("display", "none");
 
-            let idInputs = [
-                "drinks",
-                "snacks",
-                "meals",
-                "others",
-            ]
-
-            idInputs.forEach(name => {
-                $(`#${name}QuantitySection`).show(1000)
-            });
+            
 
             setTimeout(() => {
 
@@ -522,18 +514,21 @@ document.addEventListener('DOMContentLoaded', function () {
                     let meals = datos.comida;
                     let others = datos.otro;
 
-
+                    
                     let setExtras = (input, id) => {
                         if (input == 0) {
                             $(`#${id}Quantity`).val("")
                             $(`#${id}Quantity`).attr('readonly', "");
                             $(`#${id}`).attr('disabled', true);
-
+                            $(`#${id}QuantitySection`).hide(1000)
+                            $(`#${id}Row`).hide(1000)
                         } else {
                             $(`#${id}`).prop("checked", true);
                             $(`#${id}`).attr('disabled', true);
                             $(`#${id}Quantity`).val(input)
                             $(`#${id}Quantity`).attr('readonly', "");
+                            $(`#${id}QuantitySection`).show(1000)
+                            $(`#${id}Row`).show(1000)
                         }
                     }
 
@@ -581,7 +576,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                 }).catch(function (error) {
-                    // console.log(error);
+                    console.log(error);
                 });
 
 
@@ -613,7 +608,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem("rooms", btoa(JSON.stringify(datos)))
 
     }).catch(function (error) {
-        // logoutSession();
+        logoutSession();
     });
 
     api.get('/obtenerUsuario', {
@@ -633,7 +628,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showTitlePage();
 
     }).catch(function (error) {
-        // logoutSession();
+        logoutSession();
     });
 
     //-> @@Select fill
@@ -681,6 +676,8 @@ document.addEventListener('DOMContentLoaded', function () {
         $(`#${input}Quantity`).val("")
         $(`#${input}Quantity`).attr('readonly', "");
         $(`#${input}QuantitySection`).hide(1000)
+
+        console.log($(`#${input}Quantity`).val())
     }
 
     // @@Show the inputs in "extras" section
@@ -902,8 +899,7 @@ document.addEventListener('DOMContentLoaded', function () {
         runCalendar();
         iniciateAndLoadEvents();
     }).catch(function (error) {
-        // console.log(error);
-        // logoutSession();
+        logoutSession();
     });
 
 
@@ -956,8 +952,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // sessionStorage.setItem("events", JSON.stringify(datos));
                 iniciateAndLoadEvents();
             }).catch(function (error) {
-                // console.log(error);
-                // logoutSession();
+                logoutSession();
             });
         } else {
             let {
@@ -978,7 +973,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // sessionStorage.setItem("events", JSON.stringify(datos))
                 iniciateAndLoadEvents();
             }).catch(function (error) {
-                // logoutSession();
+                logoutSession();
             });
         }
 
@@ -1285,8 +1280,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#description").html(datos.descripcion)
 
                 }).catch(function (error) {
-                    // console.log(error);
-                    // logoutSession();
+                    logoutSession();
                 });
 
 
@@ -1443,10 +1437,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 }).then(function ({
                     data
                 }) {
-                    // logoutSession();
+                    logoutSession();
                 }).catch(function (error) {
-                    console.log(error);
-                    // logoutSession();
+                    logoutSession();
                 });
             }
         })
