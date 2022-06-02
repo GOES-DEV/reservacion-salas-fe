@@ -598,15 +598,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     loadEventsOnModal();
                     let now = new Date();
                     if (now > timeBegin) {
-                        setTimeout(() => {
-                            Swal.fire({
-                                icon: 'info',
-                                title: '¡No puedes borrar eventos pasados!',
-                                toast: true,
-                                timer: 2000,
-                                showConfirmButton: false,
-                            });
-                        }, 1000);
+                        
                         $("#delete").hide();
                     } else {
                         $("#delete").show();
