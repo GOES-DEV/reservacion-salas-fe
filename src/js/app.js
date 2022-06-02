@@ -316,7 +316,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         })
                     }).catch(function (error) {
-                        // console.log(error);
                         Swal.fire({
                             title: '¡Error al borrar evento!',
                             text: "Intentalo más tarde",
@@ -472,8 +471,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
                     document.getElementById("buttons").innerHTML = "";
                     document.getElementById("buttons").innerHTML = `${btnAdd} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
-                    
-                    
+
+
 
 
 
@@ -502,11 +501,10 @@ document.addEventListener('DOMContentLoaded', function () {
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
         if (rol == 1) {
 
-            $("#delete").prop("disabled", true);
             cleanModal();
             $(".info-event").css("display", "none");
 
-            
+
 
             setTimeout(() => {
 
@@ -526,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let meals = datos.comida;
                     let others = datos.otro;
 
-                    
+
                     let setExtras = (input, id) => {
                         if (input == 0) {
                             $(`#${id}Quantity`).val("")
@@ -545,7 +543,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
 
-
                     let applicant = datos.solicitante;
                     let timeBegin = new Date(info.event.start);
                     let timeEnd = new Date(info.event.end);
@@ -553,6 +550,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     let minutesBegin = timeBegin.getMinutes()
                     let hoursEnd = timeEnd.getHours()
                     let minutesEnd = timeEnd.getMinutes()
+
+
+
+
+
                     if (hoursBegin < 10) {
                         hoursBegin = `0${hoursBegin}`
                     }
@@ -582,8 +584,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-trash"></i> Eliminar evento`;
                     document.getElementById("buttons").innerHTML = "";
                     document.getElementById("buttons").innerHTML = `${btnDelete} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
-                    
-                    
+
+
 
                     $('#plusBegin').prop("disabled", true);
                     $('#minusBegin').prop("disabled", true);
@@ -594,8 +596,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     $('#modal').modal("show");
                     loadEventsOnModal();
-
-
+                    let now = new Date();
+                    if (now > timeBegin) {
+                        setTimeout(() => {
+                            Swal.fire({
+                                icon: 'info',
+                                title: '¡No puedes borrar eventos pasados!',
+                                toast: true,
+                                timer: 2000,
+                                showConfirmButton: false,
+                            });
+                        }, 1000);
+                        $("#delete").hide();
+                    } else {
+                        $("#delete").show();
+                    }
 
                 }).catch(function (error) {
                     console.log(error);

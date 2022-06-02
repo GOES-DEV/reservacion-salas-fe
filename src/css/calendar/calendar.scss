@@ -380,7 +380,7 @@ body {
                 td:nth-child(2) {
                   padding: 0.5em 0em;
 
-                  .contentQuantity {
+                  #drinksQuantitySection {
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -423,7 +423,7 @@ body {
                 td:nth-child(2) {
                   padding: 0.5em 0em;
 
-                  .contentQuantity {
+                  #snacksQuantitySection {
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -466,7 +466,7 @@ body {
                 td:nth-child(2) {
                   padding: 0.5em 0em;
 
-                  .contentQuantity {
+                  #mealsQuantitySection {
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -509,10 +509,18 @@ body {
                 td:nth-child(2) {
                   padding: 0.5em 0em;
 
-                  textarea {
-                    resize: none;
-                    font-size: 0.9em;
+                  #othersQuantitySection {
+                    width: 80%;
+                    margin: auto;
+
+
+                    textarea {
+                      resize: none;
+                      font-size: 0.9em;
+                    }
                   }
+
+
                 }
               }
             }
