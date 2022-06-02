@@ -120,8 +120,25 @@ document.addEventListener('DOMContentLoaded', function () {
     // let clean modal
     let cleanModal = () => {
         $('#name').val("");
+        $("#nameApplicant").val("");
         $('#timeBegin').val("00:01");
         $('#timeEnd').val("00:30");
+
+        $('#drinks').prop("checked", false);
+        $('#snacks').prop("checked", false);
+        $('#meals').prop("checked", false);
+        $('#others').prop("checked", false);
+
+
+        $('#drinksQuantity').val("");
+        $('#snacksQuantity').val("");
+        $('#mealsQuantity').val("");
+        $('#othersQuantity').val("");
+
+        $('#drinksQuantity').attr('readonly', "")
+        $('#snacksQuantity').attr("readoly", "");
+        $('#mealsQuantity').attr("readoly", "");
+        $('#othersQuantity').attr("readoly", "");
     }
 
     let loadEventsOnModal = () => {
@@ -153,9 +170,27 @@ document.addEventListener('DOMContentLoaded', function () {
             getColor(sala_id);
             let color = sessionStorage.getItem("colorRoom")
 
+            let bebida = $("#drinksQuantity").val();
+            let aperitivo = $("#snacksQuantity").val();
+            let comida = $("#mealsQuantity").val();
+            let otro = $("#othersQuantity").val();
+
+
             let isName = true;
             let isApplicant = true;
 
+            if (bebida == "") {
+                bebida = 0
+            }
+            if (aperitivo == "") {
+                aperitivo = 0
+            }
+            if (comida == "") {
+                comida = 0
+            }
+            if (otro == "") {
+                otro = 0
+            }
 
 
             if (solicitante.length == 0) {
@@ -198,7 +233,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         solicitante,
                         inicio_evento: `${date} ${timeBegin}:00`,
                         fin_evento: `${date} ${timeEnd}:00`,
-                        color
+                        color,
+                        bebida,
+                        aperitivo,
+                        comida,
+                        otro
                     }).then(function ({
                         data
                     }) {
@@ -306,111 +345,130 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
 
-        if (rol == 1) {
-            $(".info-event").css("display", "flex");
-            $("#name").attr("readonly", false)
-            $("#nameApplicant").attr("readonly", false)
-            let clickedDate = new Date(dateStr)
-            let today = new Date()
-            clickedDate.setHours(00)
-            clickedDate.setMinutes(00)
-            clickedDate.setSeconds(00)
-            clickedDate.setMilliseconds(00)
-            today.setHours(00)
-            today.setMinutes(00)
-            today.setSeconds(00)
-            today.setMilliseconds(00)
+        let now = new Date();
+        let timeLimitForRegister = new Date()
+        timeLimitForRegister.setHours(23)
+        timeLimitForRegister.setMinutes(00)
+        timeLimitForRegister.setSeconds(00)
 
 
-            if (clickedDate >= today) {
 
-                cleanModal();
-                let dateText;
-                if (dateStr.length > 10) {
-                    let positionLetter = dateStr.indexOf("T");
-                    dateText = dateStr.substr(0, positionLetter);
-                } else {
-                    dateText = dateStr;
-                }
-
-                let titleEvent = "";
-                let idEvent = "";
-
-                if (resource == "empty") {
-                    // Obtener de session storage name room selected
-                    let info = atob(sessionStorage.getItem("roomSelected"));
-                    let {
-                        id,
-                        title
-                    } = JSON.parse(info);
-
-                    titleEvent = title;
-                    idEvent = id;
-                } else {
-                    const {
-                        _resource
-                    } = resource;
-                    titleEvent = _resource.title
-                    idEvent = _resource.id;
-                }
+        if (now > timeLimitForRegister) {
+            Swal.fire({
+                icon: 'info',
+                title: '¡No puedes agregar eventos en el rango de 11:00 p.m. a 12:00 a.m.!',
+                toast: true,
+                timer: 1500,
+                showConfirmButton: false,
+            });
+        } else {
+            if (rol == 1) {
+                $(".info-event").css("display", "flex");
+                $("#name").attr("readonly", false)
+                $("#nameApplicant").attr("readonly", false)
+                let clickedDate = new Date(dateStr)
+                let today = new Date()
+                clickedDate.setHours(00)
+                clickedDate.setMinutes(00)
+                clickedDate.setSeconds(00)
+                clickedDate.setMilliseconds(00)
+                today.setHours(00)
+                today.setMinutes(00)
+                today.setSeconds(00)
+                today.setMilliseconds(00)
 
 
-                if (clickedDate <= today) {
+                if (clickedDate >= today) {
 
-                    let time = new Date();
-                    let hours = parseInt(time.getHours());
-                    let minutes = parseInt(time.getMinutes());
-
-                    let hoursEnd;
-                    let minutesEnd;
-
-                    if (minutes < 31) {
-                        minutes = 31;
-                        minutesEnd = "00"
-
-
-                        hoursEnd = hours + 1
-                        if (hoursEnd < 10) {
-                            hoursEnd = `0${hoursEnd}`;
-                        }
-                        if (hours < 10) {
-                            hours = `0${hours}`;
-                        }
-
+                    cleanModal();
+                    let dateText;
+                    if (dateStr.length > 10) {
+                        let positionLetter = dateStr.indexOf("T");
+                        dateText = dateStr.substr(0, positionLetter);
                     } else {
-                        minutes = "01";
-                        minutesEnd = "30"
+                        dateText = dateStr;
+                    }
 
-                        hours = hours + 1
-                        hoursEnd = hours;
-                        if (hours < 10) {
-                            hours = `0${hours}`;
-                        }
-                        if (hoursEnd < 10) {
-                            hoursEnd = `0${hoursEnd}`;
-                        }
+                    let titleEvent = "";
+                    let idEvent = "";
+
+                    if (resource == "empty") {
+                        // Obtener de session storage name room selected
+                        let info = atob(sessionStorage.getItem("roomSelected"));
+                        let {
+                            id,
+                            title
+                        } = JSON.parse(info);
+
+                        titleEvent = title;
+                        idEvent = id;
+                    } else {
+                        const {
+                            _resource
+                        } = resource;
+                        titleEvent = _resource.title
+                        idEvent = _resource.id;
                     }
 
 
-                    $("#timeBegin").val(`${hours}:${minutes}`)
-                    $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
+                    if (clickedDate <= today) {
+
+                        let time = new Date();
+                        let hours = parseInt(time.getHours());
+                        let minutes = parseInt(time.getMinutes());
+
+                        let hoursEnd;
+                        let minutesEnd;
+
+                        if (minutes < 31) {
+                            minutes = 31;
+                            minutesEnd = "00"
+
+
+                            hoursEnd = hours + 1
+                            if (hoursEnd < 10) {
+                                hoursEnd = `0${hoursEnd}`;
+                            }
+                            if (hours < 10) {
+                                hours = `0${hours}`;
+                            }
+
+                        } else {
+                            minutes = "01";
+                            minutesEnd = "30"
+
+                            hours = hours + 1
+                            hoursEnd = hours;
+                            if (hours < 10) {
+                                hours = `0${hours}`;
+                            }
+                            if (hoursEnd < 10) {
+                                hoursEnd = `0${hoursEnd}`;
+                            }
+                        }
+
+
+                        $("#timeBegin").val(`${hours}:${minutes}`)
+
+                        $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
+
+                    }
+
+
+
+                    document.getElementById("date").value = dateText;
+                    document.getElementById("room").value = titleEvent;
+                    document.getElementById("room").setAttribute("data", idEvent);
+                    document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
+                    document.getElementById("buttons").innerHTML = "";
+                    document.getElementById("buttons").innerHTML = `${btnAdd} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
+                    $('#modal').modal("show");
+
+                    loadEventsOnModal();
+
                 }
-
-
-
-                document.getElementById("date").value = dateText;
-                document.getElementById("room").value = titleEvent;
-                document.getElementById("room").setAttribute("data", idEvent);
-                document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
-                document.getElementById("buttons").innerHTML = "";
-                document.getElementById("buttons").innerHTML = `${btnAdd} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
-                $('#modal').modal("show");
-
-                loadEventsOnModal();
-
             }
         }
-
 
 
 
@@ -440,6 +498,27 @@ document.addEventListener('DOMContentLoaded', function () {
                         datos
                     } = data
 
+                    let drinks = datos.bebida;
+                    let snacks = datos.aperitivo;
+                    let meals = datos.comida;
+                    let others = datos.otro;
+
+
+                    let setExtras = (input, id)=>{
+                        if (input == 0) {
+                            $(`#${id}Quantity`).val("")
+                            $(`#${id}Quantity`).attr('readonly', "");
+                            $(`#${id}`).attr('disabled', true);
+    
+                        } else {
+                            $(`#${id}`).prop("checked",true);
+                            $(`#${id}`).attr('disabled', true);
+                            $(`#${id}Quantity`).val(input)
+                            $(`#${id}Quantity`).attr('readonly', "");
+                        }
+                    }
+
+
 
                     let applicant = datos.solicitante;
                     let timeBegin = new Date(info.event.start);
@@ -461,6 +540,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (minutesEnd < 10) {
                         minutesEnd = `0${minutesEnd}`
                     }
+
+                    setExtras(drinks, "drinks")
+                    setExtras(snacks, "snacks")
+                    setExtras(meals, "meals")
+                    setExtras(others, "others")
 
                     $("#timeBegin").val(`${hoursBegin}:${minutesBegin}`);
                     $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`);
@@ -574,6 +658,71 @@ document.addEventListener('DOMContentLoaded', function () {
         clearEvents()
         loadEvents();
     })
+
+    let cleanInput = (input) => {
+        $(`#${input}Quantity`).val("")
+        $(`#${input}Quantity`).attr('readonly', "");
+    }
+
+    $("#drinks").on("click", () => {
+        let isChecked = $("#drinks").prop("checked");
+        isChecked ? $("#drinksQuantity").removeAttr('readonly') : cleanInput("drinks")
+    })
+
+    $("#snacks").on("click", () => {
+        let isChecked = $("#snacks").prop("checked");
+        isChecked ? $("#snacksQuantity").removeAttr('readonly') : cleanInput("snacks")
+    })
+
+    $("#meals").on("click", () => {
+        let isChecked = $("#meals").prop("checked");
+        isChecked ? $("#mealsQuantity").removeAttr('readonly') : cleanInput("meals")
+    })
+
+    $("#others").on("click", () => {
+        let isChecked = $("#others").prop("checked");
+        isChecked ? $("#othersQuantity").removeAttr('readonly') : cleanInput("others")
+    })
+
+    let verifyNumberMaxMin = (input) => {
+        let value = $(`#${input}`).val();
+        let min = parseInt($(`#${input}`).attr("min"))
+        let max = parseInt($(`#${input}`).attr("max"))
+        if (value < min) {
+            $(`#${input}`).val(min);
+        }
+
+        if (value > max) {
+            $(`#${input}`).val(max);
+        }
+    }
+
+
+    $("#drinksQuantity").on("keyup", () => {
+        verifyNumberMaxMin("#drinksQuantity")
+    })
+
+    $("#drinksQuantity").on("change", () => {
+        verifyNumberMaxMin("#drinksQuantity")
+    })
+
+    $("#snacksQuantity").on("keyup", () => {
+        verifyNumberMaxMin("#snacksQuantity")
+    })
+
+    $("#snacksQuantity").on("change", () => {
+        verifyNumberMaxMin("#snacksQuantity")
+    })
+
+    $("#mealsQuantity").on("keyup", () => {
+        verifyNumberMaxMin("#mealsQuantity")
+    })
+
+    $("#mealsQuantity").on("change", () => {
+        verifyNumberMaxMin("#mealsQuantity")
+    })
+
+
 
 
     // TODO: Al clickear en los botones de navegacion ejecutar api de consulta por sala y rango de fecha
@@ -1136,8 +1285,6 @@ document.addEventListener('DOMContentLoaded', function () {
             let contentButtons = document.getElementsByClassName("fc-datagrid-expander")
             let count = 0;
             let arrayIdResources = [];
-
-            console.log(contentButtons)
 
             for (let item of content) {
 

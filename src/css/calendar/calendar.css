@@ -510,6 +510,190 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
   border: none;
 }
 
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras {
+  width: 90%;
+  margin: auto;
+  margin-top: 1em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(1) {
+  padding: 0.5em 0em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(1) .contentCheck {
+  width: 6em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(1) .contentCheck input {
+  margin-left: 1em;
+  margin-top: 0.4em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(1) .contentCheck label {
+  margin: 0px;
+  margin-left: 2.4em;
+  font-weight: 600;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) {
+  padding: 0.5em 0em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) .contentQuantity {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) .contentQuantity input {
+  height: 2em;
+  width: 4em;
+  margin-right: 1em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) .contentQuantity p {
+  margin: 0px;
+  font-weight: 500;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) {
+  padding: 0.5em 0em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck {
+  width: 6em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck input {
+  margin-left: 1em;
+  margin-top: 0.4em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck label {
+  margin: 0px;
+  margin-left: 2.4em;
+  font-weight: 600;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) {
+  padding: 0.5em 0em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) .contentQuantity {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) .contentQuantity input {
+  height: 2em;
+  width: 4em;
+  margin-right: 1em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) .contentQuantity p {
+  margin: 0px;
+  font-weight: 500;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) {
+  padding: 0.5em 0em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) .contentCheck {
+  width: 6em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) .contentCheck input {
+  margin-left: 1em;
+  margin-top: 0.4em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) .contentCheck label {
+  margin: 0px;
+  margin-left: 2.4em;
+  font-weight: 600;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) {
+  padding: 0.5em 0em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) .contentQuantity {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) .contentQuantity input {
+  height: 2em;
+  width: 4em;
+  margin-right: 1em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) .contentQuantity p {
+  margin: 0px;
+  font-weight: 500;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(1) {
+  padding: 0.5em 0em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(1) .contentCheck {
+  width: 6em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(1) .contentCheck input {
+  margin-left: 1em;
+  margin-top: 0.4em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(1) .contentCheck label {
+  margin: 0px;
+  margin-left: 2.4em;
+  font-weight: 600;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) {
+  padding: 0.5em 0em;
+}
+
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) textarea {
+  resize: none;
+  font-size: 0.9em;
+}
+
 body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons {
   margin-top: 2em;
   width: 100%;
@@ -1207,6 +1391,159 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin:focus,
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content #plusBegin:focus {
     border: none;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras {
+    width: 80%;
+    margin: auto;
+    margin-top: 1em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(1) {
+    padding: 0.5em 0em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(1) .contentCheck {
+    width: 6em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(1) .contentCheck input {
+    margin-left: 1em;
+    margin-top: 0.4em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(1) .contentCheck label {
+    margin: 0px;
+    margin-left: 2.4em;
+    font-weight: 600;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) {
+    padding: 0.5em 0em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) .contentQuantity {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) .contentQuantity input {
+    height: 2em;
+    width: 4em;
+    margin-right: 1em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) .contentQuantity p {
+    margin: 0px;
+    font-weight: 500;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) {
+    padding: 0.5em 0em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck {
+    width: 6em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck input {
+    margin-left: 1em;
+    margin-top: 0.4em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck label {
+    margin: 0px;
+    margin-left: 2.4em;
+    font-weight: 600;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) {
+    padding: 0.5em 0em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) .contentQuantity {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) .contentQuantity input {
+    height: 2em;
+    width: 4em;
+    margin-right: 1em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) .contentQuantity p {
+    margin: 0px;
+    font-weight: 500;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) {
+    padding: 0.5em 0em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) .contentCheck {
+    width: 6em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) .contentCheck input {
+    margin-left: 1em;
+    margin-top: 0.4em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) .contentCheck label {
+    margin: 0px;
+    margin-left: 2.4em;
+    font-weight: 600;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) {
+    padding: 0.5em 0em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) .contentQuantity {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) .contentQuantity input {
+    height: 2em;
+    width: 4em;
+    margin-right: 1em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) .contentQuantity p {
+    margin: 0px;
+    font-weight: 500;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(1) {
+    padding: 0.5em 0em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(1) .contentCheck {
+    width: 6em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(1) .contentCheck input {
+    margin-left: 1em;
+    margin-top: 0.4em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(1) .contentCheck label {
+    margin: 0px;
+    margin-left: 2.4em;
+    font-weight: 600;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) {
+    padding: 0.5em 0em;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) textarea {
+    resize: none;
+    font-size: 0.9em;
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons {
     margin-top: 2em;
