@@ -472,6 +472,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
                     document.getElementById("buttons").innerHTML = "";
                     document.getElementById("buttons").innerHTML = `${btnAdd} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
+                    
+                    
+
+
+
+                    $('#plusBegin').prop("disabled", false);
+                    $('#minusBegin').prop("disabled", false);
+
+                    $('#plusEnd').prop("disabled", false);
+                    $('#minusEnd').prop("disabled", false);
+
+
                     $('#modal').modal("show");
 
                     let sala_id = parseInt($("#room").attr("data"));
@@ -570,6 +582,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-trash"></i> Eliminar evento`;
                     document.getElementById("buttons").innerHTML = "";
                     document.getElementById("buttons").innerHTML = `${btnDelete} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
+                    
+                    
+
+                    $('#plusBegin').prop("disabled", true);
+                    $('#minusBegin').prop("disabled", true);
+
+                    $('#plusEnd').prop("disabled", true);
+                    $('#minusEnd').prop("disabled", true);
+
+
                     $('#modal').modal("show");
                     loadEventsOnModal();
 
