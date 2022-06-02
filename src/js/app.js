@@ -455,7 +455,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
 
-
+                    $('#drinks').prop("disabled", false);
+                    $('#snacks').prop("disabled", false);
+                    $('#meals').prop("disabled", false);
+                    $('#others').prop("disabled", false);
                     document.getElementById("date").value = dateText;
                     document.getElementById("room").value = titleEvent;
                     document.getElementById("room").setAttribute("data", idEvent);
@@ -469,10 +472,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         }
-
-
-
-
 
     }
     let eventAction = (info) => {
@@ -504,14 +503,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     let others = datos.otro;
 
 
-                    let setExtras = (input, id)=>{
+                    let setExtras = (input, id) => {
                         if (input == 0) {
                             $(`#${id}Quantity`).val("")
                             $(`#${id}Quantity`).attr('readonly', "");
                             $(`#${id}`).attr('disabled', true);
-    
+
                         } else {
-                            $(`#${id}`).prop("checked",true);
+                            $(`#${id}`).prop("checked", true);
                             $(`#${id}`).attr('disabled', true);
                             $(`#${id}Quantity`).val(input)
                             $(`#${id}Quantity`).attr('readonly', "");
