@@ -33,13 +33,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     !sessionStorage.getItem("tok") && $(location).prop('href', `../index.html`);
     const token = atob(sessionStorage.getItem("tok"));
-    // console.log(token)
     let calendarEl = document.getElementById('calendar');
     let calendar = "";
+    sessionStorage.setItem("activeTab", btoa("generalView"))
 
-    //instance of Luxon library
+    // @@instance of Luxon library
     let DateTime = luxon.DateTime;
 
+    // @@Function to close session and remove all variables on session storage
     let logoutSession = () => {
         sessionStorage.removeItem("tok")
         sessionStorage.removeItem("rol")
@@ -57,8 +58,8 @@ document.addEventListener('DOMContentLoaded', function () {
         $(location).prop('href', `../index.html`);
     }
 
+    // @@Function to save selected room´s color in session storage
     let getColor = (sala_id) => {
-        console.log("Se busca color")
         api.post('/obtenerSala', {
             api_token: token,
             sala_id
@@ -68,14 +69,9 @@ document.addEventListener('DOMContentLoaded', function () {
             let {
                 datos
             } = data
-
-            console.log("Color")
-            console.log(datos.color)
             sessionStorage.setItem("colorRoom", datos.color)
-
         }).catch(function (error) {
-            console.log(error);
-            logoutSession();
+            // logoutSession();
         });
     }
 
@@ -98,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // theme: 'bootstrap',
     });
 
+    // @@Function click for show/hide the navbar on mobile
     $("#btnMenuResponsive").on("click", () => {
         let isOpen = parseInt($('#btnMenuResponsive').attr("data"));
         if (isOpen == 0) {
@@ -121,32 +118,28 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnAdd = `<button id="add" class="btn"><i class="fa-solid fa-square-plus"></i>Agregar</button>`;
     const btnUpdate = `<button id="update"  class="btn"><i class="fa-solid fa-square-pen"></i>Modificar</button>`;
     const btnDelete = `<button  id="delete" class="btn"><i class="fa-solid fa-trash"></i>Borrar</button>`;
-    const btnCancel = `<button id="cancel" class="btn">Cancelar</button>`;
 
-    // let clean modal
+    // @@Clean modal Event
     let cleanModal = () => {
         $('#name').val("");
         $("#nameApplicant").val("");
         $('#timeBegin').val("00:01");
         $('#timeEnd').val("00:30");
 
-        $('#drinks').prop("checked", false);
-        $('#snacks').prop("checked", false);
-        $('#meals').prop("checked", false);
-        $('#others').prop("checked", false);
-
-
-        $('#drinksQuantity').val("");
-        $('#snacksQuantity').val("");
-        $('#mealsQuantity').val("");
-        $('#othersQuantity').val("");
-
-        $('#drinksQuantity').attr('readonly', "")
-        $('#snacksQuantity').attr("readoly", "");
-        $('#mealsQuantity').attr("readoly", "");
-        $('#othersQuantity').attr("readoly", "");
+        let nameInput = [
+            "drinks",
+            "snacks",
+            "meals",
+            "others"
+        ];
+        nameInput.forEach(name => {
+            $(`#${name}`).prop("checked", false);
+            $(`#${name}Quantity`).val("");
+            $(`#${name}Quantity`).attr('readonly', "")
+        });
     }
 
+    // @@Load event when modal is triggered
     let loadEventsOnModal = () => {
         let nameInput = $("#name");
         let applicantInput = $("#nameApplicant");
@@ -348,15 +341,13 @@ document.addEventListener('DOMContentLoaded', function () {
         resource = "empty"
     }) => {
 
-
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
-
         let idInputs = [
             "drinks",
             "snacks",
             "meals",
             "others",
-        ]
+        ];
 
         idInputs.forEach(name => {
             $(`#${name}QuantitySection`).hide(1000)
@@ -368,8 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
         timeLimitForRegister.setMinutes(00)
         timeLimitForRegister.setSeconds(00)
 
-
-
+        // @@Validation for 11 oclock pm
         if (now > timeLimitForRegister) {
             Swal.fire({
                 icon: 'info',
@@ -410,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let idEvent = "";
 
                     if (resource == "empty") {
-                        // Obtener de session storage name room selected
+                        // Get session storage name room selected
                         let info = atob(sessionStorage.getItem("roomSelected"));
                         let {
                             id,
@@ -466,7 +456,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                         $("#timeBegin").val(`${hours}:${minutes}`)
-
                         $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
 
                     }
@@ -484,21 +473,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById("buttons").innerHTML = `${btnAdd} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
                     $('#modal').modal("show");
 
-
                     let sala_id = parseInt($("#room").attr("data"));
                     getColor(sala_id);
 
                     loadEventsOnModal();
-
                 }
             }
         }
 
     }
+
+
     let eventAction = (info) => {
 
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
-
         if (rol == 1) {
 
             $("#delete").prop("disabled", true);
@@ -625,8 +613,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem("rooms", btoa(JSON.stringify(datos)))
 
     }).catch(function (error) {
-        // console.log(error);
-        logoutSession();
+        // logoutSession();
     });
 
     api.get('/obtenerUsuario', {
@@ -646,8 +633,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showTitlePage();
 
     }).catch(function (error) {
-        // console.log(error);
-        logoutSession();
+        // logoutSession();
     });
 
     //-> @@Select fill
@@ -690,12 +676,14 @@ document.addEventListener('DOMContentLoaded', function () {
         loadEvents();
     })
 
+    // @@Clean input from modal event "extras" section
     let cleanInput = (input) => {
         $(`#${input}Quantity`).val("")
         $(`#${input}Quantity`).attr('readonly', "");
         $(`#${input}QuantitySection`).hide(1000)
     }
 
+    // @@Show the inputs in "extras" section
     let showSection = (input) => {
         $(`#${input}Quantity`).removeAttr('readonly')
         input != "others" && $(`#${input}Quantity`).val(1)
@@ -717,16 +705,14 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     });
 
-
+    // @@Set the max and min value for the number of person in "extras" section
     let verifyNumberMaxMin = (input) => {
         let value = $(`#${input}`).val();
         let min = parseInt($(`#${input}`).attr("min"))
         let max = parseInt($(`#${input}`).attr("max"))
-
         if (value < min) {
             $(`#${input}`).val(min);
         }
-
         if (value > max) {
             $(`#${input}`).val(max);
         }
@@ -840,8 +826,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let runCalendar = () => {
         //-> @@Resources and events
         let arrayResources = JSON.parse(atob(sessionStorage.getItem("rooms")));
-        // let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
-        let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
+        let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
+        // let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
 
 
         //-> @@Config default
@@ -912,12 +898,12 @@ document.addEventListener('DOMContentLoaded', function () {
             datos
         } = data;
 
-        sessionStorage.setItem("events", JSON.stringify(datos));
+        sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
         runCalendar();
         iniciateAndLoadEvents();
     }).catch(function (error) {
         // console.log(error);
-        logoutSession();
+        // logoutSession();
     });
 
 
@@ -935,8 +921,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     let iniciateAndLoadEvents = () => {
         if (sessionStorage.getItem("instanceLoaded") == 2) {
-            // let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
-            let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
+            let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
+            // let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
 
             setTimeout(() => {
                 arrayEvents.forEach(evento => {
@@ -949,7 +935,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // TODO: Close loader
     }
 
-
+    // @@Load events on calendar timeline view o moth view
     let loadEvents = () => {
         let primerDiaValue = sessionStorage.getItem("firstDate");
         let ultimoDiaValue = sessionStorage.getItem("lastDate");
@@ -966,12 +952,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 let {
                     datos
                 } = data;
-                // sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
-                sessionStorage.setItem("events", JSON.stringify(datos));
+                sessionStorage.setItem("events", btoa(JSON.stringify(datos)));
+                // sessionStorage.setItem("events", JSON.stringify(datos));
                 iniciateAndLoadEvents();
             }).catch(function (error) {
                 // console.log(error);
-                logoutSession();
+                // logoutSession();
             });
         } else {
             let {
@@ -988,12 +974,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 let {
                     datos
                 } = data;
-                // sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
-                sessionStorage.setItem("events", JSON.stringify(datos))
+                sessionStorage.setItem("events", btoa(JSON.stringify(datos)))
+                // sessionStorage.setItem("events", JSON.stringify(datos))
                 iniciateAndLoadEvents();
             }).catch(function (error) {
-                // console.log(error);
-                logoutSession();
+                // logoutSession();
             });
         }
 
@@ -1242,8 +1227,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // @6° CALENDAR & MENU BUTTONS ACTIONS __________________________________________________________________________________________________
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
-    // Cargar eventos
-
+    // @@Load events
     let startEventsToUI = () => {
 
         let [primerDia, ultimoDia] = getCurrentMonth(calendar.getDate());
@@ -1253,6 +1237,7 @@ document.addEventListener('DOMContentLoaded', function () {
         loadEvents();
     }
 
+    // @@Set Action on rooms for show details
     let runActionOnRooms = (arrayIdResources) => {
         arrayIdResources.forEach(idSala => {
             $(`#${idSala}`).on("click", () => {
@@ -1273,30 +1258,35 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#nombreSala").html(datos.nombre)
                     $("#capacity").html(`<span>${datos.capacidad}</span> personas`)
 
+                    let nameIcons = [
+                        "tv",
+                        "videoConferency",
+                        "hdmi"
+                    ]
 
-                    if (datos.tv === null || datos.tv == 0) {
-                        $("#tv").html(`<i class="fa-solid fa-circle-xmark"></i>`)
-                    } else {
-                        $("#tv").html(`<i class="fa-solid fa-circle-check"></i>`)
-                    }
+                    // @@Set the correct icon for each case
+                    nameIcons.forEach(name => {
+                        let value;
+                        if (name == "tv") {
+                            value = datos.tv
+                        } else if (name == "videoConferency") {
+                            value = datos.video_conferencia
+                        } else {
+                            value = datos.hdmi
+                        }
 
-                    if (datos.video_conferencia === null || datos.video_conferencia == 0) {
-                        $("#videoConferency").html(`<i class="fa-solid fa-circle-xmark"></i>`)
-                    } else {
-                        $("#videoConferency").html(`<i class="fa-solid fa-circle-check"></i>`)
-                    }
-
-                    if (datos.hdmi === null || datos.hdmi == 0) {
-                        $("#hdmi").html(`<i class="fa-solid fa-circle-xmark"></i>`)
-                    } else {
-                        $("#hdmi").html(`<i class="fa-solid fa-circle-check"></i>`)
-                    }
+                        if (value === null || value == 0) {
+                            $(`#${name}`).html(`<i class="fa-solid fa-circle-xmark"></i>`)
+                        } else {
+                            $(`#${name}`).html(`<i class="fa-solid fa-circle-check"></i>`)
+                        }
+                    });
 
                     $("#description").html(datos.descripcion)
 
                 }).catch(function (error) {
                     // console.log(error);
-                    logoutSession();
+                    // logoutSession();
                 });
 
 
@@ -1304,19 +1294,20 @@ document.addEventListener('DOMContentLoaded', function () {
             })
         });
     }
+
+
+
+
+    // @@Delay for render first the calendar and after the events
     setTimeout(() => {
 
+        // @@Events click on rooms
         let idRecursosClickeables = () => {
             let content = document.getElementsByClassName("fc-datagrid-cell")
-            let contentButtons = document.getElementsByClassName("fc-datagrid-expander")
             let count = 0;
             let arrayIdResources = [];
-
             for (let item of content) {
-
-                // console.log(item.getAttribute("data-resource-id"))
                 if (count != 0) {
-
                     if (item.getAttribute("data-resource-id") != null) {
                         item.setAttribute("id", `sala${item.getAttribute("data-resource-id")}`)
                         arrayIdResources.push(`sala${item.getAttribute("data-resource-id")}`)
@@ -1328,8 +1319,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         i.classList.add("fa-square-caret-down")
                         p.appendChild(i);
                         p.setAttribute("id", "moreIcon");
-
-                        // const icon = document.createElement("i");
                         item.appendChild(p);
                     }
                 }
@@ -1338,21 +1327,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
             runActionOnRooms(arrayIdResources);
 
-            // Re asignent actions on rooms
+            // @@Re asignent actions on rooms
             $(".fc-datagrid-expander").on("click", () => {
                 setTimeout(() => {
                     idRecursosClickeables()
                 }, 500);
             })
         }
-
-
         idRecursosClickeables()
 
 
         //-> @@Calendar buttons
         $(".fc-resourceTimelineDay-button").on("click", () => {
-            $(".fc-resourceTimelineDay-button").disa
+            $(".fc-resourceTimelineDay-button").prop('disabled', true);
+            $(".fc-dayGridMonth-button").prop('disabled', false);
             // alert("resourceTimelineDay");
             sessionStorage.setItem("instanceLoaded", 2);
             showSelect("hidden");
@@ -1377,7 +1365,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         $(".fc-dayGridMonth-button").on("click", () => {
-            // alert("dayGridMonth");
+            $(".fc-resourceTimelineDay-button").prop('disabled', false);
+            $(".fc-dayGridMonth-button").prop('disabled', true);
             sessionStorage.setItem("instanceLoaded", 2);
             showSelect("visible");
             clearEvents();
@@ -1419,15 +1408,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //-> @@Menu buttons
     $(".generalView").on("click", () => {
-        sessionStorage.setItem("instanceLoaded", 2);
-        clearEvents();
-        sessionStorage.setItem("dateStage", 1);
-        showSelect("hidden");
-        calendar.changeView('resourceTimelineDay');
+        let activeTab = atob(sessionStorage.getItem("activeTab"))
+        if (activeTab != "generalView") {
+            sessionStorage.setItem("activeTab", btoa("generalViews"))
 
-        startEventsToUI();
+            sessionStorage.setItem("instanceLoaded", 2);
+            clearEvents();
+            sessionStorage.setItem("dateStage", 1);
+            showSelect("hidden");
+            calendar.changeView('resourceTimelineDay');
+
+            startEventsToUI();
+        }
     });
 
+    // @@Logout session
     $(".logout").on("click", () => {
 
         Swal.fire({
@@ -1448,18 +1443,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 }).then(function ({
                     data
                 }) {
-                    logoutSession();
+                    // logoutSession();
                 }).catch(function (error) {
                     console.log(error);
-                    logoutSession();
+                    // logoutSession();
                 });
-
-
-
             }
         })
     });
-
-    // Modal
 
 })
