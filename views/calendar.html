@@ -78,8 +78,7 @@
 
                         <div class="form-group name-event">
                             <label for="name">Nombre evento</label>
-                            <input type="text" class="form-control" id="name" placeholder="Evento"
-                                maxlength="90">
+                            <input type="text" class="form-control" id="name" placeholder="Evento" maxlength="90">
                         </div>
                         <div class="form-group name-event">
                             <label for="nameApplicant">Solicitante</label>
@@ -112,20 +111,53 @@
 
                         <table class="table table-hover extras">
                             <tr>
-                                <td><div class="contentCheck"><input class="form-check-input" type="checkbox" id="drinks" value="1"> <label for="drinks">Bebidas</label></div></td>
-                                <td><div class="contentQuantity"><input min="0" max="20" step="1" class="form-control" type="number" name="drinksQuantity" id="drinksQuantity" readonly> <p><i class="fa-solid fa-hashtag"></i>Personas</p></div></td>
+                                <td>
+                                    <div class="contentCheck"><input class="form-check-input" type="checkbox"
+                                            id="drinks" value="1"> <label for="drinks">Bebidas</label></div>
+                                </td>
+                                <td>
+                                    <div id="drinksQuantitySection"><input min="1" max="20" step="1" class="form-control"
+                                            type="number" name="drinksQuantity" id="drinksQuantity" readonly>
+                                        <p><i class="fa-solid fa-hashtag"></i>Personas</p>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
-                                <td><div class="contentCheck"><input class="form-check-input" type="checkbox" id="snacks" value="1"> <label for="snacks">Aperitivos</label></div></td>
-                                <td><div class="contentQuantity"><input min="0" max="20" step="1" class="form-control" type="number" name="snacksQuantity" id="snacksQuantity" readonly> <p><i class="fa-solid fa-hashtag"></i>Personas</p></div></td>
+                                <td>
+                                    <div class="contentCheck"><input class="form-check-input" type="checkbox"
+                                            id="snacks" value="1"> <label for="snacks">Aperitivos</label></div>
+                                </td>
+                                <td>
+                                    <div id="snacksQuantitySection"><input min="1" max="20" step="1" class="form-control"
+                                            type="number" name="snacksQuantity" id="snacksQuantity" readonly>
+                                        <p><i class="fa-solid fa-hashtag"></i>Personas</p>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
-                                <td><div class="contentCheck"><input class="form-check-input" type="checkbox" id="meals" value="1"> <label for="meals">Comida</label></div></td>
-                                <td><div class="contentQuantity"><input min="0" max="20" step="1" class="form-control" type="number" name="mealsQuantity" id="mealsQuantity" readonly> <p><i class="fa-solid fa-hashtag"></i>Personas</p></div></td>
+                                <td>
+                                    <div class="contentCheck"><input class="form-check-input" type="checkbox" id="meals"
+                                            value="1"> <label for="meals">Comida</label></div>
+                                </td>
+                                <td>
+                                    <div id="mealsQuantitySection">
+                                        <input min="1" max="20" step="1" class="form-control"
+                                            type="number" name="mealsQuantity" id="mealsQuantity" readonly>
+                                        <p><i class="fa-solid fa-hashtag"></i>Personas</p>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
-                                <td><div class="contentCheck"><input class="form-check-input" type="checkbox" id="others" value="1"> <label for="others">Otros</label></div></td>
-                                <td><textarea maxlength="100" class="form-control" name="othersQuantity" id="othersQuantity"  rows="2" readonly></textarea></td>
+                                <td>
+                                    <div class="contentCheck"><input class="form-check-input" type="checkbox"
+                                            id="others" value="1"> <label for="others">Otros</label></div>
+                                </td>
+                                <td>
+                                    <div id="othersQuantitySection">
+                                        <textarea maxlength="100" class="form-control" name="othersQuantity"
+                                            id="othersQuantity" rows="2" readonly></textarea>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
 
@@ -184,7 +216,7 @@
                         </tr>
                         <tr>
                             <td>Descripcion</td>
-                            <td>
+                            <td id="describeSection">
                                 <p id="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente,
                                     perspiciatis fugiat quis, quibusdam recusandae iusto molestiae facilis corporis hic
                                     magnam suscipit culpa dolor distinctio velit, accusamus neque doloribus? Fugit,
@@ -207,13 +239,13 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- Libraries important -->

@@ -1414,8 +1414,9 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) {
     padding: 0.5em 0em;
+    width: 15em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) .contentQuantity {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) #drinksQuantitySection {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1430,12 +1431,12 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
         -ms-flex-direction: row;
             flex-direction: row;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) .contentQuantity input {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) #drinksQuantitySection input {
     height: 2em;
     width: 4em;
     margin-right: 1em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) .contentQuantity p {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(1) td:nth-child(2) #drinksQuantitySection p {
     margin: 0px;
     font-weight: 500;
   }
@@ -1456,8 +1457,9 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) {
     padding: 0.5em 0em;
+    width: 15em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) .contentQuantity {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #snacksQuantitySection {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1472,12 +1474,12 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
         -ms-flex-direction: row;
             flex-direction: row;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) .contentQuantity input {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #snacksQuantitySection input {
     height: 2em;
     width: 4em;
     margin-right: 1em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) .contentQuantity p {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #snacksQuantitySection p {
     margin: 0px;
     font-weight: 500;
   }
@@ -1498,8 +1500,9 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) {
     padding: 0.5em 0em;
+    width: 15em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) .contentQuantity {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #mealsQuantitySection {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1514,12 +1517,12 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
         -ms-flex-direction: row;
             flex-direction: row;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) .contentQuantity input {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #mealsQuantitySection input {
     height: 2em;
     width: 4em;
     margin-right: 1em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) .contentQuantity p {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #mealsQuantitySection p {
     margin: 0px;
     font-weight: 500;
   }
@@ -1540,8 +1543,13 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) {
     padding: 0.5em 0em;
+    width: 15em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) textarea {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #othersQuantitySection {
+    width: 80%;
+    margin: auto;
+  }
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #othersQuantitySection textarea {
     resize: none;
     font-size: 0.9em;
   }

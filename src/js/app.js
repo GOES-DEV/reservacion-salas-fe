@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     let getColor = (sala_id) => {
+        console.log("Se busca color")
         api.post('/obtenerSala', {
             api_token: token,
             sala_id
@@ -65,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function () {
             let {
                 datos
             } = data
+
+            console.log("Color")
+            console.log(datos.color)
             sessionStorage.setItem("colorRoom", datos.color)
 
         }).catch(function (error) {
@@ -345,6 +349,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
 
+        let idInputs = [
+            "drinks",
+            "snacks",
+            "meals",
+            "others",
+        ]
+
+        idInputs.forEach(name => {
+            $(`#${name}QuantitySection`).hide(1000)
+        });
+
         let now = new Date();
         let timeLimitForRegister = new Date()
         timeLimitForRegister.setHours(23)
@@ -483,6 +498,17 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#delete").prop("disabled", true);
             cleanModal();
             $(".info-event").css("display", "none");
+
+            let idInputs = [
+                "drinks",
+                "snacks",
+                "meals",
+                "others",
+            ]
+
+            idInputs.forEach(name => {
+                $(`#${name}QuantitySection`).show(1000)
+            });
 
             setTimeout(() => {
 
@@ -661,32 +687,36 @@ document.addEventListener('DOMContentLoaded', function () {
     let cleanInput = (input) => {
         $(`#${input}Quantity`).val("")
         $(`#${input}Quantity`).attr('readonly', "");
+        $(`#${input}QuantitySection`).hide(1000)
     }
 
-    $("#drinks").on("click", () => {
-        let isChecked = $("#drinks").prop("checked");
-        isChecked ? $("#drinksQuantity").removeAttr('readonly') : cleanInput("drinks")
-    })
+    let showSection = (input) => {
+        $(`#${input}Quantity`).removeAttr('readonly')
+        input != "others" && $(`#${input}Quantity`).val(1)
+        $(`#${input}QuantitySection`).show(1000)
+    }
 
-    $("#snacks").on("click", () => {
-        let isChecked = $("#snacks").prop("checked");
-        isChecked ? $("#snacksQuantity").removeAttr('readonly') : cleanInput("snacks")
-    })
+    let idInputs = [
+        "drinks",
+        "snacks",
+        "meals",
+        "others",
+    ]
 
-    $("#meals").on("click", () => {
-        let isChecked = $("#meals").prop("checked");
-        isChecked ? $("#mealsQuantity").removeAttr('readonly') : cleanInput("meals")
-    })
+    idInputs.forEach(name => {
+        $(`#${name}QuantitySection`).hide()
+        $(`#${name}`).on("click", () => {
+            let isChecked = $(`#${name}`).prop("checked");
+            isChecked ? showSection(name) : cleanInput(name)
+        })
+    });
 
-    $("#others").on("click", () => {
-        let isChecked = $("#others").prop("checked");
-        isChecked ? $("#othersQuantity").removeAttr('readonly') : cleanInput("others")
-    })
 
     let verifyNumberMaxMin = (input) => {
         let value = $(`#${input}`).val();
         let min = parseInt($(`#${input}`).attr("min"))
         let max = parseInt($(`#${input}`).attr("max"))
+
         if (value < min) {
             $(`#${input}`).val(min);
         }
@@ -696,30 +726,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    let inputsName = [
+        "drinksQuantity",
+        "snacksQuantity",
+        "mealsQuantity"
+    ]
 
-    $("#drinksQuantity").on("keyup", () => {
-        verifyNumberMaxMin("#drinksQuantity")
-    })
+    inputsName.forEach(name => {
+        $(`#${name}`).on("keyup", () => {
+            verifyNumberMaxMin(name)
+        })
 
-    $("#drinksQuantity").on("change", () => {
-        verifyNumberMaxMin("#drinksQuantity")
-    })
-
-    $("#snacksQuantity").on("keyup", () => {
-        verifyNumberMaxMin("#snacksQuantity")
-    })
-
-    $("#snacksQuantity").on("change", () => {
-        verifyNumberMaxMin("#snacksQuantity")
-    })
-
-    $("#mealsQuantity").on("keyup", () => {
-        verifyNumberMaxMin("#mealsQuantity")
-    })
-
-    $("#mealsQuantity").on("change", () => {
-        verifyNumberMaxMin("#mealsQuantity")
-    })
+        $(`#${name}`).on("change", () => {
+            verifyNumberMaxMin(name)
+        })
+    });
 
 
 
