@@ -52,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.removeItem("events")
         sessionStorage.removeItem("instanceLoaded")
         sessionStorage.removeItem("group")
+        sessionStorage.removeItem("colorRoom")
+        sessionStorage.removeItem("group")
         $(location).prop('href', `../index.html`);
     }
 
@@ -171,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function () {
             let timeBegin = $("#timeBegin").val();
             let timeEnd = $("#timeEnd").val();
             let usuario_id = atob(sessionStorage.getItem("user"));
-            getColor(sala_id);
             let color = sessionStorage.getItem("colorRoom")
 
             let bebida = $("#drinksQuantity").val();
@@ -347,6 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
         resource = "empty"
     }) => {
 
+
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
 
         let idInputs = [
@@ -481,6 +483,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById("buttons").innerHTML = "";
                     document.getElementById("buttons").innerHTML = `${btnAdd} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
                     $('#modal').modal("show");
+
+
+                    let sala_id = parseInt($("#room").attr("data"));
+                    getColor(sala_id);
 
                     loadEventsOnModal();
 
