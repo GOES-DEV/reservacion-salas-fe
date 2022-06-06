@@ -692,6 +692,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //-> @@Select fill
     let fillSelect = (arrayResources) => {
+        console.log(arrayResources)
         let select = document.getElementById("resourcesSelect");
         let count = 1;
         select.innerHTML = "";
@@ -1474,9 +1475,6 @@ document.addEventListener('DOMContentLoaded', function () {
             let isOk = false;
 
 
-
-
-
             if (date.length == 0) {
                 Swal.fire({
                     icon: 'error',
@@ -1542,6 +1540,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             datos.forEach(item => {
                                 calendar.addResource(item);
                             })
+
+                            fillSelect(datos)
 
                             setTimeout(() => {
                                 api.post('/obtenerTodosEventosFiltrados', {
@@ -1671,10 +1671,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
     });
-
-
-
-
 
 
 })
