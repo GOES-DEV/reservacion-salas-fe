@@ -1456,7 +1456,152 @@ document.addEventListener('DOMContentLoaded', function () {
             startEventsToUI();
         });
 
+
+
+
+
+
+        $("#capacityFilter").on("change", () => {
+            $("#capacityFilter").css("box-shadow", "none");
+        })
+
+        $("#btnApplyFilter").on("click", () => {
+            let date = $("#dateFilter").val();
+            let capacidad = $("#capacityFilter").val();
+            let tv = $("#tvFilter").prop("checked");
+            let video_conferencia = $("#videoFilter").prop("checked");
+            let hdmi = $("#hdmiFilter").prop("checked");
+            let isOk = false;
+
+
+
+
+
+            if (date.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Campo fecha vacío!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                $("#dateFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isOk = false;
+            } else {
+                $("#dateFilter").css("box-shadow", "none");
+                isOk = true;
+            }
+
+            if (capacidad == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Campo capacidad vacío!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                $("#capacityFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isOk = false;
+            } else {
+                $("#capacityFilter").css("box-shadow", "none");
+                isOk = true;
+            }
+
+
+            if (isOk) {
+                $('#modalLoad').modal("show");
+                tv ? tv = 1 : tv = 0;
+                video_conferencia ? video_conferencia = 1 : video_conferencia = 0;
+                hdmi ? hdmi = 1 : hdmi = 0;
+
+                api.post('/listarSalasFiltradas', {
+                    api_token: token,
+                    capacidad,
+                    tv,
+                    video_conferencia,
+                    hdmi
+                }).then(function ({
+                    data
+                }) {
+                    let {
+                        datos
+                    } = data
+                    let salas_ids = [];
+
+
+
+                    setTimeout(() => {
+                        datos.forEach(item => {
+                            salas_ids.push(item.id)
+                        })
+
+                        if (salas_ids.length > 0) {
+                            calendar.getEvents().forEach(evento => evento.remove())
+                            calendar.getResources().forEach(resource => resource.remove());
+
+                            datos.forEach(item => {
+                                calendar.addResource(item);
+                            })
+
+                            setTimeout(() => {
+                                api.post('/obtenerTodosEventosFiltrados', {
+                                    api_token: token,
+                                    salas_ids,
+                                    fecha_inicio: `${date} 00:00:00`,
+                                    fecha_fin: `${date} 23:59:00`
+                                }).then(function ({
+                                    data
+                                }) {
+                                    let {
+                                        datos
+                                    } = data
+
+                                    setTimeout(() => {
+                                        datos.forEach(evento => {
+                                            calendar.addEvent(evento);
+                                        })
+
+                                        $('#modalLoad').modal("hide");
+                                        $('#modalFilter').modal("hide");
+                                        idRecursosClickeables()
+                                    }, 500);
+
+                                }).catch(function (error) {
+                                    console.log(error)
+                                    // logoutSession();
+                                });
+                            }, 500);
+
+
+                        } else {
+                            Swal.fire({
+                                title: '¡No se encontraron resultados!',
+                                text: "Prueba con otros parámetros de búsqueda",
+                                icon: 'info',
+                                confirmButtonColor: '#313945',
+                                confirmButtonText: 'Entendido',
+                                allowOutsideClick: false
+                            });
+                            $('#modalLoad').modal("hide");
+                        }
+
+                    }, 500);
+
+                }).catch(function (error) {
+                    console.log(error)
+                    // logoutSession();
+                });
+
+            }
+
+        })
+
+
+
+
     }, 500);
+
+    // Aquii========================
 
 
     $(`.filterView`).on("click", () => {
@@ -1530,138 +1675,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    $("#capacityFilter").on("change", () => {
-        $("#capacityFilter").css("box-shadow", "none");
-    })
 
-    $("#btnApplyFilter").on("click", () => {
-        let date = $("#dateFilter").val();
-        let capacidad = $("#capacityFilter").val();
-        let tv = $("#tvFilter").prop("checked");
-        let video_conferencia = $("#videoFilter").prop("checked");
-        let hdmi = $("#hdmiFilter").prop("checked");
-        let isOk = false;
-
-
-
-
-
-        if (date.length == 0) {
-            Swal.fire({
-                icon: 'error',
-                title: '¡Campo fecha vacío!',
-                toast: true,
-                timer: 1500,
-                showConfirmButton: false,
-            });
-            $("#dateFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
-            isOk = false;
-        } else {
-            $("#dateFilter").css("box-shadow", "none");
-            isOk = true;
-        }
-
-        if (capacidad == "") {
-            Swal.fire({
-                icon: 'error',
-                title: '¡Campo capacidad vacío!',
-                toast: true,
-                timer: 1500,
-                showConfirmButton: false,
-            });
-            $("#capacityFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
-            isOk = false;
-        } else {
-            $("#capacityFilter").css("box-shadow", "none");
-            isOk = true;
-        }
-
-
-        if (isOk) {
-            $('#modalLoad').modal("show");
-            tv ? tv = 1 : tv = 0;
-            video_conferencia ? video_conferencia = 1 : video_conferencia = 0;
-            hdmi ? hdmi = 1 : hdmi = 0;
-
-            api.post('/listarSalasFiltradas', {
-                api_token: token,
-                capacidad,
-                tv,
-                video_conferencia,
-                hdmi
-            }).then(function ({
-                data
-            }) {
-                let {
-                    datos
-                } = data
-                let salas_ids = [];
-
-
-
-                setTimeout(() => {
-                    datos.forEach(item => {
-                        salas_ids.push(item.id)
-                    })
-
-                    if (salas_ids.length > 0) {
-                        calendar.getEvents().forEach(evento => evento.remove())
-                        calendar.getResources().forEach(resource => resource.remove());
-
-                        datos.forEach(item => {
-                            calendar.addResource(item);
-                        })
-
-                        setTimeout(() => {
-                            api.post('/obtenerTodosEventosFiltrados', {
-                                api_token: token,
-                                salas_ids,
-                                fecha_inicio: `${date} 00:00:00`,
-                                fecha_fin: `${date} 23:59:00`
-                            }).then(function ({
-                                data
-                            }) {
-                                let {
-                                    datos
-                                } = data
-
-                                setTimeout(() => {
-                                    datos.forEach(evento => {
-                                        calendar.addEvent(evento);
-                                    })
-
-                                    $('#modalLoad').modal("hide");
-                                    $('#modalFilter').modal("hide");
-                                }, 500);
-
-                            }).catch(function (error) {
-                                console.log(error)
-                                // logoutSession();
-                            });
-                        }, 500);
-
-
-                    } else {
-                        Swal.fire({
-                            title: '¡No se encontraron resultados!',
-                            text: "Prueba con otros parámetros de búsqueda",
-                            icon: 'info',
-                            confirmButtonColor: '#313945',
-                            confirmButtonText: 'Entendido',
-                            allowOutsideClick: false
-                        });
-                        $('#modalLoad').modal("hide");
-                    }
-
-                }, 500);
-
-            }).catch(function (error) {
-                console.log(error)
-                // logoutSession();
-            });
-
-        }
-
-    })
 
 })
