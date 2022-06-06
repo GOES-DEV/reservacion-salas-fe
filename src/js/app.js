@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // @@instance of Luxon library
     let DateTime = luxon.DateTime;
 
+
+
     // @@Function to close session and remove all variables on session storage
     let logoutSession = () => {
         sessionStorage.removeItem("tok")
@@ -74,6 +76,34 @@ document.addEventListener('DOMContentLoaded', function () {
             logoutSession();
         });
     }
+
+
+    // @@Function to save capacity room´s color in session storage
+    let getCapacity = (sala_id) => {
+        api.get('/listarCapacidad', {
+            params: {
+                api_token: token,
+            }
+        }).then(function ({
+            data
+        }) {
+            let {
+                datos
+            } = data
+
+            let options = `<option value="">Seleccionar</option>`;
+            datos.forEach(item => {
+                let { capacidad } = item;
+
+                options += `<option value="${capacidad}">${capacidad}</option>`
+            });
+            $("#capacityFilter").html(options)
+        }).catch(function (error) {
+            logoutSession();
+        });
+    }
+
+    getCapacity()
 
 
     // ________________________________________________________________________________________________________________________
@@ -349,8 +379,8 @@ document.addEventListener('DOMContentLoaded', function () {
         ];
 
         idInputs.forEach(name => {
-            $(`#${name}QuantitySection`).hide(1000)
-            $(`#${name}Row`).show(1000)
+            $(`#${name}QuantitySection`).hide()
+            $(`#${name}Row`).show()
         });
 
         let now = new Date();
@@ -530,15 +560,15 @@ document.addEventListener('DOMContentLoaded', function () {
                             $(`#${id}Quantity`).val("")
                             $(`#${id}Quantity`).attr('readonly', "");
                             $(`#${id}`).attr('disabled', true);
-                            $(`#${id}QuantitySection`).hide(1000)
-                            $(`#${id}Row`).hide(1000)
+                            $(`#${id}QuantitySection`).hide()
+                            $(`#${id}Row`).hide()
                         } else {
                             $(`#${id}`).prop("checked", true);
                             $(`#${id}`).attr('disabled', true);
                             $(`#${id}Quantity`).val(input)
                             $(`#${id}Quantity`).attr('readonly', "");
-                            $(`#${id}QuantitySection`).show(1000)
-                            $(`#${id}Row`).show(1000)
+                            $(`#${id}QuantitySection`).show()
+                            $(`#${id}Row`).show()
                         }
                     }
 
@@ -598,7 +628,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     loadEventsOnModal();
                     let now = new Date();
                     if (now > timeBegin) {
-                        
+
                         $("#delete").hide();
                     } else {
                         $("#delete").show();
@@ -704,7 +734,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let cleanInput = (input) => {
         $(`#${input}Quantity`).val("")
         $(`#${input}Quantity`).attr('readonly', "");
-        $(`#${input}QuantitySection`).hide(1000)
+        $(`#${input}QuantitySection`).hide()
 
         console.log($(`#${input}Quantity`).val())
     }
@@ -713,7 +743,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let showSection = (input) => {
         $(`#${input}Quantity`).removeAttr('readonly')
         input != "others" && $(`#${input}Quantity`).val(1)
-        $(`#${input}QuantitySection`).show(1000)
+        $(`#${input}QuantitySection`).show()
     }
 
     let idInputs = [
@@ -1429,6 +1459,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 500);
 
 
+    $(`.filterView`).on("click", () => {
+        $("#dateFilter").datepicker({
+            minDate: 0,
+            dayNamesMin: ["Do", "Lu", "Ma", "Me", "Ju", "Vi", "Sa"],
+            monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            dateFormat: "yy-mm-dd"
+        });
+
+        IMask(document.getElementById('dateFilter'), {
+            mask: '0000-00-00'
+        });
+
+        // $("#dateFilter").css("box-shadow","none")
+        // $("#capacityFilter").css("box-shadow","none")
+        // $("#dateFilter").val("");
+        // $("#capacityFilter").val("");
+        // $("#tvFilter").prop("checked",false);
+        // $("#videoFilter").prop("checked",false);
+        // $("#hdmiFilter").prop("checked",false);
+
+        $('#modalFilter').modal("show");
+    })
+
     //-> @@Menu buttons
     $(".generalView").on("click", () => {
         let activeTab = atob(sessionStorage.getItem("activeTab"))
@@ -1473,5 +1526,142 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
     });
+
+
+
+
+    $("#capacityFilter").on("change", () => {
+        $("#capacityFilter").css("box-shadow", "none");
+    })
+
+    $("#btnApplyFilter").on("click", () => {
+        let date = $("#dateFilter").val();
+        let capacidad = $("#capacityFilter").val();
+        let tv = $("#tvFilter").prop("checked");
+        let video_conferencia = $("#videoFilter").prop("checked");
+        let hdmi = $("#hdmiFilter").prop("checked");
+        let isOk = false;
+
+
+
+
+
+        if (date.length == 0) {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Campo fecha vacío!',
+                toast: true,
+                timer: 1500,
+                showConfirmButton: false,
+            });
+            $("#dateFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+            isOk = false;
+        } else {
+            $("#dateFilter").css("box-shadow", "none");
+            isOk = true;
+        }
+
+        if (capacidad == "") {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Campo capacidad vacío!',
+                toast: true,
+                timer: 1500,
+                showConfirmButton: false,
+            });
+            $("#capacityFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+            isOk = false;
+        } else {
+            $("#capacityFilter").css("box-shadow", "none");
+            isOk = true;
+        }
+
+
+        if (isOk) {
+            $('#modalLoad').modal("show");
+            tv ? tv = 1 : tv = 0;
+            video_conferencia ? video_conferencia = 1 : video_conferencia = 0;
+            hdmi ? hdmi = 1 : hdmi = 0;
+
+            api.post('/listarSalasFiltradas', {
+                api_token: token,
+                capacidad,
+                tv,
+                video_conferencia,
+                hdmi
+            }).then(function ({
+                data
+            }) {
+                let {
+                    datos
+                } = data
+                let salas_ids = [];
+
+
+
+                setTimeout(() => {
+                    datos.forEach(item => {
+                        salas_ids.push(item.id)
+                    })
+
+                    if (salas_ids.length > 0) {
+                        calendar.getEvents().forEach(evento => evento.remove())
+                        calendar.getResources().forEach(resource => resource.remove());
+
+                        datos.forEach(item => {
+                            calendar.addResource(item);
+                        })
+
+                        setTimeout(() => {
+                            api.post('/obtenerTodosEventosFiltrados', {
+                                api_token: token,
+                                salas_ids,
+                                fecha_inicio: `${date} 00:00:00`,
+                                fecha_fin: `${date} 23:59:00`
+                            }).then(function ({
+                                data
+                            }) {
+                                let {
+                                    datos
+                                } = data
+
+                                setTimeout(() => {
+                                    datos.forEach(evento => {
+                                        calendar.addEvent(evento);
+                                    })
+
+                                    $('#modalLoad').modal("hide");
+                                    $('#modalFilter').modal("hide");
+                                }, 500);
+
+                            }).catch(function (error) {
+                                console.log(error)
+                                // logoutSession();
+                            });
+                        }, 500);
+
+
+                    } else {
+                        Swal.fire({
+                            title: '¡No se encontraron resultados!',
+                            text: "Prueba con otros parámetros de búsqueda",
+                            icon: 'info',
+                            confirmButtonColor: '#313945',
+                            confirmButtonText: 'Entendido',
+                            allowOutsideClick: false
+                        });
+                        $('#modalLoad').modal("hide");
+                    }
+
+                }, 500);
+
+            }).catch(function (error) {
+                console.log(error)
+                // logoutSession();
+            });
+
+        }
+
+    })
 
 })

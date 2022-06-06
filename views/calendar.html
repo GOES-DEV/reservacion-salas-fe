@@ -14,6 +14,9 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+        integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
+        crossorigin="anonymous" />
 </head>
 
 <body>
@@ -23,6 +26,9 @@
                 <img class="logo" src="../src/assets/esshield.png" alt="">
             </div>
             <ol>
+                <li class="filterView"><i class="fa-solid fa-filter"></i>
+                    <p>Filtro</p>
+                </li>
                 <li class="generalView"><i class="fa-solid fa-clock"></i>
                     <p>Vista general</p>
                 </li>
@@ -116,8 +122,9 @@
                                             id="drinks" value="1"> <label for="drinks">Bebidas</label></div>
                                 </td>
                                 <td>
-                                    <div id="drinksQuantitySection"><input min="1" max="30" step="1" class="form-control"
-                                            type="number" name="drinksQuantity" id="drinksQuantity" readonly>
+                                    <div id="drinksQuantitySection"><input min="1" max="30" step="1"
+                                            class="form-control" type="number" name="drinksQuantity" id="drinksQuantity"
+                                            readonly>
                                         <p>Personas</p>
                                     </div>
                                 </td>
@@ -128,8 +135,9 @@
                                             id="snacks" value="1"> <label for="snacks">Aperitivos</label></div>
                                 </td>
                                 <td>
-                                    <div id="snacksQuantitySection"><input min="1" max="30" step="1" class="form-control"
-                                            type="number" name="snacksQuantity" id="snacksQuantity" readonly>
+                                    <div id="snacksQuantitySection"><input min="1" max="30" step="1"
+                                            class="form-control" type="number" name="snacksQuantity" id="snacksQuantity"
+                                            readonly>
                                         <p>Personas</p>
                                     </div>
                                 </td>
@@ -141,8 +149,8 @@
                                 </td>
                                 <td>
                                     <div id="mealsQuantitySection">
-                                        <input min="1" max="30" step="1" class="form-control"
-                                            type="number" name="mealsQuantity" id="mealsQuantity" readonly>
+                                        <input min="1" max="30" step="1" class="form-control" type="number"
+                                            name="mealsQuantity" id="mealsQuantity" readonly>
                                         <p>Personas</p>
                                     </div>
                                 </td>
@@ -234,12 +242,105 @@
 
 
 
+    <!-- Modal filter -->
+    <div class="modal fade" id="modalFilter" tabindex="-1" role="dialog" aria-labelledby="modal" data-backdrop="static"
+        data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalInfoTitle">Filtros de busqueda</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <td id="fechaFiltro" colspan="2">
+                                <div class="dateContent">
+                                    <p>Fecha</p>
+                                    <input class="form-control" type="text" name="dateFilter" id="dateFilter"
+                                        placeholder="Fecha">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Capacidad</td>
+                            <td>
+                                <div class="capacityContent">
+                                    <select class="form-control" name="capacityFilter" id="capacityFilter"></select>
+                                    <p>Personas</p>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tv</td>
+                            <td>
+                                <input class="form-control" type="checkbox" name="tvFilter" id="tvFilter">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Video conferencia</td>
+                            <td>
+                                <input class="form-control" type="checkbox" name="videoFilter" id="videoFilter">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>HDMI</td>
+                            <td>
+                                <input class="form-control" type="checkbox" name="hdmiFilter" id="hdmiFilter">
+                            </td>
+                        </tr>
+
+                    </table>
+                    <div class="buttons">
+                        <button type="button" class="btn btn-primary" id="btnApplyFilter">Aplicar al calendario</button>
+                        <button type="button" class="btn" data-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal load -->
+    <div class="modal fade" id="modalLoad" tabindex="-1" role="dialog" aria-labelledby="modal" data-backdrop="static"
+        data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="titleLoad">Espere por favor, realizando busqueda...</p>
+
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-        </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+        integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/imask"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
         </script>
@@ -247,6 +348,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
         </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
     <!-- Libraries important -->
     <script src="../src/js/config.js"></script>

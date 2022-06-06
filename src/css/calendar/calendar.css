@@ -946,6 +946,306 @@ body #modalInfo .modal-dialog .modal-content .modal-body button {
   width: 100%;
 }
 
+body #modalFilter .modal-dialog .modal-content .modal-header {
+  background: #313945;
+  color: white;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-header .close {
+  color: white;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(1) td {
+  background: #313945;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(1) td .dateContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(1) td .dateContent p {
+  margin: 0px;
+  margin-right: 0.5em;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(1) td .dateContent #dateFilter {
+  width: 50%;
+  text-align: center;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(2) td:nth-child(1) {
+  background: #313945;
+  color: white;
+  font-weight: 600;
+  height: 3.5em !important;
+  line-height: 2;
+  text-align: center;
+  padding: 0px;
+  vertical-align: middle;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(2) td:nth-child(2) {
+  height: 3.5em !important;
+  line-height: 2;
+  text-align: center;
+  padding: 0px;
+  vertical-align: middle;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(2) td:nth-child(2) .capacityContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(2) td:nth-child(2) .capacityContent #capacityFilter {
+  width: 8em;
+  margin: 0px;
+  text-align: center;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(2) td:nth-child(2) .capacityContent p {
+  margin: 0px;
+  margin-left: 0.5em;
+  font-weight: 500;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(3) td:nth-child(1),
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(4) td:nth-child(1),
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(5) td:nth-child(1) {
+  background: #313945;
+  color: white;
+  font-weight: 600;
+  height: 3.5em !important;
+  line-height: 2;
+  text-align: center;
+  padding: 0px;
+  vertical-align: middle;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(3) td:nth-child(2),
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(4) td:nth-child(2),
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(5) td:nth-child(2) {
+  height: 3.5em !important;
+  line-height: 2;
+  text-align: center;
+  padding: 0px;
+  vertical-align: middle;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+body #modalFilter .modal-dialog .modal-content .modal-body .buttons button {
+  width: 40%;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body {
+  background: #313945;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .titleLoad {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: white;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div {
+  -webkit-animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  -webkit-transform-origin: 40px 40px;
+          transform-origin: 40px 40px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: white;
+  margin: -4px 0 0 -4px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(1) {
+  -webkit-animation-delay: -0.036s;
+          animation-delay: -0.036s;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(2) {
+  -webkit-animation-delay: -0.072s;
+          animation-delay: -0.072s;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(3) {
+  -webkit-animation-delay: -0.108s;
+          animation-delay: -0.108s;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(4) {
+  -webkit-animation-delay: -0.144s;
+          animation-delay: -0.144s;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(5) {
+  -webkit-animation-delay: -0.18s;
+          animation-delay: -0.18s;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(6) {
+  -webkit-animation-delay: -0.216s;
+          animation-delay: -0.216s;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(7) {
+  -webkit-animation-delay: -0.252s;
+          animation-delay: -0.252s;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(8) {
+  -webkit-animation-delay: -0.288s;
+          animation-delay: -0.288s;
+}
+
+body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+
+@-webkit-keyframes lds-roller {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes lds-roller {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
 #moreIcon {
   position: absolute;
   left: 1em;
