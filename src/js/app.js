@@ -93,7 +93,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let options = `<option value="">Seleccionar</option>`;
             datos.forEach(item => {
-                let { capacidad } = item;
+                let {
+                    capacidad
+                } = item;
 
                 options += `<option value="${capacidad}">${capacidad}</option>`
             });
@@ -692,7 +694,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //-> @@Select fill
     let fillSelect = (arrayResources) => {
-        console.log(arrayResources)
         let select = document.getElementById("resourcesSelect");
         let count = 1;
         select.innerHTML = "";
@@ -736,8 +737,6 @@ document.addEventListener('DOMContentLoaded', function () {
         $(`#${input}Quantity`).val("")
         $(`#${input}Quantity`).attr('readonly', "");
         $(`#${input}QuantitySection`).hide()
-
-        console.log($(`#${input}Quantity`).val())
     }
 
     // @@Show the inputs in "extras" section
@@ -1460,7 +1459,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
+        $("#btnRestoreFilter").on("click", () => {
+            $(location).prop('href', 'calendar.html');
+        })
 
         $("#capacityFilter").on("change", () => {
             $("#capacityFilter").css("box-shadow", "none");
@@ -1472,41 +1473,46 @@ document.addEventListener('DOMContentLoaded', function () {
             let tv = $("#tvFilter").prop("checked");
             let video_conferencia = $("#videoFilter").prop("checked");
             let hdmi = $("#hdmiFilter").prop("checked");
-            let isOk = false;
+            let isOkCapacity = false;
+            let isOkDate = false;
 
-
-            if (date.length == 0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: '¡Campo fecha vacío!',
-                    toast: true,
-                    timer: 1500,
-                    showConfirmButton: false,
-                });
-                $("#dateFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
-                isOk = false;
-            } else {
-                $("#dateFilter").css("box-shadow", "none");
-                isOk = true;
-            }
 
             if (capacidad == "") {
                 Swal.fire({
-                    icon: 'error',
+                    icon: 'info',
                     title: '¡Campo capacidad vacío!',
                     toast: true,
                     timer: 1500,
                     showConfirmButton: false,
                 });
                 $("#capacityFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
-                isOk = false;
+                isOkCapacity = false;
             } else {
                 $("#capacityFilter").css("box-shadow", "none");
-                isOk = true;
+                isOkCapacity = true;
             }
 
 
-            if (isOk) {
+
+            if (date.length == 0) {
+                Swal.fire({
+                    icon: 'info',
+                    title: '¡Campo fecha vacío!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                $("#dateFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isOkDate = false;
+            } else {
+                $("#dateFilter").css("box-shadow", "none");
+                isOkDate = true;
+            }
+
+
+            if (isOkDate && isOkCapacity) {
+                
+                $("#btnApplyFilter").prop( "disabled", true );
                 $('#modalLoad').modal("show");
                 tv ? tv = 1 : tv = 0;
                 video_conferencia ? video_conferencia = 1 : video_conferencia = 0;
@@ -1561,8 +1567,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                             calendar.addEvent(evento);
                                         })
 
-                                        calendar.gotoDate( date )
+                                        calendar.gotoDate(date)
 
+                                        $("#btnApplyFilter").prop( "disabled", false );
                                         $('#modalLoad').modal("hide");
                                         $('#modalFilter').modal("hide");
                                         idRecursosClickeables()
@@ -1584,6 +1591,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 confirmButtonText: 'Entendido',
                                 allowOutsideClick: false
                             });
+                            $("#btnApplyFilter").prop( "disabled", false );
                             $('#modalLoad').modal("hide");
                         }
 
