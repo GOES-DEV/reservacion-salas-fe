@@ -1469,6 +1469,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $("#btnApplyFilter").on("click", () => {
             let date = $("#dateFilter").val();
+            let dia = date.substring(0,2)
+            let mes = date.substring(3,5)
+            let anio = date.substring(6,10)
+
+
+            date = `${anio}-${mes}-${dia}`;
             let capacidad = $("#capacityFilter").val();
             let tv = $("#tvFilter").prop("checked");
             let video_conferencia = $("#videoFilter").prop("checked");
@@ -1619,11 +1625,11 @@ document.addEventListener('DOMContentLoaded', function () {
             minDate: 0,
             dayNamesMin: ["Do", "Lu", "Ma", "Me", "Ju", "Vi", "Sa"],
             monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-            dateFormat: "yy-mm-dd"
+            dateFormat: "dd-mm-yy"
         });
 
         IMask(document.getElementById('dateFilter'), {
-            mask: '0000-00-00'
+            mask: '00-00-0000'
         });
 
         // $("#dateFilter").css("box-shadow","none")
