@@ -1561,6 +1561,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                             calendar.addEvent(evento);
                                         })
 
+                                        calendar.gotoDate( date )
+
                                         $('#modalLoad').modal("hide");
                                         $('#modalFilter').modal("hide");
                                         idRecursosClickeables()
