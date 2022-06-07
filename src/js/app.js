@@ -682,7 +682,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let {
             datos
         } = data;
+
         sessionStorage.setItem("user", btoa(datos.usuario_id));
+        sessionStorage.setItem("username    ", btoa(datos.nombre));
         sessionStorage.setItem("rol", btoa(datos.rol));
         sessionStorage.setItem("group", datos.grupo);
 
@@ -1120,15 +1122,11 @@ document.addEventListener('DOMContentLoaded', function () {
     //-> @@Buttons action time 
     $("#plusBegin").on("click", () => {
         let time = getTime("Begin");
-        // console.log("time que pasa")
-        // console.log(time)
 
         let {
             c
         } = DateTime.local(time.year, time.month, time.day, time.hours, time.minutes);
         // Verify the limit
-        // console.log("c plus click ============")
-        // console.log(c)
         if (c.minute == 01 && c.hour == 23) {
             console.log("Horario maximo")
         } else {
@@ -1469,9 +1467,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $("#btnApplyFilter").on("click", () => {
             let date = $("#dateFilter").val();
-            let dia = date.substring(0,2)
-            let mes = date.substring(3,5)
-            let anio = date.substring(6,10)
+            let dia = date.substring(0, 2)
+            let mes = date.substring(3, 5)
+            let anio = date.substring(6, 10)
 
 
             date = `${anio}-${mes}-${dia}`;
@@ -1517,8 +1515,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             if (isOkDate && isOkCapacity) {
-                
-                $("#btnApplyFilter").prop( "disabled", true );
+
+                $("#btnApplyFilter").prop("disabled", true);
                 $('#modalLoad').modal("show");
                 tv ? tv = 1 : tv = 0;
                 video_conferencia ? video_conferencia = 1 : video_conferencia = 0;
@@ -1575,7 +1573,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                         calendar.gotoDate(date)
 
-                                        $("#btnApplyFilter").prop( "disabled", false );
+                                        $("#btnApplyFilter").prop("disabled", false);
                                         $('#modalLoad').modal("hide");
                                         $('#modalFilter').modal("hide");
                                         idRecursosClickeables()
@@ -1597,7 +1595,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 confirmButtonText: 'Entendido',
                                 allowOutsideClick: false
                             });
-                            $("#btnApplyFilter").prop( "disabled", false );
+                            $("#btnApplyFilter").prop("disabled", false);
                             $('#modalLoad').modal("hide");
                         }
 
@@ -1617,8 +1615,160 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }, 500);
 
-    // Aquii========================
 
+    //Show input password
+    let showInputPass = (button, input) => {
+        $(`#${button}`).on("click", () => {
+            let typeInput = $(`#${input}`).attr("type")
+            if (typeInput == "password") {
+                $(`#${input}`).attr("type", "text")
+                $(`#${button}`).html(`<i class="fa-solid fa-eye-slash"></i>`)
+
+            } else {
+                $(`#${input}`).attr("type", "password")
+                $(`#${button}`).html(`<i class="fa-solid fa-eye"></i>`)
+
+            }
+        })
+    }
+
+    showInputPass("oldPassShow", "oldPass")
+    showInputPass("newPassShow", "newPass")
+    showInputPass("reNewPassShow", "reNewPass")
+
+
+
+    $(`.userView`).on("click", () => {
+        $('#modalProfile').modal("show");
+        $(`#oldPass`).val("");
+        $(`#newPass`).val("");
+        $(`#reNewPass`).val("");
+
+
+        $(`#changePass`).on("click", () => {
+
+
+            $(`#reNewPass`).on("keyup", () => {
+                $(`#reNewPass`).css("box-shadow", "none")
+            })
+
+            $(`#newPass`).on("keyup", () => {
+                $(`#newPass`).css("box-shadow", "none")
+            })
+
+            $(`#oldPass`).on("keyup", () => {
+                $(`#oldPass`).css("box-shadow", "none")
+            })
+
+            let oldPass = $(`#oldPass`).val();
+            let newPass = $(`#newPass`).val();
+            let reNewPass = $(`#reNewPass`).val();
+
+            let isOldPass = false;
+            let isNewPass = false;
+            let isReNewPass = false;
+
+            if (reNewPass.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Campo Reescribe nueva contraseña vacio!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                $(`#reNewPass`).css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isReNewPass = false;
+            } else {
+                isReNewPass = true;
+            }
+
+            if (newPass.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Campo nueva contraseña vacio!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                $(`#newPass`).css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isNewPass = false;
+            } else {
+                isNewPass = true;
+            }
+
+            if (oldPass.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Campo antigua contraseña vacio!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                $(`#oldPass`).css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isOldPass = false;
+            } else {
+                isOldPass = true;
+            }
+
+            if (isOldPass && isNewPass && isReNewPass) {
+
+                Swal.fire({
+                    title: '¿Desea cambiar su contraseña?',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, cambiar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (newPass == reNewPass) {
+                            api.post('/cambiarContra', {
+                                api_token: token,
+                                contraAntigua: oldPass,
+                                contraNueva: newPass,
+                                contraRepetida: reNewPass
+                            }).then(function ({
+                                data
+                            }) {
+                                let {
+                                    datos
+                                } = data
+
+
+                                if (datos == 1 || datos == "1") {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: '¡Contraseña cambiada!',
+                                        allowOutsideClick: false
+                                    });
+                                    $('#modalProfile').modal("hide");
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: `¡${datos}!`,
+                                        toast: true,
+                                        timer: 1500,
+                                        showConfirmButton: false,
+                                    });
+                                }
+                            }).catch(function (error) {
+                                logoutSession();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Campos de nueva contraseña no coinciden!',
+                                toast: true,
+                                timer: 1500,
+                                showConfirmButton: false,
+                            });
+                        }
+                    }
+                })
+            }
+        });
+    });
 
     $(`.filterView`).on("click", () => {
         $("#dateFilter").datepicker({

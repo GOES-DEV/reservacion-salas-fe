@@ -1077,6 +1077,84 @@ body {
   }
 
 
+  #modalProfile {
+    .modal-dialog {
+      .modal-content {
+        .modal-header {
+          background: #313945;
+          color: white;
+
+          .close {
+            color: white;
+          }
+        }
+
+        .modal-body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+
+          .form-line {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 1em;
+
+            .form-group {
+              margin: 0px;
+
+              label {
+                font-size: 0.8em;
+                color: #888;
+                margin-bottom: 0px;
+              }
+
+              input {
+                width: 18em;
+                border-radius: 0.25rem 0rem 0rem 0.25rem;
+                height: 2.5em;
+              }
+            }
+
+            .btn-icon {
+              width: 2.5em;
+              height: 2.5em;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 0rem 0.25rem 0.25rem 0rem;
+
+              i {
+                font-size: 1em;
+              }
+            }
+          }
+
+          .buttons{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 1.5em;
+
+            #changePass{
+              width: 60%;
+            }
+
+            .btnClose{
+              width: 30%;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+
 
 
 }

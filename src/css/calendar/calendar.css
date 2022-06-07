@@ -1246,6 +1246,108 @@ body #modalLoad .modal-dialog .modal-content .modal-body .lds-roller div:nth-chi
   }
 }
 
+body #modalProfile .modal-dialog .modal-content .modal-header {
+  background: #313945;
+  color: white;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-header .close {
+  color: white;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body .form-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin-bottom: 1em;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body .form-line .form-group {
+  margin: 0px;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body .form-line .form-group label {
+  font-size: 0.8em;
+  color: #888;
+  margin-bottom: 0px;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body .form-line .form-group input {
+  width: 18em;
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+  height: 2.5em;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body .form-line .btn-icon {
+  width: 2.5em;
+  height: 2.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body .form-line .btn-icon i {
+  font-size: 1em;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body .buttons {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 1.5em;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body .buttons #changePass {
+  width: 60%;
+}
+
+body #modalProfile .modal-dialog .modal-content .modal-body .buttons .btnClose {
+  width: 30%;
+}
+
 #moreIcon {
   position: absolute;
   left: 1em;

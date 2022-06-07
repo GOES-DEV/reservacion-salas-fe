@@ -32,9 +32,9 @@
                 <li class="generalView"><i class="fa-solid fa-clock"></i>
                     <p>Vista general</p>
                 </li>
-                <!-- <li><i class="fa-solid fa-users"></i>
-                    <p>Gestión de usuarios</p>
-                </li> -->
+                <li class="userView"><i class="fa-solid fa-key"></i>
+                    <p>Cambio de contraseña</p>
+                </li>
                 <li class="logout"><i class="fa-solid fa-right-from-bracket"></i>
                     <p>Cerrar sesión</p>
                 </li>
@@ -322,6 +322,67 @@
                         <div></div>
                         <div></div>
                         <div></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modal profile-->
+    <div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="modal" data-backdrop="static"
+        data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleUserName">Cambio de contraseña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-line">
+                        <div class="form-group">
+                            <label for="oldPass">Antigua contraseña</label>
+                            <input type="password" class="form-control" id="oldPass">
+                        </div>
+                        <div id="oldPassShow" class="btn btn-light btn-icon">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-line">
+                        <div class="form-group">
+                            <label for="newPass">Nueva contraseña</label>
+                            <input type="password" class="form-control" id="newPass">
+                        </div>
+
+                        <div id="newPassShow" class="btn btn-light btn-icon">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                    </div>
+
+
+                    <div class="form-line">
+                        <div class="form-group">
+                            <label for="reNewPass">Reescribe nueva contraseña</label>
+                            <input type="password" class="form-control" id="reNewPass">
+                        </div>
+
+                        <div id="reNewPassShow" class="btn btn-light btn-icon">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                    </div>
+
+
+
+                    <div class="buttons">
+                        <button type="button" class="btn btn-primary" id="changePass">Cambiar contraseña</button>
+                        <button type="button" class="btn btnClose" data-dismiss="modal">Cerrar</button>
                     </div>
 
                 </div>
