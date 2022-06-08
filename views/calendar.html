@@ -86,6 +86,7 @@
                             <label for="name">Nombre evento</label>
                             <input type="text" class="form-control" id="name" placeholder="Evento" maxlength="90">
                         </div>
+
                         <div class="form-group name-event">
                             <label for="nameApplicant">Solicitante</label>
                             <input type="text" class="form-control" id="nameApplicant" placeholder="Solicitante"
@@ -116,6 +117,16 @@
                         </div>
 
                         <table class="table table-hover extras">
+                            <tr>
+                                <td colspan="2">
+                                    <div id="assistantsQuantitySection">
+                                        <p class="titleInput">Asistentes</p>
+                                        <input min="1" max="50" step="1"
+                                            class="form-control" type="number" name="assistantsQuantity" id="assistantsQuantity">
+                                        <p class="titleAux">Personas</p>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr id="drinksRow">
                                 <td>
                                     <div class="contentCheck"><input class="form-check-input" type="checkbox"

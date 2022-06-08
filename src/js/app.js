@@ -175,12 +175,27 @@ document.addEventListener('DOMContentLoaded', function () {
     let loadEventsOnModal = () => {
         let nameInput = $("#name");
         let applicantInput = $("#nameApplicant");
+        let assistantsInput = $("#assistantsQuantity");
+        
         nameInput.on("keyup", () => {
             nameInput.css("box-shadow", "none")
         })
 
         applicantInput.on("keyup", () => {
             applicantInput.css("box-shadow", "none")
+        })
+
+        assistantsInput.on("keyup", () => {
+            assistantsInput.css("box-shadow", "none")
+
+            let value = assistantsInput.val()
+            if (value <= 0) {
+                assistantsInput.val(1)
+            }
+
+            if (value > 50) {
+                assistantsInput.val(50)
+            }
         })
 
         // Cancel button
@@ -192,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $("#add").on("click", () => {
             $("#add").prop("disabled", true);
             let sala_id = parseInt($("#room").attr("data"));
+            let sala = $("#room").attr("data-name");
             let descripcion = $("#name").val();
             let solicitante = $("#nameApplicant").val();
             let date = $("#date").val();
@@ -200,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let usuario_id = atob(sessionStorage.getItem("user"));
             let color = sessionStorage.getItem("colorRoom")
 
+            let asistentes = parseInt($("#assistantsQuantity").val());
             let bebida = $("#drinksQuantity").val();
             let aperitivo = $("#snacksQuantity").val();
             let comida = $("#mealsQuantity").val();
@@ -219,7 +236,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 comida = 0
             }
             if (otro == "") {
-                otro = 0
+                otro = null
+            }
+
+            if (asistentes <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Número de asistentes debe ser mayor a "0"!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                assistantsInput.css("box-shadow", "inset 0px 0px 0.5em #ff000080");
             }
 
 
@@ -252,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
 
+
             if (isName == true && isApplicant == true) {
 
                 setTimeout(() => {
@@ -267,7 +296,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         bebida,
                         aperitivo,
                         comida,
-                        otro
+                        otro,
+                        sala,
+                        asistentes
                     }).then(function ({
                         data
                     }) {
@@ -405,6 +436,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 $(".info-event").css("display", "flex");
                 $("#name").attr("readonly", false)
                 $("#nameApplicant").attr("readonly", false)
+                $("#assistantsQuantity").attr("readonly", false);
+                $("#assistantsQuantity").val(1)
                 let clickedDate = new Date(dateStr)
                 let today = new Date()
                 clickedDate.setHours(00)
@@ -448,7 +481,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         titleEvent = _resource.title
                         idEvent = _resource.id;
                     }
-
 
                     if (clickedDate <= today) {
 
@@ -500,6 +532,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById("date").value = dateText;
                     document.getElementById("room").value = titleEvent;
                     document.getElementById("room").setAttribute("data", idEvent);
+                    document.getElementById("room").setAttribute("data-name", titleEvent);
                     document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
                     document.getElementById("buttons").innerHTML = "";
                     document.getElementById("buttons").innerHTML = `${btnAdd} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
@@ -551,6 +584,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         datos
                     } = data
 
+                    let assistants = datos.asistentes;
                     let drinks = datos.bebida;
                     let snacks = datos.aperitivo;
                     let meals = datos.comida;
@@ -613,6 +647,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#name").attr("data", info.event.id);
                     $("#name").val(info.event.title);
                     $("#nameApplicant").val(applicant);
+                    $("#assistantsQuantity").val(assistants);
+                    $("#assistantsQuantity").attr("readonly", true);
                     document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-trash"></i> Eliminar evento`;
                     document.getElementById("buttons").innerHTML = "";
                     document.getElementById("buttons").innerHTML = `${btnDelete} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
