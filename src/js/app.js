@@ -188,10 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
         assistantsInput.on("keyup", () => {
             assistantsInput.css("box-shadow", "none")
 
-            let value = assistantsInput.val()
-            if (value <= 0) {
-                assistantsInput.val(1)
-            }
+            let value = assistantsInput.val();
 
             const maxValue = parseInt(assistantsInput.attr("max"))
             if (value > maxValue) {
@@ -217,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let usuario_id = atob(sessionStorage.getItem("user"));
             let color = sessionStorage.getItem("colorRoom")
 
-            let asistentes = parseInt($("#assistantsQuantity").val());
+            let asistentes = $("#assistantsQuantity").val();
             let bebida = $("#drinksQuantity").val();
             let aperitivo = $("#snacksQuantity").val();
             let comida = $("#mealsQuantity").val();
@@ -226,6 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let isName = true;
             let isApplicant = true;
+            let isAssistants = true;
 
             if (bebida == "") {
                 bebida = 0
@@ -240,15 +238,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 otro = null
             }
 
-            if (asistentes <= 0) {
+            console.log("asistentes")
+            console.log(asistentes)
+            if (asistentes <= 0 || asistentes == null) {
                 Swal.fire({
                     icon: 'error',
-                    title: '¡Número de asistentes debe ser mayor a "0"!',
+                    title: '¡Complete el campo número de asistentes | minimo de asistentes 1!',
                     toast: true,
                     timer: 1500,
                     showConfirmButton: false,
                 });
                 assistantsInput.css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isAssistants = false;
+                $("#add").prop("disabled", false);
             }
 
 
@@ -281,8 +283,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
 
-
-            if (isName == true && isApplicant == true) {
+            console.log("isAssistants")
+            console.log(isAssistants)
+            if (isName == true && isApplicant == true && isAssistants == true) {
 
                 setTimeout(() => {
                     api.post('/crearEvento', {
@@ -921,9 +924,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let value = $(`#${input}`).val();
         let min = parseInt($(`#${input}`).attr("min"))
         let max = parseInt($(`#${input}`).attr("max"))
-        if (value < min) {
-            $(`#${input}`).val(min);
-        }
+        // if (value < min) {
+        //     $(`#${input}`).val(min);
+        // }
         if (value > max) {
             $(`#${input}`).val(max);
         }
@@ -1155,7 +1158,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             setTimeout(() => {
                 arrayEvents.forEach(evento => {
-                    // console.log(evento)
                     calendar.addEvent(evento);
                 })
             }, 500);
@@ -1639,38 +1641,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $("#btnApplyFilter").on("click", () => {
             let date = $("#dateFilter").val();
-            let dia = date.substring(0, 2)
-            let mes = date.substring(3, 5)
-            let anio = date.substring(6, 10)
-
-
-            date = `${anio}-${mes}-${dia}`;
-            let capacidad = $("#capacityFilter").val();
-            let tv = $("#tvFilter").prop("checked");
-            let video_conferencia = $("#videoFilter").prop("checked");
-            let hdmi = $("#hdmiFilter").prop("checked");
-            let isOkCapacity = false;
-            let isOkDate = false;
-
-
-            if (capacidad == "") {
-                Swal.fire({
-                    icon: 'info',
-                    title: '¡Campo capacidad vacío!',
-                    toast: true,
-                    timer: 1500,
-                    showConfirmButton: false,
-                });
-                $("#capacityFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
-                isOkCapacity = false;
-            } else {
-                $("#capacityFilter").css("box-shadow", "none");
-                isOkCapacity = true;
-            }
-
-
-
-            if (date.length == 0) {
+            if (date == "") {
                 Swal.fire({
                     icon: 'info',
                     title: '¡Campo fecha vacío!',
@@ -1679,106 +1650,156 @@ document.addEventListener('DOMContentLoaded', function () {
                     showConfirmButton: false,
                 });
                 $("#dateFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
-                isOkDate = false;
             } else {
                 $("#dateFilter").css("box-shadow", "none");
-                isOkDate = true;
-            }
 
-
-            if (isOkDate && isOkCapacity) {
-
-                $("#btnApplyFilter").prop("disabled", true);
-                $('#modalLoad').modal("show");
-                tv ? tv = 1 : tv = 0;
-                video_conferencia ? video_conferencia = 1 : video_conferencia = 0;
-                hdmi ? hdmi = 1 : hdmi = 0;
-
-                api.post('/listarSalasFiltradas', {
-                    api_token: token,
-                    capacidad,
-                    tv,
-                    video_conferencia,
-                    hdmi
-                }).then(function ({
-                    data
-                }) {
-                    let {
-                        datos
-                    } = data
-                    let salas_ids = [];
-
-
-                    setTimeout(() => {
-                        datos.forEach(item => {
-                            salas_ids.push(item.id)
-                        })
-
-                        if (salas_ids.length > 0) {
-                            calendar.getEvents().forEach(evento => evento.remove())
-                            calendar.getResources().forEach(resource => resource.remove());
-
+                let dia = date.substring(0, 2)
+                let mes = date.substring(3, 5)
+                let anio = date.substring(6, 10)
+    
+    
+                date = `${anio}-${mes}-${dia}`;
+                let capacidad = $("#capacityFilter").val();
+                let tv = $("#tvFilter").prop("checked");
+                let video_conferencia = $("#videoFilter").prop("checked");
+                let hdmi = $("#hdmiFilter").prop("checked");
+                let isOkCapacity = false;
+                let isOkDate = false;
+    
+    
+                if (capacidad == "") {
+                    Swal.fire({
+                        icon: 'info',
+                        title: '¡Campo capacidad vacío!',
+                        toast: true,
+                        timer: 1500,
+                        showConfirmButton: false,
+                    });
+                    $("#capacityFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                    isOkCapacity = false;
+                } else {
+                    $("#capacityFilter").css("box-shadow", "none");
+                    isOkCapacity = true;
+                }
+    
+    
+    
+                if (date.length == 0) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: '¡Campo fecha vacío!',
+                        toast: true,
+                        timer: 1500,
+                        showConfirmButton: false,
+                    });
+                    $("#dateFilter").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                    isOkDate = false;
+                } else {
+                    $("#dateFilter").css("box-shadow", "none");
+                    isOkDate = true;
+                }
+    
+    
+                if (isOkDate && isOkCapacity) {
+    
+                    $("#btnApplyFilter").prop("disabled", true);
+                    $('#modalLoad').modal("show");
+                    tv ? tv = 1 : tv = 0;
+                    video_conferencia ? video_conferencia = 1 : video_conferencia = 0;
+                    hdmi ? hdmi = 1 : hdmi = 0;
+    
+                    api.post('/listarSalasFiltradas', {
+                        api_token: token,
+                        capacidad,
+                        tv,
+                        video_conferencia,
+                        hdmi
+                    }).then(function ({
+                        data
+                    }) {
+                        let {
+                            datos
+                        } = data
+                        let salas_ids = [];
+    
+    
+                        setTimeout(() => {
                             datos.forEach(item => {
-                                calendar.addResource(item);
+                                salas_ids.push(item.id)
                             })
-
-
-                            fillSelect(datos)
-
-                            setTimeout(() => {
-                                api.post('/obtenerTodosEventosFiltrados', {
-                                    api_token: token,
-                                    salas_ids,
-                                    fecha_inicio: `${date} 00:00:00`,
-                                    fecha_fin: `${date} 23:59:00`
-                                }).then(function ({
-                                    data
-                                }) {
-                                    let {
-                                        datos
-                                    } = data
-
-                                    setTimeout(() => {
-                                        datos.forEach(evento => {
-                                            calendar.addEvent(evento);
-                                        })
-
-                                        calendar.gotoDate(date)
-
-                                        $("#btnApplyFilter").prop("disabled", false);
-                                        $('#modalLoad').modal("hide");
-                                        $('#modalFilter').modal("hide");
-                                        idRecursosClickeables()
-                                    }, 500);
-
-                                }).catch(function (error) {
-                                    console.log(error)
-                                    // logoutSession();
+    
+                            if (salas_ids.length > 0) {
+                                calendar.getEvents().forEach(evento => evento.remove())
+                                calendar.getResources().forEach(resource => resource.remove());
+    
+                                datos.forEach(item => {
+                                    calendar.addResource(item);
+                                })
+    
+    
+                                fillSelect(datos)
+    
+                                setTimeout(() => {
+                                    api.post('/obtenerTodosEventosFiltrados', {
+                                        api_token: token,
+                                        salas_ids,
+                                        fecha_inicio: `${date} 00:00:00`,
+                                        fecha_fin: `${date} 23:59:00`
+                                    }).then(function ({
+                                        data
+                                    }) {
+                                        let {
+                                            datos
+                                        } = data
+    
+                                        setTimeout(() => {
+                                            datos.forEach(evento => {
+                                                calendar.addEvent(evento);
+                                            })
+    
+                                            calendar.gotoDate(date)
+    
+                                            $("#btnApplyFilter").prop("disabled", false);
+                                            $('#modalLoad').modal("hide");
+                                            $('#modalFilter').modal("hide");
+                                            idRecursosClickeables()
+                                        }, 500);
+    
+                                    }).catch(function (error) {
+                                        console.log(error)
+                                        // logoutSession();
+                                    });
+                                }, 500);
+    
+    
+                            } else {
+                                Swal.fire({
+                                    title: '¡No se encontraron resultados!',
+                                    text: "Prueba con otros parámetros de búsqueda",
+                                    icon: 'info',
+                                    confirmButtonColor: '#313945',
+                                    confirmButtonText: 'Entendido',
+                                    allowOutsideClick: false
                                 });
-                            }, 500);
-
-
-                        } else {
-                            Swal.fire({
-                                title: '¡No se encontraron resultados!',
-                                text: "Prueba con otros parámetros de búsqueda",
-                                icon: 'info',
-                                confirmButtonColor: '#313945',
-                                confirmButtonText: 'Entendido',
-                                allowOutsideClick: false
-                            });
-                            $("#btnApplyFilter").prop("disabled", false);
-                            $('#modalLoad').modal("hide");
-                        }
-
-                    }, 500);
-
-                }).catch(function (error) {
-                    console.log(error)
-                    // logoutSession();
-                });
-
+                                $("#btnApplyFilter").prop("disabled", false);
+                                $('#modalLoad').modal("hide");
+                            }
+    
+                        }, 500);
+    
+                    }).catch(function (error) {
+                        console.log(error)
+                        // logoutSession();
+                    });
+    
+                }
             }
+
+           
+
+
+
+
 
         })
 
