@@ -193,8 +193,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 assistantsInput.val(1)
             }
 
-            if (value > 50) {
-                assistantsInput.val(50)
+            const maxValue = parseInt(assistantsInput.attr("max"))
+            if (value > maxValue) {
+                assistantsInput.val(maxValue)
             }
         })
 
@@ -532,13 +533,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById("date").value = dateText;
                     document.getElementById("room").value = titleEvent;
                     document.getElementById("room").setAttribute("data", idEvent);
+
+                    let allrooms = JSON.parse(atob(sessionStorage.getItem("rooms")))
+                    allrooms.forEach(item => {
+                        if (item.id == idEvent) {
+                            let capacidad = parseInt(item.capacidad)
+                            let result = capacidad + Math.ceil((capacidad * 50) / 100)
+                            document.getElementById("assistantsQuantity").setAttribute("max", result);
+                        }
+                    });
+
                     document.getElementById("room").setAttribute("data-name", titleEvent);
                     document.getElementById("modalTitle").innerHTML = `<i class="fa-solid fa-square-plus"></i> Agregar evento`;
                     document.getElementById("buttons").innerHTML = "";
                     document.getElementById("buttons").innerHTML = `${btnAdd} <button id="cancel" class="btn" data-dismiss="modal">Cancelar</button>`;
-
-
-
 
 
                     $('#plusBegin').prop("disabled", false);
@@ -547,12 +555,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('#plusEnd').prop("disabled", false);
                     $('#minusEnd').prop("disabled", false);
 
-
                     $('#modal').modal("show");
 
                     let sala_id = parseInt($("#room").attr("data"));
                     getColor(sala_id);
 
+                    $("#nameApplicant").val(atob(sessionStorage.getItem("username")))
                     loadEventsOnModal();
                 }
             }
@@ -701,6 +709,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let {
             datos
         } = data;
+
         fillSelect(datos)
         sessionStorage.setItem("rooms", btoa(JSON.stringify(datos)))
 
@@ -720,7 +729,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } = data;
 
         sessionStorage.setItem("user", btoa(datos.usuario_id));
-        sessionStorage.setItem("username    ", btoa(datos.nombre));
+        sessionStorage.setItem("username", btoa(datos.nombre));
         sessionStorage.setItem("rol", btoa(datos.rol));
         sessionStorage.setItem("group", datos.grupo);
 
@@ -780,7 +789,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // @@Show the inputs in "extras" section
     let showSection = (input) => {
         $(`#${input}Quantity`).removeAttr('readonly')
-        input != "others" && $(`#${input}Quantity`).val(1)
+
+        let assistantValue = parseInt($("#assistantsQuantity").val());
+        let assistantsMax = parseInt($("#assistantsQuantity").attr("max"));
+
+        $(`#${input}Quantity`).attr('max', assistantsMax)
+        input != "others" && $(`#${input}Quantity`).val(assistantValue)
         $(`#${input}QuantitySection`).show()
     }
 
@@ -1592,7 +1606,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     let salas_ids = [];
 
 
-
                     setTimeout(() => {
                         datos.forEach(item => {
                             salas_ids.push(item.id)
@@ -1605,6 +1618,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             datos.forEach(item => {
                                 calendar.addResource(item);
                             })
+
 
                             fillSelect(datos)
 
