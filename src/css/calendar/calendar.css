@@ -1386,9 +1386,15 @@ body #modalProfile .modal-dialog .modal-content .modal-body .buttons .btnClose {
   width: 30%;
 }
 
+td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-main {
+  font-size: 0.7em;
+  font-weight: 500;
+  margin-left: -2em;
+}
+
 #moreIcon {
   position: absolute;
-  left: 1em;
+  left: 0.2em;
   height: 1em;
   font-size: 0.9em;
   margin: 0px;
@@ -2075,6 +2081,24 @@ body #modalProfile .modal-dialog .modal-content .modal-body .buttons .btnClose {
   body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #cancel {
     background-color: #7d7d7d;
     color: white;
+  }
+  #moreIcon {
+    position: absolute;
+    left: 1em;
+    height: 1em;
+    font-size: 0.9em;
+    margin: 0px;
+    margin-top: -2em;
+    font-weight: 500;
+    color: #313945;
+  }
+  #moreIcon i {
+    margin-right: 1em;
+  }
+  td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-main {
+    font-size: 1em;
+    font-weight: 400;
+    margin-left: 0em;
   }
 }
 /*# sourceMappingURL=calendar.css.map */

@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let nameInput = $("#name");
         let applicantInput = $("#nameApplicant");
         let assistantsInput = $("#assistantsQuantity");
-        
+
         nameInput.on("keyup", () => {
             nameInput.css("box-shadow", "none")
         })
@@ -923,11 +923,29 @@ document.addEventListener('DOMContentLoaded', function () {
         let arrayEvents = JSON.parse(atob(sessionStorage.getItem("events")));
         // let arrayEvents = JSON.parse(sessionStorage.getItem("events"));
 
+        let now = new Date();
+        let hour;
+        let minutes;
+
+        if (now.getHours() < 10) {
+            hour = `0${now.getHours()}`;
+        } else {
+            hour = now.getHours();
+        }
+
+        if (now.getMinutes() < 10) {
+            minutes = `0${now.getMinutes()}`;
+        } else {
+            minutes = now.getMinutes();
+        }
 
         //-> @@Config default
         calendar = new FullCalendar.Calendar(calendarEl, {
             schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
             initialView: "resourceTimelineDay",
+            slotMinTime: "01:00:00",
+            slotMaxTime: "24:00:00",
+            scrollTime: `${hour}:${minutes}:00`,
             themeSystem: 'standard',
             aspectRatio: 1,
             height: "auto",
@@ -953,8 +971,9 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             slotLabelFormat: {
                 hour: 'numeric',
+                minute: '2-digit',
                 omitZeroMinute: true,
-                hour12: true
+                hour12: false,
             },
             displayEventTime: false,
             displayEventEnd: false,
