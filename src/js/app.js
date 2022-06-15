@@ -587,10 +587,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 hoursEnd = "23"
                             }
 
-
-                            console.log(`${hours}:${minutes}`)
-                            console.log(`${hoursEnd}:${minutesEnd}`)
-
                         }
                     } else {
                         // Si es la vista de mes
