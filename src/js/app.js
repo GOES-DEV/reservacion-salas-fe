@@ -401,8 +401,10 @@ document.addEventListener('DOMContentLoaded', function () {
     //-> @@Handlers actions calendar (use modal)
     let dateAction = ({
         dateStr,
-        resource = "empty"
+        resource = "empty",
+        view
     }) => {
+
 
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
         let idInputs = [
@@ -433,12 +435,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 showConfirmButton: false,
             });
         } else {
+
+
+
+
             if (rol == 1) {
                 $(".info-event").css("display", "flex");
                 $("#name").attr("readonly", false)
                 $("#nameApplicant").attr("readonly", false)
                 $("#assistantsQuantity").attr("readonly", false);
                 $("#assistantsQuantity").val(1)
+
+
                 let clickedDate = new Date(dateStr)
                 let today = new Date()
                 clickedDate.setHours(00)
@@ -453,6 +461,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (clickedDate >= today) {
 
+                    // @@Aqui
                     cleanModal();
                     let dateText;
                     if (dateStr.length > 10) {
@@ -483,20 +492,111 @@ document.addEventListener('DOMContentLoaded', function () {
                         idEvent = _resource.id;
                     }
 
-                    if (clickedDate <= today) {
 
-                        let time = new Date();
-                        let hours = parseInt(time.getHours());
-                        let minutes = parseInt(time.getMinutes());
+                    let time;
+                    if (view.type == "resourceTimelineDay") {
 
-                        let hoursEnd;
-                        let minutesEnd;
+                        let rightNow = new Date()
+                        let dateSelectedNow = new Date(dateStr)
 
+                        if (dateSelectedNow < rightNow) {
+                            time = new Date();
+                        } else {
+                            time = new Date(dateStr);
+                        }
+
+                    } else {
+                        time = new Date();
+                    }
+
+
+                    let hours = parseInt(time.getHours());
+                    let minutes = parseInt(time.getMinutes());
+
+                    let hoursEnd;
+                    let minutesEnd;
+
+                    if (view.type == "resourceTimelineDay") {
+                        let rightNow = new Date()
+                        let dateSelectedNow = new Date(dateStr)
+
+                        if (dateSelectedNow < rightNow) {
+                            // Si la hora en timeline es menor a la actual
+                            if (minutes < 31) {
+                                minutes = 31;
+                                minutesEnd = "00"
+
+
+                                hoursEnd = hours + 1
+                                if (hoursEnd < 10) {
+                                    hoursEnd = `0${hoursEnd}`;
+                                }
+                                if (hours < 10) {
+                                    hours = `0${hours}`;
+                                }
+
+                            } else {
+                                minutes = "01";
+                                minutesEnd = "30"
+
+                                hours = hours + 1
+                                hoursEnd = hours;
+                                if (hours < 10) {
+                                    hours = `0${hours}`;
+                                }
+                                if (hoursEnd < 10) {
+                                    hoursEnd = `0${hoursEnd}`;
+                                }
+                            }
+                        } else {
+                            // Si la hora en timeline es mayor a la actual
+                            if (minutes < 29) {
+                                minutes = "01";
+                                minutesEnd = "30"
+
+
+                                hoursEnd = hours
+                                if (hoursEnd < 10) {
+                                    hoursEnd = `0${hoursEnd}`;
+                                }
+                                if (hours < 10) {
+                                    hours = `0${hours}`;
+                                }
+
+                            } else {
+                                minutes = "31";
+                                minutesEnd = "00"
+
+                                hours = hours
+                                hoursEnd = hours + 1;
+                                if (hours < 10) {
+                                    hours = `0${hours}`;
+                                }
+                                if (hoursEnd < 10) {
+                                    hoursEnd = `0${hoursEnd}`;
+                                }
+                            }
+
+
+                            // Si selecciona el rango de las 11:30
+                            if (minutes == "31" && hours == "23") {
+                                minutes = "01";
+                                minutesEnd = "30"
+
+                                hours = "23";
+                                hoursEnd = "23"
+                            }
+
+
+                            console.log(`${hours}:${minutes}`)
+                            console.log(`${hoursEnd}:${minutesEnd}`)
+
+                        }
+                    } else {
+                        // Si es la vista de mes
                         if (minutes < 31) {
                             minutes = 31;
                             minutesEnd = "00"
-
-
                             hoursEnd = hours + 1
                             if (hoursEnd < 10) {
                                 hoursEnd = `0${hoursEnd}`;
@@ -518,12 +618,19 @@ document.addEventListener('DOMContentLoaded', function () {
                                 hoursEnd = `0${hoursEnd}`;
                             }
                         }
-
-
-                        $("#timeBegin").val(`${hours}:${minutes}`)
-                        $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
-
                     }
+
+                    $("#timeBegin").val(`${hours}:${minutes}`)
+                    $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
+
+
+
+
+
+
+
+
+
 
 
                     $('#drinks').prop("disabled", false);
@@ -986,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', function () {
             slotLabelFormat: {
                 hour: 'numeric',
                 minute: '2-digit',
-                omitZeroMinute: true,
+                omitZeroMinute: false,
                 hour12: false,
             },
             displayEventTime: false,
