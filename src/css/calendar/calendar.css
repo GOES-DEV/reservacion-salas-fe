@@ -1114,6 +1114,12 @@ body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(5)
   vertical-align: middle;
 }
 
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(3) td:nth-child(2) input,
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(4) td:nth-child(2) input,
+body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(5) td:nth-child(2) input {
+  text-align: center;
+}
+
 body #modalFilter .modal-dialog .modal-content .modal-body .buttons {
   display: -webkit-box;
   display: -ms-flexbox;

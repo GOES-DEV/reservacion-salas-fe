@@ -464,7 +464,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (clickedDate >= today) {
 
-                    // @@Aqui
+
                     cleanModal();
                     let dateText;
                     if (dateStr.length > 10) {
@@ -1554,9 +1554,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // @@Re asignent actions on rooms
             $(".fc-datagrid-expander").on("click", () => {
+                
                 setTimeout(() => {
                     idRecursosClickeables()
-                }, 500);
+                }, 1000);
             })
         }
         idRecursosClickeables()
@@ -1656,8 +1657,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 let dia = date.substring(0, 2)
                 let mes = date.substring(3, 5)
                 let anio = date.substring(6, 10)
-    
-    
+
+
                 date = `${anio}-${mes}-${dia}`;
                 let capacidad = $("#capacityFilter").val();
                 let tv = $("#tvFilter").prop("checked");
@@ -1665,8 +1666,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 let hdmi = $("#hdmiFilter").prop("checked");
                 let isOkCapacity = false;
                 let isOkDate = false;
-    
-    
+
+
                 if (capacidad == "") {
                     Swal.fire({
                         icon: 'info',
@@ -1681,9 +1682,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#capacityFilter").css("box-shadow", "none");
                     isOkCapacity = true;
                 }
-    
-    
-    
+
+
+
                 if (date.length == 0) {
                     Swal.fire({
                         icon: 'info',
@@ -1698,16 +1699,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#dateFilter").css("box-shadow", "none");
                     isOkDate = true;
                 }
-    
-    
+
+
                 if (isOkDate && isOkCapacity) {
-    
+
                     $("#btnApplyFilter").prop("disabled", true);
                     $('#modalLoad').modal("show");
                     tv ? tv = 1 : tv = 0;
                     video_conferencia ? video_conferencia = 1 : video_conferencia = 0;
                     hdmi ? hdmi = 1 : hdmi = 0;
-    
+
                     api.post('/listarSalasFiltradas', {
                         api_token: token,
                         capacidad,
@@ -1721,24 +1722,24 @@ document.addEventListener('DOMContentLoaded', function () {
                             datos
                         } = data
                         let salas_ids = [];
-    
-    
+
+
                         setTimeout(() => {
                             datos.forEach(item => {
                                 salas_ids.push(item.id)
                             })
-    
+
                             if (salas_ids.length > 0) {
                                 calendar.getEvents().forEach(evento => evento.remove())
                                 calendar.getResources().forEach(resource => resource.remove());
-    
+
                                 datos.forEach(item => {
                                     calendar.addResource(item);
                                 })
-    
-    
+
+
                                 fillSelect(datos)
-    
+
                                 setTimeout(() => {
                                     api.post('/obtenerTodosEventosFiltrados', {
                                         api_token: token,
@@ -1751,27 +1752,27 @@ document.addEventListener('DOMContentLoaded', function () {
                                         let {
                                             datos
                                         } = data
-    
+
                                         setTimeout(() => {
                                             datos.forEach(evento => {
                                                 calendar.addEvent(evento);
                                             })
-    
+
                                             calendar.gotoDate(date)
-    
+
                                             $("#btnApplyFilter").prop("disabled", false);
                                             $('#modalLoad').modal("hide");
                                             $('#modalFilter').modal("hide");
                                             idRecursosClickeables()
                                         }, 500);
-    
+
                                     }).catch(function (error) {
                                         console.log(error)
                                         // logoutSession();
                                     });
                                 }, 500);
-    
-    
+
+
                             } else {
                                 Swal.fire({
                                     title: '¡No se encontraron resultados!',
@@ -1784,29 +1785,18 @@ document.addEventListener('DOMContentLoaded', function () {
                                 $("#btnApplyFilter").prop("disabled", false);
                                 $('#modalLoad').modal("hide");
                             }
-    
+
                         }, 500);
-    
+
                     }).catch(function (error) {
                         console.log(error)
                         // logoutSession();
                     });
-    
+
                 }
             }
-
-           
-
-
-
-
-
         })
-
-
-
-
-    }, 500);
+    }, 1000);
 
 
     //Show input password
@@ -1961,6 +1951,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
             }
         });
+
+
+        if (window.screen.width < 430) {
+            $('#btnMenuResponsive').html(`<i class="fa-solid fa-bars"></i>`);
+            $('#btnMenuResponsive').attr("data", 0);
+            $('#btnMenuResponsive').css("left", "0em")
+            $('.nav').css("left", "-12em")
+        }
     });
 
     $(`.filterView`).on("click", () => {
@@ -1975,15 +1973,13 @@ document.addEventListener('DOMContentLoaded', function () {
             mask: '00-00-0000'
         });
 
-        // $("#dateFilter").css("box-shadow","none")
-        // $("#capacityFilter").css("box-shadow","none")
-        // $("#dateFilter").val("");
-        // $("#capacityFilter").val("");
-        // $("#tvFilter").prop("checked",false);
-        // $("#videoFilter").prop("checked",false);
-        // $("#hdmiFilter").prop("checked",false);
-
         $('#modalFilter').modal("show");
+        if (window.screen.width < 430) {
+            $('#btnMenuResponsive').html(`<i class="fa-solid fa-bars"></i>`);
+            $('#btnMenuResponsive').attr("data", 0);
+            $('#btnMenuResponsive').css("left", "0em")
+            $('.nav').css("left", "-12em")
+        }
     })
 
     //-> @@Menu buttons
@@ -1999,6 +1995,13 @@ document.addEventListener('DOMContentLoaded', function () {
             calendar.changeView('resourceTimelineDay');
 
             startEventsToUI();
+        }
+
+        if (window.screen.width < 430) {
+            $('#btnMenuResponsive').html(`<i class="fa-solid fa-bars"></i>`);
+            $('#btnMenuResponsive').attr("data", 0);
+            $('#btnMenuResponsive').css("left", "0em")
+            $('.nav').css("left", "-12em")
         }
     });
 
