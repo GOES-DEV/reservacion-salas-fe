@@ -1768,7 +1768,7 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
     font-weight: 600;
     color: #162b3e;
     margin: 0px;
-    margin-bottom: -0.8em;
+    margin-bottom: 0.2em;
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content,
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content {
@@ -1823,6 +1823,8 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
         -ms-flex-align: center;
             align-items: center;
     margin-left: calc(-4em - 3px);
+    background-color: #162b3e;
+    border-radius: 0.25rem;
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin,
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusBegin,
@@ -1849,6 +1851,7 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
             align-items: center;
     border: none;
     margin: 0em 3px;
+    background-color: #162b3e;
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin i,
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #minusBegin i,
