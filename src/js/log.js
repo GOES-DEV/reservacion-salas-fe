@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+    // alert(`${window.screen.width} - ${window.screen.height}`)
+
     let expresiones = {
         text: /[*{}\[\]\^~`<>"'`´¨0-9?¿¡!+-.,;:_|#$%&/()=°¬]/g,
         textMail: /[*{}\[\]\^~`"'`´¨,;:_|()=°¬\s]/g,

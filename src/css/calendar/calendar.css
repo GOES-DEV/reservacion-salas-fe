@@ -133,8 +133,8 @@ body .content-calendar .nav ol li:hover {
 }
 
 body .content-calendar .btnMenuResponsive {
-  width: 2em;
-  height: 2em;
+  width: 3em;
+  height: 3em;
   position: fixed;
   top: 0em;
   left: 0em;
@@ -156,9 +156,14 @@ body .content-calendar .btnMenuResponsive {
   z-index: 9;
 }
 
+body .content-calendar .btnMenuResponsive i {
+  font-size: 1.5em;
+}
+
 body .content-calendar .calendar-section {
   width: 100%;
   margin-left: 0em;
+  padding-bottom: 4em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -175,6 +180,7 @@ body .content-calendar .calendar-section {
 }
 
 body .content-calendar .calendar-section .info-section {
+  margin-top: 2em;
   overflow: hidden;
   width: 100%;
   height: 5em;
@@ -239,8 +245,8 @@ body .content-calendar .calendar-section .info-section .resource-content #select
 body .content-calendar .calendar-section .info-section #titlePage {
   font-size: 1em;
   font-weight: bold;
-  color: white;
-  background: #313945;
+  color: #313945;
+  background: none;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -435,21 +441,23 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeBegin,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeEnd {
   width: 11em !important;
+  height: 2.5em;
   background-color: #162b3e;
   color: white;
-  position: relative;
   z-index: 1;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  text-align: start;
+  user-select: none;
 }
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content {
-  width: calc(4em + 3px);
+  width: 11em;
+  margin-left: -11em;
   height: 4em;
-  position: relative;
   z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -458,13 +466,12 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-left: calc(-4em - 3px);
 }
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin,
@@ -1118,6 +1125,8 @@ body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(3)
 body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(4) td:nth-child(2) input,
 body #modalFilter .modal-dialog .modal-content .modal-body table tr:nth-child(5) td:nth-child(2) input {
   text-align: center;
+  width: 2em;
+  margin: auto;
 }
 
 body #modalFilter .modal-dialog .modal-content .modal-body .buttons {
@@ -1610,8 +1619,8 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
   body .content-calendar .calendar-section .info-section #titlePage {
     font-size: 1.5em;
     font-weight: bold;
-    color: white;
-    background: #313945;
+    color: #313945;
+    background: none;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1779,6 +1788,7 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeBegin,
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeEnd {
     width: 11em !important;
+    height: 2.5em;
     background-color: #162b3e;
     color: white;
     position: relative;
@@ -1787,6 +1797,7 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
+    text-align: start;
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content,
   body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content {

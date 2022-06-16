@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let showTitlePage = () => {
         document.getElementById("titlePage").innerHTML = ""
         let title = sessionStorage.getItem("group")
-        document.getElementById("titlePage").innerHTML = `<p><i class="fa-solid fa-square"></i> GRUPO ${title}</p>`;
+        document.getElementById("titlePage").innerHTML = `<p><i class="fa-solid fa-calendar-days"></i> GRUPO ${title}</p>`;
     }
     $('.js-select').select2({
         containerCssClass: "",
@@ -1446,6 +1446,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             $("#timeEnd").val(`${hour}:${minute}`)
         }
+    });
+
+
+    // For iphone
+    $("#timeBegin").on("click",()=>{
+        $('#timeBegin').blur();
+    });
+
+    $("#timeEnd").on("click",()=>{
+        $('#timeEnd').blur();
     });
 
 

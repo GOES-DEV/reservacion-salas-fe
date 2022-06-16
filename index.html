@@ -1,77 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="./src/css/login/login.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+    <!DOCTYPE html>
+    <html lang="en">
 
-<body>
-    <div class="content-login">
-        <div class="info">
-            <img class="logoResponsive" src="./src/assets/esshield.png" alt="">
-            <img class="logo" src="./src/assets/escudoBlanco.png" alt="">
-        </div>
-        <form method="post" id="login">
-            <div class="animatedTitle">
-                <div id="calendarAnimate"></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="./src/css/login/login.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+
+    <body>
+        <div class="content-login">
+            <div class="info">
+                <img class="logo" src="./src/assets/escudoBlanco.png" alt="">
             </div>
-
-            <div class="contentInput">
-                <p class="title-form">Sistema de reserva para salas internas</p>
-                <div class="form-group" id="userControl">
-                    <label id="emailOK" for="user">Correo electrónico</label>
-                    <input type="text" class="form-control" id="user" name="user" placeholder="" maxlength="40">
+            <form method="post" id="login">
+                <div class="animatedTitle">
+                    <div id="calendarAnimate"></div>
                 </div>
-                <div class="form-group" id="passControl">
-                    <label for="pass">Contraseña</label>
-                    <input type="password" class="form-control" id="pass" name="pass" placeholder="" maxlength="20">
-                    <div class="btn" id="showPass">
-                        <i class="fa-solid fa-eye"></i>
+
+                <div class="contentInput">
+                    <p class="title-form">Sistema de reserva para salas internas <img class="logoResponsive"
+                            src="./src/assets/esshield.png" alt=""></p>
+                    <div class="form-group" id="userControl">
+                        <label id="emailOK" for="user">Correo electrónico</label>
+                        <input type="text" class="form-control" id="user" name="user" placeholder="" maxlength="40">
                     </div>
+                    <div class="form-group" id="passControl">
+                        <label for="pass">Contraseña</label>
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="" maxlength="20">
+                        <div class="btn" id="showPass">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i
+                            class="fa-solid fa-right-to-bracket"></i>Entrar</button>
                 </div>
-                <button type="submit" class="btn btn-primary"><i
-                        class="fa-solid fa-right-to-bracket"></i>Entrar</button>
-            </div>
 
 
 
-        </form>
+            </form>
 
 
 
-    </div>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./src/js/config.js"></script>
-    <script src="./src/js/log.js"></script>
-    <script src="./src/js/sweetAlert2.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="./src/js/config.js"></script>
+        <script src="./src/js/log.js"></script>
+        <script src="./src/js/sweetAlert2.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+        </script>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.1/lottie.min.js"
-        integrity="sha512-CWKGqmXoxo+9RjazbVIaiFcD+bYEIcUbBHwEzPlT0FilQq3TCUac+/uxZ5KDmvYiXJvp32O8rcgchkYw6J6zOA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.3/lottie.min.js"
-        integrity="sha512-e0f5QhAghpnR7F96ocZHSXHNrM1ugw32mmQJsKg02ADeVj7uxFkG5UA+HgrcTTxcPWp415lH+1l1b4nZtyqnsg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.1/lottie.min.js"
+            integrity="sha512-CWKGqmXoxo+9RjazbVIaiFcD+bYEIcUbBHwEzPlT0FilQq3TCUac+/uxZ5KDmvYiXJvp32O8rcgchkYw6J6zOA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.3/lottie.min.js"
+            integrity="sha512-e0f5QhAghpnR7F96ocZHSXHNrM1ugw32mmQJsKg02ADeVj7uxFkG5UA+HgrcTTxcPWp415lH+1l1b4nZtyqnsg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-</body>
+    </body>
 
-</html>
+    </html>
