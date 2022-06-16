@@ -452,6 +452,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 let clickedDate = new Date(dateStr)
                 let today = new Date()
+
                 clickedDate.setHours(00)
                 clickedDate.setMinutes(00)
                 clickedDate.setSeconds(00)
@@ -461,6 +462,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 today.setSeconds(00)
                 today.setMilliseconds(00)
 
+                // When clicked day sum one day more
+                if (view.type == "dayGridMonth") {
+                    clickedDate.setDate(clickedDate.getDate() + 1);
+                }
 
                 if (clickedDate >= today) {
 
