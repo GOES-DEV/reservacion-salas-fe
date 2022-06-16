@@ -415,12 +415,14 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
   font-weight: 600;
   color: #162b3e;
   margin: 0px;
-  margin-bottom: -0.8em;
+  margin-bottom: -0.2em;
 }
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content {
   width: 11em;
+  height: 2.5em;
+  overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -440,7 +442,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content #timeEnd,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeBegin,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content #timeEnd {
-  width: 11em !important;
+  width: 7em !important;
   height: 2.5em;
   background-color: #162b3e;
   color: white;
@@ -455,9 +457,9 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content,
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .endTime-content .btn-content {
-  width: 11em;
-  margin-left: -11em;
-  height: 4em;
+  width: 5em;
+  margin-left: -1em;
+  height: 2.7em;
   z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -472,6 +474,8 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-gro
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background-color: #162b3e;
+  border-radius: 0.25rem;
 }
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .times .form-group .beginTime-content .btn-content #plusBegin,
