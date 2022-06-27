@@ -1120,10 +1120,27 @@ document.addEventListener('DOMContentLoaded', function () {
         //-> @@Render calendar
         calendar.render();
         sessionStorage.setItem("instanceLoaded", 1);
+
+
+        // @@FNnameday==========================================================================
+
+        let nameDay = calendar.getDate().toLocaleString('es', {
+            weekday: 'long'
+        })
+        nameDay = nameDay.charAt(0).toUpperCase() + nameDay.slice(1)
+        let getTitle = $("#fc-dom-1").text()
+        $("#fc-dom-1").text(`${nameDay}, ${getTitle}`);
+        // ==========================================================================
     }
     // Load default events important
     let primerDiaValue = sessionStorage.getItem("firstDate");
     let ultimoDiaValue = sessionStorage.getItem("lastDate");
+
+
+
+
+
+
 
     api.post('/obtenerTodosEventos', {
         api_token: token,
@@ -1455,11 +1472,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // For iphone
-    $("#timeBegin").on("click",()=>{
+    $("#timeBegin").on("click", () => {
         $('#timeBegin').blur();
     });
 
-    $("#timeEnd").on("click",()=>{
+    $("#timeEnd").on("click", () => {
         $('#timeEnd').blur();
     });
 
@@ -1569,7 +1586,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // @@Re asignent actions on rooms
             $(".fc-datagrid-expander").on("click", () => {
-                
+
                 setTimeout(() => {
                     idRecursosClickeables()
                 }, 1000);
@@ -1577,6 +1594,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         idRecursosClickeables()
 
+
+        let AddNameDay = () => {
+            let stage = parseInt(sessionStorage.getItem("dateStage"));
+            let dayInstance = calendar.getDate()
+            let year = dayInstance.getFullYear()
+            let numberDay = dayInstance.getDate()
+            const monthNames = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
+                "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+            ];
+            let nameMonth = monthNames[dayInstance.getMonth()]
+            let nameDay = dayInstance.toLocaleString('es', {
+                weekday: 'long'
+            })
+            nameDay = nameDay.charAt(0).toUpperCase() + nameDay.slice(1)
+
+
+            if (stage == 1) {
+                $("#fc-dom-1").text("")
+                $("#fc-dom-1").text(`${nameDay}, ${numberDay} de ${nameMonth} de ${year}`);
+            } else {
+                $("#fc-dom-1").text("")
+                $("#fc-dom-1").text(`${nameMonth} de ${year}`);
+            }
+        }
 
         //-> @@Calendar buttons
         $(".fc-resourceTimelineDay-button").on("click", () => {
@@ -1601,7 +1642,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
             }
 
-
+            AddNameDay()
         });
 
 
@@ -1624,11 +1665,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     "height": "8em"
                 })
             }
+            AddNameDay()
         });
 
 
         // TODO agregar aqui la insercion y eliminacion de eventos
         $(".fc-next-button").on("click", () => {
+            AddNameDay()
             // alert("next");
             sessionStorage.setItem("instanceLoaded", 2);
             clearEvents();
@@ -1637,6 +1680,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         $(".fc-prev-button").on("click", () => {
+            AddNameDay()
             // alert("prev");
             sessionStorage.setItem("instanceLoaded", 2);
             clearEvents();
@@ -1779,6 +1823,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                             $('#modalLoad').modal("hide");
                                             $('#modalFilter').modal("hide");
                                             idRecursosClickeables()
+                                            AddNameDay()
                                         }, 500);
 
                                     }).catch(function (error) {
@@ -1810,6 +1855,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 }
             }
+
+            
+        })
+
+        $(".fc-today-button").on("click", () => {
+            AddNameDay()
         })
     }, 1000);
 
