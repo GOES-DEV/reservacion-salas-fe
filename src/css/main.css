@@ -354,7 +354,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 
 @media (max-width: 430px) {
     .fc .fc-toolbar-title {
-        font-size: 1em !important;
+        font-size: 0.75em !important;
     }
 }
 
