@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (result.isConfirmed) {
                             $("#user").val("");
                             $("#pass").val("");
+                            document.getElementById('emailOK').innerHTML = `Correo electrónico`;
                         }
                     })
                 } else {
