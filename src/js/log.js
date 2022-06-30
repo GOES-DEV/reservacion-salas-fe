@@ -18,25 +18,28 @@ document.addEventListener('DOMContentLoaded', function () {
         //Replace some special characters at correo
         let mail = document.getElementById("user");
         mail.setAttribute("maxlength", 40);
-        mail.addEventListener("input", () => {
-            let valido = document.getElementById('emailOK');
-            if (expresiones.mail.test(mail.value)) {
-                valido.innerHTML = `Correo electrónico <i class="far fa-check-circle"></i>`;
-                sessionStorage.setItem("eOk", 1)
-            } else {
-                valido.innerHTML = `Correo electrónico <i class="far fa-times-circle"></i>`;
-                sessionStorage.setItem("eOk", 0)
-            }
-        });
 
-        mail.addEventListener("keyup", (e) => {
+        mail.addEventListener("input", (e) => {
             //Replace special characters
             let valor = e.target.value;
             let nuevoValor = valor.replace(expresiones.textMail, '');
             document.getElementById(e.target.id).value = nuevoValor.toLowerCase();
         });
-    }
 
+
+        mail.addEventListener("input", () => {
+            setTimeout(() => {
+                let valido = document.getElementById('emailOK');
+                if (expresiones.mail.test(mail.value)) {
+                    valido.innerHTML = `Correo electrónico <i class="far fa-check-circle"></i>`;
+                    sessionStorage.setItem("eOk", 1)
+                } else {
+                    valido.innerHTML = `Correo electrónico <i class="far fa-times-circle"></i>`;
+                    sessionStorage.setItem("eOk", 0)
+                }
+            }, 500);
+        });
+    }
     mailTest();
 
 
@@ -70,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = new FormData(e.target);
         const { user, pass } = Object.fromEntries(formData);
 
-        
+
         if (user.length == 0) {
             Swal.fire({
                 icon: 'info',
@@ -80,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showConfirmButton: false,
             });
             $("#user").css("box-shadow", "inset 0px 0px 0.5em #ff000080")
-        }else if (sessionStorage.getItem("eOk") == 0){
+        } else if (sessionStorage.getItem("eOk") == 0) {
             Swal.fire({
                 icon: 'info',
                 title: '¡Formato de correo invalido!',
