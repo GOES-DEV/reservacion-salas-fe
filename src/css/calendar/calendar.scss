@@ -1218,6 +1218,152 @@ body {
 
 
 
+
+
+
+
+
+
+  #modaladdUser {
+    .modal-dialog {
+      .modal-content {
+        .modal-header {
+          background: #313945;
+          color: white;
+
+          .close {
+            color: white;
+          }
+        }
+
+        .modal-body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+
+          .form-line {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 0.5em;
+
+            .form-group {
+              margin: 0px;
+
+              label {
+                font-size: 0.8em;
+                color: #888;
+                margin-bottom: 0px;
+              }
+
+              input {
+                width: 18em;
+                border-radius: 0.25rem 0rem 0rem 0.25rem;
+                height: 2.5em;
+              }
+            }
+
+            .btn-icon {
+              width: 2.5em;
+              height: 2.5em;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 0rem 0.25rem 0.25rem 0rem;
+
+              i {
+                font-size: 1em;
+              }
+            }
+          }
+
+          .form-group {
+            margin: 0px;
+            margin-bottom: 0.5em;
+
+            label {
+              font-size: 0.8em;
+              color: #888;
+              margin-bottom: 0px;
+            }
+
+            input {
+              width: calc(18em + 2.5em);
+              border-radius: 0.25rem;
+              height: 2.5em;
+            }
+
+            select {
+              width: calc(18em + 2.5em);
+              border-radius: 0.25rem;
+              height: 2.5em;
+            }
+          }
+
+
+          .selects {
+            margin-top: 0.5em;
+            margin-bottom: 1em;
+            width: 24em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background: #80808014;
+            padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+            border-radius: 0.25rem;
+
+            .form-group {
+              margin: 0px;
+
+              label {
+                font-size: 0.8em;
+                color: #888;
+                margin-bottom: 0px;
+              }
+
+              select {
+                width: 21em;
+                border-radius: 0.25rem;
+                height: 2.5em;
+              }
+            }
+          }
+
+          .buttons {
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 1.5em;
+
+            #btnCreateUser {
+              width: 50%;
+              font-weight: 600;
+            }
+
+            .btnClose {
+              width: 30%;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
 }
 
 td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
@@ -1831,6 +1977,29 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
         }
       }
     }
+
+    #modaladdUser {
+      .modal-dialog {
+        .modal-content {
+
+
+          .modal-body {
+            .selects {
+              flex-direction: row;
+
+              .form-group {
+                select {
+                  width: 11em;
+                }
+              }
+            }
+
+
+
+          }
+        }
+      }
+    }
   }
 
 
@@ -1854,4 +2023,6 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
     font-weight: 400;
     margin-left: 0em;
   }
+
+
 }

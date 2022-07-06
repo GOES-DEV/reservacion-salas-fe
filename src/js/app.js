@@ -283,8 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
 
-            console.log("isAssistants")
-            console.log(isAssistants)
+
             if (isName == true && isApplicant == true && isAssistants == true) {
 
                 setTimeout(() => {
@@ -1856,7 +1855,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            
+
         })
 
         $(".fc-today-button").on("click", () => {
@@ -2099,6 +2098,309 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
     });
+
+
+    // FN: Check the rol and validate the option for create user
+
+    // Fill select in create user
+    api.get('/obtenerRoles', {
+        params: {
+            api_token: token,
+        }
+    }).then(function ({
+        data
+    }) {
+        let {
+            datos
+        } = data
+
+        let options = `<option value="">Seleccionar</option>`;
+        datos.forEach(item => {
+            let {
+                id, descripcion
+            } = item;
+
+            options += `<option value="${id}">${descripcion}</option>`
+        });
+        $("#rolUser").html(options)
+    }).catch(function (error) {
+        logoutSession();
+    });
+
+    api.get('/obtenerGrupos', {
+        params: {
+            api_token: token,
+        }
+    }).then(function ({
+        data
+    }) {
+        let {
+            datos
+        } = data
+
+        let options = `<option value="">Seleccionar</option>`;
+        datos.forEach(item => {
+            let {
+                id, nombre
+            } = item;
+
+            options += `<option value="${id}">${nombre}</option>`
+        });
+        $("#grupoUser").html(options)
+    }).catch(function (error) {
+        logoutSession();
+    });
+
+
+
+
+    setTimeout(() => {
+
+        let rolValidate = parseInt(atob(sessionStorage.getItem("rol")))
+        if (rolValidate != 1) {
+            $("#opCreateUser").css("display", "none")
+        } else {
+            sessionStorage.removeItem("eOk");
+
+
+
+            $("#nombreUser").on("input", () => {
+                $("#nombreUser").css("box-shadow", "none")
+            })
+
+            $("#mailUser").on("input", () => {
+                $("#mailUser").css("box-shadow", "none")
+            })
+
+            $("#passUser").on("input", () => {
+                $("#passUser").css("box-shadow", "none")
+            })
+
+            $("#rolUser").on("input", () => {
+                $("#rolUser").css("box-shadow", "none")
+            })
+
+            $("#grupoUser").on("input", () => {
+                $("#grupoUser").css("box-shadow", "none")
+            })
+
+            let expresiones = {
+                textMail: /[*{}\[\]\^~`"'`´¨,;:_|()=°¬\s]/g,
+                mail: /^[-\w%-.$#+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
+            };
+
+
+            let mailTest = () => {
+                //Replace some special characters at correo
+                let mail = document.getElementById("mailUser");
+                mail.setAttribute("maxlength", 40);
+
+                mail.addEventListener("input", (e) => {
+                    //Replace special characters
+                    let valor = e.target.value;
+                    let nuevoValor = valor.replace(expresiones.textMail, '');
+                    document.getElementById(e.target.id).value = nuevoValor.toLowerCase();
+                });
+
+
+                mail.addEventListener("input", () => {
+                    setTimeout(() => {
+                        let valido = document.getElementById('emailOK');
+                        if (expresiones.mail.test(mail.value)) {
+                            valido.innerHTML = `Correo electrónico <i class="far fa-check-circle"></i>`;
+                            sessionStorage.setItem("eOk", 1)
+                        } else {
+                            valido.innerHTML = `Correo electrónico <i class="far fa-times-circle"></i>`;
+                            sessionStorage.setItem("eOk", 0)
+                        }
+                    }, 500);
+                });
+            }
+            mailTest();
+
+
+
+            $(".opCreateUser").on("click", () => {
+
+                // Start modal functions 
+                $("#nombreUser").val("");
+                $("#mailUser").val("");
+                $("#passUser").val("");
+                $("#rolUser").val("");
+                $("#grupoUser").val("");
+
+                $('#modaladdUser').modal("show");
+                $("#passShow").on("click", () => {
+                    let typeInput = $("#passUser").attr("type")
+                    if (typeInput == "password") {
+                        $("#passUser").attr("type", "text")
+                        $("#passShow").html(`<i class="fa-solid fa-eye-slash"></i>`)
+
+                    } else {
+                        $("#passUser").attr("type", "password")
+                        $("#passShow").html(`<i class="fa-solid fa-eye"></i>`)
+                    }
+                })
+
+
+
+
+                $("#btnCreateUser").on("click", () => {
+                    $("#btnCreateUser").attr("disabled", true);
+                    let nombre = $("#nombreUser").val();
+                    let correo = $("#mailUser").val();
+                    let contra = $("#passUser").val();
+                    let rol_id = $("#rolUser").val();
+                    let grupo_id = $("#grupoUser").val();
+
+
+                    let isValidateName = false;
+                    let isValidateMail = false;
+                    let isValidatePass = false;
+                    let isValidateRol = false;
+                    let isValidateGroup = false;
+
+
+                    // ===============
+                    // Validate group
+                    if (grupo_id == "") {
+                        isValidateGroup = false;
+                        $("#grupoUser").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                        Swal.fire({
+                            icon: 'info',
+                            title: '¡Seleccione un grupo!',
+                            toast: true,
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+                    } else {
+                        $("#grupoUser").css("box-shadow", "none");
+                        isValidateGroup = true;
+                    }
+
+                    // Validate rol
+                    if (rol_id == "") {
+                        isValidateRol = false;
+                        $("#rolUser").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                        Swal.fire({
+                            icon: 'info',
+                            title: '¡Seleccione un rol!',
+                            toast: true,
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+                    } else {
+                        isValidateRol = true;
+                        $("#rolUser").css("box-shadow", "none")
+                    }
+
+
+                    // Validate pass
+                    if (contra == "") {
+                        isValidatePass = false;
+                        $("#passUser").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                        Swal.fire({
+                            icon: 'info',
+                            title: '¡Campo contraseña vacío!',
+                            toast: true,
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+                    } else {
+                        isValidatePass = true;
+                        $("#passUser").css("box-shadow", "none")
+                    }
+
+
+                    // Validate mail
+                    if (correo == "") {
+                        isValidateMail = false;
+                        $("#mailUser").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                        Swal.fire({
+                            icon: 'info',
+                            title: '¡Campo correo eléctronico vacío!',
+                            toast: true,
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+                    } else {
+                        if (parseInt(sessionStorage.getItem("eOk")) == 0) {
+                            isValidateMail = false;
+                            $("#mailUser").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Complete formato de correo eléctronico',
+                                toast: true,
+                                timer: 1500,
+                                showConfirmButton: false,
+                            });
+                        } else {
+                            $("#mailUser").css("box-shadow", "none");
+                            isValidateMail = true;
+                        }
+
+                    }
+
+                    // Validate name
+                    if (nombre == "") {
+                        isValidateName = false;
+                        $("#nombreUser").css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                        Swal.fire({
+                            icon: 'info',
+                            title: '¡Campo nombre vacío!',
+                            toast: true,
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+                    } else {
+                        $("#nombreUser").css("box-shadow", "none");
+                        isValidateName = true;
+                    }
+
+                    if (isValidateGroup == true && isValidateRol == true && isValidatePass == true && isValidateMail == true && isValidateName == true) {
+                        api.post('/crearUsuario', {
+                            api_token: token,
+                            rol_id,
+                            dui: "00000000-0",
+                            nombre,
+                            correo,
+                            contra,
+                            telefono: "0000-0000",
+                            grupo_id
+                        }).then(function ({
+                            data
+                        }) {
+                            let {
+                                datos
+                            } = data;
+                            Swal.fire({
+                                title: '¡Usuario creado con exito!',
+                                icon: 'success',
+                                confirmButtonColor: '#313945',
+                                confirmButtonText: 'Entendido',
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $("#btnCreateUser").attr("disabled", false);
+                                    $('#modaladdUser').modal("hide");
+                                }
+                            })
+                        }).catch(function (error) {
+                            $("#btnCreateUser").attr("disabled", false);
+                            logoutSession();
+                        });
+                    }else{
+                        $("#btnCreateUser").attr("disabled", false);
+                    }
+
+                });
+
+
+            });
+        }
+    }, 500);
+
+
 
 
 })

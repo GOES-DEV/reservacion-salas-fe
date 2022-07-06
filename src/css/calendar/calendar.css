@@ -1405,6 +1405,170 @@ body #modalProfile .modal-dialog .modal-content .modal-body .buttons .btnClose {
   width: 30%;
 }
 
+body #modaladdUser .modal-dialog .modal-content .modal-header {
+  background: #313945;
+  color: white;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-header .close {
+  color: white;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin-bottom: 0.5em;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-line .form-group {
+  margin: 0px;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-line .form-group label {
+  font-size: 0.8em;
+  color: #888;
+  margin-bottom: 0px;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-line .form-group input {
+  width: 18em;
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+  height: 2.5em;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-line .btn-icon {
+  width: 2.5em;
+  height: 2.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-line .btn-icon i {
+  font-size: 1em;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-group {
+  margin: 0px;
+  margin-bottom: 0.5em;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-group label {
+  font-size: 0.8em;
+  color: #888;
+  margin-bottom: 0px;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-group input {
+  width: calc(18em + 2.5em);
+  border-radius: 0.25rem;
+  height: 2.5em;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .form-group select {
+  width: calc(18em + 2.5em);
+  border-radius: 0.25rem;
+  height: 2.5em;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .selects {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  width: 24em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #80808014;
+  padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .selects .form-group {
+  margin: 0px;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .selects .form-group label {
+  font-size: 0.8em;
+  color: #888;
+  margin-bottom: 0px;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .selects .form-group select {
+  width: 21em;
+  border-radius: 0.25rem;
+  height: 2.5em;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .buttons {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 1.5em;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .buttons #btnCreateUser {
+  width: 50%;
+  font-weight: 600;
+}
+
+body #modaladdUser .modal-dialog .modal-content .modal-body .buttons .btnClose {
+  width: 30%;
+}
+
 td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-main {
   font-size: 0.7em;
   font-weight: 500;
@@ -2105,6 +2269,15 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
   body #modal .modal-dialog .modal-content .modal-body #eventForm #buttons #cancel {
     background-color: #7d7d7d;
     color: white;
+  }
+  body #modaladdUser .modal-dialog .modal-content .modal-body .selects {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  body #modaladdUser .modal-dialog .modal-content .modal-body .selects .form-group select {
+    width: 11em;
   }
   #moreIcon {
     position: absolute;
