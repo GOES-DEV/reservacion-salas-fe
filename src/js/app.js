@@ -1827,7 +1827,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                     }).catch(function (error) {
                                         console.log(error)
-                                        // logoutSession();
+                                        logoutSession();
                                     });
                                 }, 500);
 
@@ -1849,7 +1849,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     }).catch(function (error) {
                         console.log(error)
-                        // logoutSession();
+                        logoutSession();
                     });
 
                 }
@@ -2102,57 +2102,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // FN: Check the rol and validate the option for create user
 
-    // Fill select in create user
-    api.get('/obtenerRoles', {
-        params: {
-            api_token: token,
-        }
-    }).then(function ({
-        data
-    }) {
-        let {
-            datos
-        } = data
-
-        let options = `<option value="">Seleccionar</option>`;
-        datos.forEach(item => {
-            let {
-                id, descripcion
-            } = item;
-
-            options += `<option value="${id}">${descripcion}</option>`
-        });
-        $("#rolUser").html(options)
-    }).catch(function (error) {
-        logoutSession();
-    });
-
-    api.get('/obtenerGrupos', {
-        params: {
-            api_token: token,
-        }
-    }).then(function ({
-        data
-    }) {
-        let {
-            datos
-        } = data
-
-        let options = `<option value="">Seleccionar</option>`;
-        datos.forEach(item => {
-            let {
-                id, nombre
-            } = item;
-
-            options += `<option value="${id}">${nombre}</option>`
-        });
-        $("#grupoUser").html(options)
-    }).catch(function (error) {
-        logoutSession();
-    });
-
-
-
 
     setTimeout(() => {
 
@@ -2161,6 +2110,55 @@ document.addEventListener('DOMContentLoaded', function () {
             $("#opCreateUser").css("display", "none")
         } else {
             sessionStorage.removeItem("eOk");
+
+            // Fill select in create user
+            api.get('/obtenerRoles', {
+                params: {
+                    api_token: token,
+                }
+            }).then(function ({
+                data
+            }) {
+                let {
+                    datos
+                } = data
+
+                let options = `<option value="">Seleccionar</option>`;
+                datos.forEach(item => {
+                    let {
+                        id, descripcion
+                    } = item;
+
+                    options += `<option value="${id}">${descripcion}</option>`
+                });
+                $("#rolUser").html(options)
+            }).catch(function (error) {
+                logoutSession();
+            });
+
+            api.get('/obtenerGrupos', {
+                params: {
+                    api_token: token,
+                }
+            }).then(function ({
+                data
+            }) {
+                let {
+                    datos
+                } = data
+
+                let options = `<option value="">Seleccionar</option>`;
+                datos.forEach(item => {
+                    let {
+                        id, nombre
+                    } = item;
+
+                    options += `<option value="${id}">${nombre}</option>`
+                });
+                $("#grupoUser").html(options)
+            }).catch(function (error) {
+                logoutSession();
+            });
 
 
 
@@ -2221,6 +2219,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             $(".opCreateUser").on("click", () => {
+
+                if (window.screen.width < 430) {
+                    $('#btnMenuResponsive').html(`<i class="fa-solid fa-bars"></i>`);
+                    $('#btnMenuResponsive').attr("data", 0);
+                    $('#btnMenuResponsive').css("left", "0em")
+                    $('.nav').css("left", "-12em")
+                }
+
 
                 // Start modal functions 
                 $("#nombreUser").val("");
@@ -2389,7 +2395,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             $("#btnCreateUser").attr("disabled", false);
                             logoutSession();
                         });
-                    }else{
+                    } else {
                         $("#btnCreateUser").attr("disabled", false);
                     }
 
