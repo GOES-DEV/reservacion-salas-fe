@@ -238,8 +238,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 otro = null
             }
 
-            console.log("asistentes")
-            console.log(asistentes)
             if (asistentes <= 0 || asistentes == null) {
                 Swal.fire({
                     icon: 'error',
@@ -441,7 +439,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-            if (rol == 1) {
+            if (rol == 1 || rol == 2) {
                 $(".info-event").css("display", "flex");
                 $("#name").attr("readonly", false)
                 $("#nameApplicant").attr("readonly", false)
@@ -626,16 +624,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     $("#timeBegin").val(`${hours}:${minutes}`)
                     $("#timeEnd").val(`${hoursEnd}:${minutesEnd}`)
 
-
-
-
-
-
-
-
-
-
-
                     $('#drinks').prop("disabled", false);
                     $('#snacks').prop("disabled", false);
                     $('#meals').prop("disabled", false);
@@ -682,7 +670,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let eventAction = (info) => {
 
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
-        if (rol == 1) {
+        if (rol == 1 || rol == 2 ) {
 
             cleanModal();
             $(".info-event").css("display", "none");
