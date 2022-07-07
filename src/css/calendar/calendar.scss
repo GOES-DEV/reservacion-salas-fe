@@ -74,6 +74,10 @@ body {
           }
         }
 
+        .noneItem{
+          display: none !important;
+        }
+
         li:hover {
           color: #313945;
           background-color: #f7f8fa;
@@ -1463,6 +1467,11 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
               margin: 0px;
             }
           }
+
+          .noneItem{
+            display: none !important;
+          }
+  
 
           li:hover {
             color: #313945;

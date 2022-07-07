@@ -2094,9 +2094,8 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
 
         let rolValidate = parseInt(atob(sessionStorage.getItem("rol")))
-        if (rolValidate != 1) {
-            $("#opCreateUser").css("display", "none")
-        } else {
+        if (rolValidate == 1) {
+            $("#opCreateUser").removeClass("noneItem")
             sessionStorage.removeItem("eOk");
 
             // Fill select in create user
@@ -2392,7 +2391,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             });
         }
-    }, 500);
+    }, 300);
 
 
 

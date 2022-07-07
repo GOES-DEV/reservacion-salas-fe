@@ -125,6 +125,10 @@ body .content-calendar .nav ol li p {
   margin: 0px;
 }
 
+body .content-calendar .nav ol .noneItem {
+  display: none !important;
+}
+
 body .content-calendar .nav ol li:hover {
   color: #313945;
   background-color: #f7f8fa;
@@ -1706,6 +1710,9 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
     width: 50%;
     line-height: 0.9em;
     margin: 0px;
+  }
+  body .content-calendar .nav ol .noneItem {
+    display: none !important;
   }
   body .content-calendar .nav ol li:hover {
     color: #313945;
