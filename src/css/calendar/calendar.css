@@ -570,21 +570,21 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-c
 }
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) {
-  padding: 0.5em 0em;
+  padding: 0.5em 0.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 3.5em;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck {
-  width: 6em;
-}
-
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck input {
-  margin-left: 1em;
-  margin-top: 0.4em;
-}
-
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck label {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) label {
   margin: 0px;
-  margin-left: 2.4em;
   font-weight: 600;
 }
 
@@ -592,7 +592,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-c
   padding: 0.5em 0em;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #drinksQuantitySection {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #mealsQuantitySection {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -608,15 +608,9 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-c
           flex-direction: row;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #drinksQuantitySection input {
-  height: 2em;
-  width: 4em;
-  margin-right: 1em;
-}
-
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #drinksQuantitySection p {
-  margin: 0px;
-  font-weight: 500;
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #mealsQuantitySection select {
+  height: 2.5em;
+  width: 11em;
 }
 
 body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) {
@@ -642,7 +636,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-c
   padding: 0.5em 0em;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #snacksQuantitySection {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #drinksQuantitySection {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -658,13 +652,13 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-c
           flex-direction: row;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #snacksQuantitySection input {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #drinksQuantitySection input {
   height: 2em;
   width: 4em;
   margin-right: 1em;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #snacksQuantitySection p {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #drinksQuantitySection p {
   margin: 0px;
   font-weight: 500;
 }
@@ -692,7 +686,7 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-c
   padding: 0.5em 0em;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #mealsQuantitySection {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #snacksQuantitySection {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -708,13 +702,13 @@ body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-c
           flex-direction: row;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #mealsQuantitySection input {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #snacksQuantitySection input {
   height: 2em;
   width: 4em;
   margin-right: 1em;
 }
 
-body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #mealsQuantitySection p {
+body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #snacksQuantitySection p {
   margin: 0px;
   font-weight: 500;
 }
@@ -2077,25 +2071,27 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
     text-align: center;
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) {
-    padding: 0.5em 0em;
+    padding: 0.5em 0.5em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 3.5em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck {
-    width: 6em;
-  }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck input {
-    margin-left: 1em;
-    margin-top: 0.4em;
-  }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) .contentCheck label {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(1) label {
     margin: 0px;
-    margin-left: 2.4em;
     font-weight: 600;
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) {
     padding: 0.5em 0em;
     width: 15em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #drinksQuantitySection {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #mealsQuantitySection {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2110,14 +2106,9 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
         -ms-flex-direction: row;
             flex-direction: row;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #drinksQuantitySection input {
-    height: 2em;
-    width: 4em;
-    margin-right: 1em;
-  }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #drinksQuantitySection p {
-    margin: 0px;
-    font-weight: 500;
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(2) td:nth-child(2) #mealsQuantitySection select {
+    height: 2.5em;
+    width: 11em;
   }
   body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(1) {
     padding: 0.5em 0em;
@@ -2138,7 +2129,7 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
     padding: 0.5em 0em;
     width: 15em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #snacksQuantitySection {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #drinksQuantitySection {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2153,12 +2144,12 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
         -ms-flex-direction: row;
             flex-direction: row;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #snacksQuantitySection input {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #drinksQuantitySection input {
     height: 2em;
     width: 4em;
     margin-right: 1em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #snacksQuantitySection p {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(3) td:nth-child(2) #drinksQuantitySection p {
     margin: 0px;
     font-weight: 500;
   }
@@ -2181,7 +2172,7 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
     padding: 0.5em 0em;
     width: 15em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #mealsQuantitySection {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #snacksQuantitySection {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2196,12 +2187,12 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
         -ms-flex-direction: row;
             flex-direction: row;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #mealsQuantitySection input {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #snacksQuantitySection input {
     height: 2em;
     width: 4em;
     margin-right: 1em;
   }
-  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #mealsQuantitySection p {
+  body #modal .modal-dialog .modal-content .modal-body #eventForm .extras tr:nth-child(4) td:nth-child(2) #snacksQuantitySection p {
     margin: 0px;
     font-weight: 500;
   }

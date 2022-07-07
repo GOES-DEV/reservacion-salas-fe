@@ -157,11 +157,12 @@ document.addEventListener('DOMContentLoaded', function () {
         $("#nameApplicant").val("");
         $('#timeBegin').val("00:01");
         $('#timeEnd').val("00:30");
+        $('#tipoEvento').val("");
+        $('#tipoEvento').prop("disabled", false);
 
         let nameInput = [
             "drinks",
             "snacks",
-            "meals",
             "others"
         ];
         nameInput.forEach(name => {
@@ -175,7 +176,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let loadEventsOnModal = () => {
         let nameInput = $("#name");
         let applicantInput = $("#nameApplicant");
+        let typeEventInput = $("#tipoEvento");
         let assistantsInput = $("#assistantsQuantity");
+        
 
         nameInput.on("keyup", () => {
             nameInput.css("box-shadow", "none")
@@ -183,6 +186,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         applicantInput.on("keyup", () => {
             applicantInput.css("box-shadow", "none")
+        })
+
+        typeEventInput.on("input", () => {
+            typeEventInput.css("box-shadow", "none")
         })
 
         assistantsInput.on("keyup", () => {
@@ -217,12 +224,13 @@ document.addEventListener('DOMContentLoaded', function () {
             let asistentes = $("#assistantsQuantity").val();
             let bebida = $("#drinksQuantity").val();
             let aperitivo = $("#snacksQuantity").val();
-            let comida = $("#mealsQuantity").val();
+            let tipoEvento = $("#tipoEvento").val();
             let otro = $("#othersQuantity").val();
 
 
             let isName = true;
             let isApplicant = true;
+            let isTypeEvent = true;
             let isAssistants = true;
 
             if (bebida == "") {
@@ -231,9 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (aperitivo == "") {
                 aperitivo = 0
             }
-            if (comida == "") {
-                comida = 0
-            }
+           
             if (otro == "") {
                 otro = null
             }
@@ -248,6 +254,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 assistantsInput.css("box-shadow", "inset 0px 0px 0.5em #ff000080");
                 isAssistants = false;
+                $("#add").prop("disabled", false);
+            }
+            
+            if (tipoEvento == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Complete el campo tipo de evento!',
+                    toast: true,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+                typeEventInput.css("box-shadow", "inset 0px 0px 0.5em #ff000080");
+                isTypeEvent = false;
                 $("#add").prop("disabled", false);
             }
 
@@ -282,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-            if (isName == true && isApplicant == true && isAssistants == true) {
+            if (isName == true && isApplicant == true && isTypeEvent == true && isAssistants == true) {
 
                 setTimeout(() => {
                     api.post('/crearEvento', {
@@ -294,9 +313,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         inicio_evento: `${date} ${timeBegin}:00`,
                         fin_evento: `${date} ${timeEnd}:00`,
                         color,
-                        bebida,
-                        aperitivo,
-                        comida,
+                        agua:bebida,
+                        cafe:aperitivo,
+                        tipo_evento:tipoEvento,
                         otro,
                         sala,
                         asistentes
@@ -410,7 +429,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let idInputs = [
             "drinks",
             "snacks",
-            "meals",
             "others",
         ];
 
@@ -626,7 +644,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     $('#drinks').prop("disabled", false);
                     $('#snacks').prop("disabled", false);
-                    $('#meals').prop("disabled", false);
                     $('#others').prop("disabled", false);
                     document.getElementById("date").value = dateText;
                     document.getElementById("room").value = titleEvent;
@@ -691,9 +708,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     } = data
 
                     let assistants = datos.asistentes;
-                    let drinks = datos.bebida;
-                    let snacks = datos.aperitivo;
-                    let meals = datos.comida;
+                    let drinks = datos.agua;
+                    let snacks = datos.cafe;
+                    let tipoEvento = datos.tipo_evento;
                     let others = datos.otro;
 
 
@@ -741,9 +758,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         minutesEnd = `0${minutesEnd}`
                     }
 
+
+                    $(`#tipoEvento option[value=${tipoEvento}]`).attr('selected','selected');
+                    $(`#tipoEvento `).prop("disabled", true);
+
                     setExtras(drinks, "drinks")
                     setExtras(snacks, "snacks")
-                    setExtras(meals, "meals")
                     setExtras(others, "others")
 
                     $("#timeBegin").val(`${hoursBegin}:${minutesBegin}`);
@@ -899,7 +919,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let idInputs = [
         "drinks",
         "snacks",
-        "meals",
         "others",
     ]
 
@@ -927,7 +946,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let inputsName = [
         "drinksQuantity",
         "snacksQuantity",
-        "mealsQuantity"
     ]
 
     inputsName.forEach(name => {

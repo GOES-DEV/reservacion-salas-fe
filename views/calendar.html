@@ -131,10 +131,25 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr id="mealsRow">
+                                    <td>
+                                        <label for="meals">Tipo de evento</label>
+                                    </td>
+                                    <td>
+                                        <div id="mealsQuantitySection">
+                                            <select class="form-control" name="tipoEvento" id="tipoEvento">
+                                                <option value="">Seleccionar</option>
+                                                <option value="1">Videoconferencia</option>
+                                                <option value="2">Proyección</option>
+                                                <option value="3">Hablado</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
                                 <tr id="drinksRow">
                                     <td>
                                         <div class="contentCheck"><input class="form-check-input" type="checkbox"
-                                                id="drinks" value="1"> <label for="drinks">Bebidas</label></div>
+                                                id="drinks" value="1"> <label for="drinks">Agua</label></div>
                                     </td>
                                     <td>
                                         <div id="drinksQuantitySection"><input min="1" max="30" step="1"
@@ -147,7 +162,7 @@
                                 <tr id="snacksRow">
                                     <td>
                                         <div class="contentCheck"><input class="form-check-input" type="checkbox"
-                                                id="snacks" value="1"> <label for="snacks">Aperitivos</label></div>
+                                                id="snacks" value="1"> <label for="snacks">Café</label></div>
                                     </td>
                                     <td>
                                         <div id="snacksQuantitySection"><input min="1" max="30" step="1"
@@ -157,19 +172,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr id="mealsRow">
-                                    <td>
-                                        <div class="contentCheck"><input class="form-check-input" type="checkbox"
-                                                id="meals" value="1"> <label for="meals">Comida</label></div>
-                                    </td>
-                                    <td>
-                                        <div id="mealsQuantitySection">
-                                            <input min="1" max="30" step="1" class="form-control" type="number"
-                                                name="mealsQuantity" id="mealsQuantity" readonly>
-                                            <p>Personas</p>
-                                        </div>
-                                    </td>
-                                </tr>
+                                
                                 <tr id="othersRow">
                                     <td>
                                         <div class="contentCheck"><input class="form-check-input" type="checkbox"
@@ -409,7 +412,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        
+
                         <div class="form-group">
                             <label for="nombreUser">Nombre</label>
                             <input type="text" class="form-control" id="nombreUser">
@@ -427,7 +430,7 @@
                                 <i class="fa-solid fa-eye"></i>
                             </div>
                         </div>
-                        
+
                         <div class="selects">
                             <div class="form-group">
                                 <label for="rolUser">Rol</label>
@@ -441,7 +444,8 @@
 
 
                         <div class="buttons">
-                            <button type="button" class="btn btn-primary" id="btnCreateUser"><i class="fa-solid fa-circle-plus"></i> Crear</button>
+                            <button type="button" class="btn btn-primary" id="btnCreateUser"><i
+                                    class="fa-solid fa-circle-plus"></i> Crear</button>
                             <button type="button" class="btn btnClose" data-dismiss="modal">Cerrar</button>
                         </div>
                     </div>

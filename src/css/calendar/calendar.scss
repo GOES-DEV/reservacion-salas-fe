@@ -74,7 +74,7 @@ body {
           }
         }
 
-        .noneItem{
+        .noneItem {
           display: none !important;
         }
 
@@ -407,18 +407,38 @@ body {
                 }
               }
 
-
-
-
-
-
-
-
-
-
-
-
               tr:nth-child(2) {
+                td:nth-child(1) {
+                  padding: 0.5em 0.5em;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  height: 3.5em;
+
+                  label {
+                    margin: 0px;
+                    font-weight: 600;
+                  }
+                }
+
+                td:nth-child(2) {
+                  padding: 0.5em 0em;
+
+                  #mealsQuantitySection {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: row;
+
+                    select {
+                      height: 2.5em;
+                      width: 11em;
+                    }
+                  }
+                }
+              }
+
+              tr:nth-child(3) {
                 td:nth-child(1) {
                   padding: 0.5em 0em;
 
@@ -461,7 +481,7 @@ body {
                 }
               }
 
-              tr:nth-child(3) {
+              tr:nth-child(4) {
                 td:nth-child(1) {
                   padding: 0.5em 0em;
 
@@ -504,48 +524,7 @@ body {
                 }
               }
 
-              tr:nth-child(4) {
-                td:nth-child(1) {
-                  padding: 0.5em 0em;
-
-                  .contentCheck {
-                    width: 6em;
-
-                    input {
-                      margin-left: 1em;
-                      margin-top: 0.4em;
-                    }
-
-                    label {
-                      margin: 0px;
-                      margin-left: 2.4em;
-                      font-weight: 600;
-                    }
-                  }
-                }
-
-                td:nth-child(2) {
-                  padding: 0.5em 0em;
-
-                  #mealsQuantitySection {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    flex-direction: row;
-
-                    input {
-                      height: 2em;
-                      width: 4em;
-                      margin-right: 1em;
-                    }
-
-                    p {
-                      margin: 0px;
-                      font-weight: 500;
-                    }
-                  }
-                }
-              }
+              
 
               tr:nth-child(5) {
                 td:nth-child(1) {
@@ -1468,10 +1447,10 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
             }
           }
 
-          .noneItem{
+          .noneItem {
             display: none !important;
           }
-  
+
 
           li:hover {
             color: #313945;
@@ -1774,21 +1753,15 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
 
                 tr:nth-child(2) {
                   td:nth-child(1) {
-                    padding: 0.5em 0em;
+                    padding: 0.5em 0.5em;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 3.5em;
 
-                    .contentCheck {
-                      width: 6em;
-
-                      input {
-                        margin-left: 1em;
-                        margin-top: 0.4em;
-                      }
-
-                      label {
-                        margin: 0px;
-                        margin-left: 2.4em;
-                        font-weight: 600;
-                      }
+                    label {
+                      margin: 0px;
+                      font-weight: 600;
                     }
                   }
 
@@ -1796,25 +1769,20 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
                     padding: 0.5em 0em;
                     width: 15em;
 
-                    #drinksQuantitySection {
+                    #mealsQuantitySection {
                       display: flex;
                       justify-content: center;
                       align-items: center;
                       flex-direction: row;
 
-                      input {
-                        height: 2em;
-                        width: 4em;
-                        margin-right: 1em;
-                      }
-
-                      p {
-                        margin: 0px;
-                        font-weight: 500;
+                      select {
+                        height: 2.5em;
+                        width: 11em;
                       }
                     }
                   }
                 }
+
 
                 tr:nth-child(3) {
                   td:nth-child(1) {
@@ -1840,7 +1808,7 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
                     padding: 0.5em 0em;
                     width: 15em;
 
-                    #snacksQuantitySection {
+                    #drinksQuantitySection {
                       display: flex;
                       justify-content: center;
                       align-items: center;
@@ -1884,7 +1852,7 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
                     padding: 0.5em 0em;
                     width: 15em;
 
-                    #mealsQuantitySection {
+                    #snacksQuantitySection {
                       display: flex;
                       justify-content: center;
                       align-items: center;
@@ -1904,6 +1872,7 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
                   }
                 }
 
+                
                 tr:nth-child(5) {
                   td:nth-child(1) {
                     padding: 0.5em 0em;
