@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let applicantInput = $("#nameApplicant");
         let typeEventInput = $("#tipoEvento");
         let assistantsInput = $("#assistantsQuantity");
-        
+
 
         nameInput.on("keyup", () => {
             nameInput.css("box-shadow", "none")
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (aperitivo == "") {
                 aperitivo = 0
             }
-           
+
             if (otro == "") {
                 otro = null
             }
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 isAssistants = false;
                 $("#add").prop("disabled", false);
             }
-            
+
             if (tipoEvento == "") {
                 Swal.fire({
                     icon: 'error',
@@ -313,9 +313,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         inicio_evento: `${date} ${timeBegin}:00`,
                         fin_evento: `${date} ${timeEnd}:00`,
                         color,
-                        agua:bebida,
-                        cafe:aperitivo,
-                        tipo_evento:tipoEvento,
+                        agua: bebida,
+                        cafe: aperitivo,
+                        tipo_evento: tipoEvento,
                         otro,
                         sala,
                         asistentes
@@ -687,7 +687,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let eventAction = (info) => {
 
         let rol = parseInt(atob(sessionStorage.getItem("rol")))
-        if (rol == 1 || rol == 2 ) {
+        if (rol == 1 || rol == 2) {
 
             cleanModal();
             $(".info-event").css("display", "none");
@@ -712,6 +712,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     let snacks = datos.cafe;
                     let tipoEvento = datos.tipo_evento;
                     let others = datos.otro;
+
+
 
 
                     let setExtras = (input, id) => {
@@ -759,7 +761,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
 
-                    $(`#tipoEvento option[value=${tipoEvento}]`).attr('selected','selected');
+                    $(`#tipoEvento option[value=${tipoEvento}]`).attr('selected', 'selected');
                     $(`#tipoEvento `).prop("disabled", true);
 
                     setExtras(drinks, "drinks")
@@ -791,12 +793,36 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('#modal').modal("show");
                     loadEventsOnModal();
                     let now = new Date();
-                    if (now > timeBegin) {
 
+
+
+                    // Verify in order
+                    /**
+                     * 1- Month
+                     * 2- Day
+                     * 3- Same user
+                     */
+                    if (timeBegin.getMonth() + 1 < now.getMonth() + 1) {
                         $("#delete").hide();
                     } else {
-                        $("#delete").show();
+                        if (timeBegin.getDate() < now.getDate()) {
+                            $("#delete").hide();
+                        } else {
+                            if (datos.usuario_id == atob(sessionStorage.getItem("user"))) {
+                                $("#delete").show();
+                            } else {
+                                $("#delete").hide();
+                            }
+                        }
                     }
+
+
+
+                    // if (now > timeBegin) {
+                    //     $("#delete").hide();
+                    // } else {
+                    //     $("#delete").show();
+                    // }
 
                 }).catch(function (error) {
                     console.log(error);
