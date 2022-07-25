@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
 
     !sessionStorage.getItem("tok") && $(location).prop('href', `../index.html`);
+    $(`#modalMeetingsMap`).hide();
     const token = atob(sessionStorage.getItem("tok"));
     let calendarEl = document.getElementById('calendar');
     let calendar = "";
@@ -2081,19 +2082,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //-> @@Menu buttons
     $(".generalView").on("click", () => {
-        let activeTab = atob(sessionStorage.getItem("activeTab"))
-        if (activeTab != "generalView") {
-            sessionStorage.setItem("activeTab", btoa("generalViews"))
+        $(`#modalMeetingsMap`).show();
 
-            sessionStorage.setItem("instanceLoaded", 2);
-            clearEvents();
-            sessionStorage.setItem("dateStage", 1);
-            showSelect("hidden");
-            calendar.changeView('resourceTimelineDay');
-
-            startEventsToUI();
-        }
-
+        $(`#closeMap`).click(() => {
+            $(`#modalMeetingsMap`).hide();
+        })
         if (window.screen.width < 430) {
             $('#btnMenuResponsive').html(`<i class="fa-solid fa-bars"></i>`);
             $('#btnMenuResponsive').attr("data", 0);
