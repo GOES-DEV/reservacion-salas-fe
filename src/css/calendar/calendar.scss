@@ -72,6 +72,31 @@ body {
             line-height: 0.9em;
             margin: 0px;
           }
+
+
+          a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+
+            i {
+              margin-right: 0.5em;
+            }
+
+            p {
+              font-size: 0.9em;
+              font-weight: bold;
+              width: 50%;
+              line-height: 0.9em;
+              margin: 0px;
+            }
+          }
         }
 
         .noneItem {
@@ -79,6 +104,12 @@ body {
         }
 
         li:hover {
+          color: #313945;
+          background-color: #f7f8fa;
+          transition: 0.3s ease-in-out;
+        }
+
+        li:hover > a {
           color: #313945;
           background-color: #f7f8fa;
           transition: 0.3s ease-in-out;
@@ -1200,47 +1231,7 @@ body {
 
 
 
-  #modalMeetingsMap {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 99;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #313945e1;
-
-    .closebtn {
-      color: white;
-      border-radius: 0.2rem;
-      border: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 1em;
-      right: 1em;
-      cursor: pointer;
-      font-size: 2em;
-      font-weight: 600;
-      transition: 0.2s ease-in-out;
-
-      &:hover{
-        color: #c9a892;
-        transition: 0.2s ease-in-out;
-        font-size: 2.2em;
-      }
-    }
-
-    img {
-      width: 90%;
-      height: auto;
-      border-radius: 0.2rem;
-    }
-  }
+  
 
 
 
@@ -2011,13 +2002,7 @@ td>.fc-datagrid-cell-frame>.fc-datagrid-cell-cushion>.fc-datagrid-cell-main {
     }
   }
 
-  #modalMeetingsMap {
-    img {
-      height: 90% !important;
-      width: auto !important;
-      border-radius: 0.2rem;
-    }
-  }
+ 
 
 
 

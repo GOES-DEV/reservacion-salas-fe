@@ -125,11 +125,51 @@ body .content-calendar .nav ol li p {
   margin: 0px;
 }
 
+body .content-calendar .nav ol li a {
+  color: white;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
+body .content-calendar .nav ol li a i {
+  margin-right: 0.5em;
+}
+
+body .content-calendar .nav ol li a p {
+  font-size: 0.9em;
+  font-weight: bold;
+  width: 50%;
+  line-height: 0.9em;
+  margin: 0px;
+}
+
 body .content-calendar .nav ol .noneItem {
   display: none !important;
 }
 
 body .content-calendar .nav ol li:hover {
+  color: #313945;
+  background-color: #f7f8fa;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+body .content-calendar .nav ol li:hover > a {
   color: #313945;
   background-color: #f7f8fa;
   -webkit-transition: 0.3s ease-in-out;
@@ -1403,65 +1443,6 @@ body #modalProfile .modal-dialog .modal-content .modal-body .buttons .btnClose {
   width: 30%;
 }
 
-body #modalMeetingsMap {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 99;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #313945e1;
-}
-
-body #modalMeetingsMap .closebtn {
-  color: white;
-  border-radius: 0.2rem;
-  border: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  cursor: pointer;
-  font-size: 2em;
-  font-weight: 600;
-  -webkit-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
-}
-
-body #modalMeetingsMap .closebtn:hover {
-  color: #c9a892;
-  -webkit-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
-  font-size: 2.2em;
-}
-
-body #modalMeetingsMap img {
-  width: 90%;
-  height: auto;
-  border-radius: 0.2rem;
-}
-
 body #modaladdUser .modal-dialog .modal-content .modal-header {
   background: #313945;
   color: white;
@@ -2335,11 +2316,6 @@ td > .fc-datagrid-cell-frame > .fc-datagrid-cell-cushion > .fc-datagrid-cell-mai
   }
   body #modaladdUser .modal-dialog .modal-content .modal-body .selects .form-group select {
     width: 11em;
-  }
-  #modalMeetingsMap img {
-    height: 90% !important;
-    width: auto !important;
-    border-radius: 0.2rem;
   }
   #moreIcon {
     position: absolute;
