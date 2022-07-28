@@ -761,7 +761,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
 
-                    $(`#tipoEvento option[value=${tipoEvento}]`).attr('selected', 'selected');
+                    let element = document.getElementById("tipoEvento");
+                    element.value = tipoEvento;
                     $(`#tipoEvento `).prop("disabled", true);
 
                     setExtras(drinks, "drinks")
